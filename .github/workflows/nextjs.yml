@@ -1,0 +1,32 @@
+name: Github Action CI
+
+on:
+  pull_request:
+    branches: ["main"]
+
+  # 수동으로 워크플로우 실행 가능
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v4
+        
+      - name: Node.js 환경 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: 의존성 설치
+        run: npm ci
+      
+      - name: ESLint로 코드 검사
+        run: npm run lint
+          
+      - name: 타입스크립트 체크
+        run: npm run typecheck
+      
+      - name: 프로젝트 빌드를 통해 문제가 없는지 확인
+        run: npm run build
