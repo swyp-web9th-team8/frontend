@@ -1,9 +1,9 @@
 ---
-name: 이슈 생성 템플릿
-about: 이슈 생성 템플릿을 사용하여 이슈를 생성해주세요.
+name: Custom issue template
+about: 기본적인 이슈 템플릿
 title: ''
 labels: ''
-assignees: bhoh032019
+assignees: ''
 
 ---
 
