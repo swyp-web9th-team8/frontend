@@ -6,7 +6,10 @@ src/
 │   ├── layout.tsx
 │   ├── page.tsx
 │   └── (routes)/          # 라우트 그룹
-│
+├── assets/                 # 이미지, 비디오, 폰트트 등
+│   ├── fonts/
+│   ├── icons/
+│   ├── images/
 ├── components/            # 아토믹 디자인 컴포넌트
 │   ├── atoms/            # 기본 UI 요소
 │   │   ├── Button/
