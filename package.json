@@ -2,6 +2,10 @@
   "name": "swyp-web9th-team8",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=22.14.0"
+  },
+  "engine-strict": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
