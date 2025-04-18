@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { devtools, persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { devtools, persist } from "zustand/middleware";
 
 interface AuthState {
   isLoggedIn: boolean;
@@ -16,11 +16,11 @@ export const useAuthStore = create<AuthState>()(
         logout: () => set({ isLoggedIn: false }),
       }),
       {
-        name: 'auth-storage', // localStorage에 표시되는 key 이름
+        name: "auth-storage", // localStorage에 표시되는 key 이름
       },
     ),
     {
-      name: 'AuthStore', // Redux Devtools에서 표시되는 store 이름
+      name: "AuthStore", // Redux Devtools에서 표시되는 store 이름
     },
   ),
 );
