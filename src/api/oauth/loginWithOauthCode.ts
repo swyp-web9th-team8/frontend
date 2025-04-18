@@ -1,4 +1,3 @@
-// api/oauth/loginWithOauthCode.ts
 import { requestHandler } from "@/lib/axiosInstance";
 
 export const loginWithOauthCode = async (provider: "kakao", code: string) => {
