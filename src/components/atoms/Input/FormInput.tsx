@@ -23,7 +23,10 @@ const FormInput = ({
   return (
     <div className="flex flex-col gap-2">
       {label && (
-        <label htmlFor={name} className="text-[#1A1A1A]">
+        <label
+          htmlFor={name}
+          className="text-[1rem] font-medium text-[#1A1A1A]"
+        >
           {label}
         </label>
       )}

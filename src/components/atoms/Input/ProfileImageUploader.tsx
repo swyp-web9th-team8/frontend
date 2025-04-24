@@ -27,7 +27,7 @@ export default function ProfileImageUploader() {
 
   return (
     <div className="flex flex-col gap-2">
-      <label className="block text-sm font-medium text-[#1A1A1A]">
+      <label className="block text-[1rem] font-medium text-[#1A1A1A]">
         프로필 사진 (선택)
       </label>
       <div

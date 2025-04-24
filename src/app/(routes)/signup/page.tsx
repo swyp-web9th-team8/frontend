@@ -24,14 +24,14 @@ export default function SignupPage() {
           <h1 className="text-center text-xl font-medium">회원 가입</h1>
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-2">
-              <label className="block text-sm font-medium text-[#1A1A1A]">
+              <label className="block text-[1rem] font-medium text-[#1A1A1A]">
                 성별
               </label>
               <GenderSelect />
             </div>
 
             <div className="flex flex-col gap-2">
-              <label className="block text-sm font-medium text-[#1A1A1A]">
+              <label className="block text-[1rem] font-medium text-[#1A1A1A]">
                 거주 지역
               </label>
               <RegionSelector />
