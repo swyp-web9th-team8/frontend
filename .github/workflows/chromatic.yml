@@ -1,0 +1,44 @@
+# Workflow name
+name: "Chromatic Deployment"
+run-name: ${{ github.actor }}의 스토리북 배포
+
+on:
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    outputs:
+      status: ${{ job.status }}
+
+    steps:
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 의존성 캐싱
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}-storybook
+
+      - name: 의존성 설치
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Chromatic 배포
+        id: chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: PR에 주석 달기
+        uses: thollander/actions-comment-pull-request@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          message: "🚀스토리북: ${{ steps.chromatic.outputs.storybookUrl }}"
