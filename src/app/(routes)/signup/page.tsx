@@ -8,7 +8,9 @@ import RegionSelector from "@/components/molecules/RegionSelector";
 import { SignupFormValues } from "@/types/signup";
 
 export default function SignupPage() {
-  const methods = useForm<SignupFormValues>();
+  const methods = useForm<SignupFormValues>({
+    mode: "onChange",
+  });
 
   const onSubmit = (data: SignupFormValues) => {
     console.log(data);
@@ -41,7 +43,26 @@ export default function SignupPage() {
               name="nickname"
               label="닉네임"
               placeholder="닉네임을 입력해주세요"
+              validationRules={{
+                required: "닉네임을 입력해주세요",
+                maxLength: {
+                  value: 10,
+                  message: "10자를 초과할 수 없어요",
+                },
+                validate: {
+                  noEmoji: (value) =>
+                    !/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu.test(
+                      value,
+                    ) || "이모티콘은 사용할 수 없어요",
+                  noSpecialChar: (value) =>
+                    /^[\p{L}0-9/\s/]+$/u.test(value) ||
+                    "특수문자는 사용할 수 없어요",
+                  noWhitespace: (value) =>
+                    !/\s/.test(value) || "띄어쓰기(공백)는 사용할 수 없어요",
+                },
+              }}
             />
+
             <ProfileImageUploader />
           </div>
         </div>
