@@ -6,6 +6,7 @@ import GenderSelect from "@/components/atoms/Input/GenderSelect";
 import ProfileImageUploader from "@/components/atoms/Input/ProfileImageUploader";
 import RegionSelector from "@/components/molecules/RegionSelector";
 import { SignupFormValues } from "@/types/signup";
+import Tooltip from "@/components/atoms/Tooltip/Tooltip";
 
 export default function SignupPage() {
   const methods = useForm<SignupFormValues>({
@@ -33,9 +34,12 @@ export default function SignupPage() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <label className="block text-[1rem] font-medium text-[#1A1A1A]">
-                거주 지역
-              </label>
+              <div className="flex items-center gap-1">
+                <label className="block text-[1rem] font-medium text-[#1A1A1A]">
+                  거주 지역
+                </label>
+                <Tooltip />
+              </div>
               <RegionSelector />
             </div>
 

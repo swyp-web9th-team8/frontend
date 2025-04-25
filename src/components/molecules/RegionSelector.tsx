@@ -101,11 +101,11 @@ export default function RegionSelector() {
             <h2 className="text-xl font-bold">
               {step === "GU" ? (
                 <>
-                  어느 <span className="text-green-500">구</span>에 사시나요?
+                  어느 <span className="text-[#59AC6E]">구</span>에 사시나요?
                 </>
               ) : (
                 <>
-                  어느 <span className="text-green-500">동</span>에 사시나요?
+                  어느 <span className="text-[#59AC6E]">동</span>에 사시나요?
                 </>
               )}
             </h2>

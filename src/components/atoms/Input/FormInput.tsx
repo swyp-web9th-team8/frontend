@@ -24,7 +24,7 @@ const FormInput = ({
 
   const inputBorderClass = errors[name]
     ? "border-[#EB4E2A] border-[1.2px] focus:outline-[#EB4E2A]"
-    : "border-[#B0B0B0] border-[0.8px]";
+    : "border-[#B0B0B0] border-[0.8px] focus:outline-[#3F8EFF]";
 
   return (
     <div className="flex flex-col gap-2">
