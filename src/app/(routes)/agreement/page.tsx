@@ -6,31 +6,7 @@ import UnSelectedIcon from "@/assets/icons/unselected.svg";
 import SelectedIcon from "@/assets/icons/selected.svg";
 import BackArrow from "@/assets/icons/back-arrow.svg";
 import AgreementPopup from "@/components/molecules/AgreementPopup";
-
-const termsList = [
-  { id: "terms", label: "서비스 이용약관 (필수)", title: "서비스 이용약관" },
-  {
-    id: "privacy",
-    label: "정보 수집 및 이용 동의 (필수)",
-    title: "정보 수집 및 이용 동의",
-  },
-  {
-    id: "location",
-    label: "위치기반 서비스 이용약관 (필수)",
-    title: "위치기반 서비스 이용약관",
-  },
-];
-
-const termsContent: Record<string, string> = {
-  terms: `제1조 (목적)
-이 약관은 [회사명](이하 "회사")가 제공하는 [서비스명](이하 "서비스")의 이용과 관련하여 회사와 이용자 간의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.
-제2조 (용어)
-1. "서비스"란 본 약관에 따라 회사가 제공하는 서비스를 말합니다.
-2. "이용자"란 서비스에 회원가입을 한 자로서, 회사와 서비스 이용계약을 체결하고 서비스를 이용하는 자를 말합니다.
-...`,
-  privacy: `개인정보 수집 및 이용 동의서 내용이 여기에 들어갑니다.`,
-  location: `위치기반 서비스 이용약관 내용이 여기에 들어갑니다.`,
-};
+import { termsContent, termsList } from "@/constants/agreementterms";
 
 export default function AgreementPage() {
   const router = useRouter();
@@ -66,7 +42,7 @@ export default function AgreementPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white px-5 py-6">
+    <div className="min-h-screen bg-[#F6F6F6] px-5 py-6">
       <div className="mb-10 flex items-center">
         <button
           type="button"

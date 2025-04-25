@@ -23,9 +23,9 @@ export default function AgreementPopup({
           aria-label="닫기"
           className="flex items-center justify-center"
         >
-          <BackArrow className="h-5 w-5 text-[#1A1A1A]" />
+          <BackArrow />
         </button>
-        <h2 className="flex-1 text-center text-base font-semibold text-[#1A1A1A]">
+        <h2 className="flex-1 text-center text-xl font-medium text-[#1A1A1A]">
           {title}
         </h2>
       </div>
