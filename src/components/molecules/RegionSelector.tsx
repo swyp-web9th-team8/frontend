@@ -69,6 +69,12 @@ export default function RegionSelector() {
   const [selectedGu, setSelectedGu] = useState("");
   const [selectedDong, setSelectedDong] = useState("");
 
+  const resetState = () => {
+    setStep("GU");
+    setSelectedGu("");
+    setSelectedDong("");
+  };
+
   const handleGuSelect = (gu: string) => {
     setSelectedGu(gu);
   };
@@ -86,17 +92,22 @@ export default function RegionSelector() {
     setSelectedDong("");
   };
 
+  const handleClose = () => {
+    setOpen(false);
+    resetState();
+  };
+
   return (
     <>
       <div
-        className="w-full cursor-pointer rounded-full border-[0.8px] border-[#B0B0B0] px-4 py-[0.8125rem] text-sm text-[#1A1A1A]"
+        className={`w-full cursor-pointer rounded-full border-[0.8px] border-[#B0B0B0] px-4 py-[0.8125rem] text-sm ${current ? `text-[#1A1A1A]` : `text-[#B0B0B0]`}`}
         onClick={() => setOpen(true)}
       >
         {current || "거주하는 구와 동을 선택해주세요"}
       </div>
 
       {open && (
-        <Modal onClose={() => setOpen(false)}>
+        <Modal onClose={handleClose}>
           <div className="flex flex-col gap-9 p-6">
             <h2 className="text-xl font-bold">
               {step === "GU" ? (
