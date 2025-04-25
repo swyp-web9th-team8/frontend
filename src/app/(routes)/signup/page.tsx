@@ -1,6 +1,7 @@
 "use client";
 
 import { FormProvider, useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import FormInput from "@/components/atoms/Input/FormInput";
 import GenderSelect from "@/components/atoms/Input/GenderSelect";
 import ProfileImageUploader from "@/components/atoms/Input/ProfileImageUploader";
@@ -9,18 +10,37 @@ import { SignupFormValues } from "@/types/signup";
 import Tooltip from "@/components/atoms/Tooltip/Tooltip";
 
 export default function SignupPage() {
+  const router = useRouter();
   const methods = useForm<SignupFormValues>({
     mode: "onChange",
   });
 
+  const {
+    handleSubmit,
+    watch,
+    formState: { isValid },
+  } = methods;
+
   const onSubmit = (data: SignupFormValues) => {
-    console.log(data);
+    console.log("회원가입 데이터:", data);
+    router.push("/");
   };
+
+  const gender = watch("gender");
+  const region = watch("region");
+  const nickname = watch("nickname");
+
+  const isAllRequiredFilled = gender && region && nickname;
 
   return (
     <FormProvider {...methods}>
       <form
-        onSubmit={methods.handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+          }
+        }}
         className="flex flex-col gap-[8.5625rem] px-5 py-[4.5rem]"
       >
         <div className="flex flex-col gap-12">
@@ -59,7 +79,7 @@ export default function SignupPage() {
                       value,
                     ) || "이모티콘은 사용할 수 없어요",
                   noSpecialChar: (value) =>
-                    /^[\p{L}0-9/\s/]+$/u.test(value) ||
+                    /^[\p{L}0-9]+$/u.test(value) ||
                     "특수문자는 사용할 수 없어요",
                   noWhitespace: (value) =>
                     !/\s/.test(value) || "띄어쓰기(공백)는 사용할 수 없어요",
@@ -73,8 +93,8 @@ export default function SignupPage() {
 
         <button
           type="submit"
-          className="rounded-xl bg-[#D1D1D1] px-[7.5rem] py-3 text-white disabled:opacity-50"
-          disabled
+          className="rounded-xl bg-[#59AC6E] px-[7.5rem] py-3 text-white disabled:bg-[#D1D1D1] disabled:opacity-50"
+          disabled={!isValid || !isAllRequiredFilled}
         >
           다음
         </button>
