@@ -23,7 +23,7 @@ export default function SignupPage() {
 
   const onSubmit = (data: SignupFormValues) => {
     console.log("회원가입 데이터:", data);
-    router.push("/");
+    router.push("/agreement");
   };
 
   const gender = watch("gender");
