@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 
-interface Props {
+interface OnboardingControlProps {
   total: number;
   current: number;
   onDotClick: (index: number) => void;
@@ -16,7 +16,7 @@ export default function OnboardingControl({
   onDotClick,
   showStart,
   onStartClick,
-}: Props) {
+}: OnboardingControlProps) {
   return (
     <>
       <div className="mb-4 flex space-x-2">
