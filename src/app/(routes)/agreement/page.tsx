@@ -48,7 +48,7 @@ export default function AgreementPage() {
           type="button"
           onClick={() => router.push("/signup")}
           aria-label="뒤로가기"
-          className="mr-3"
+          className="mr-3 cursor-pointer"
         >
           <BackArrow />
         </button>
@@ -61,7 +61,7 @@ export default function AgreementPage() {
         <button
           type="button"
           onClick={toggleAll}
-          className="flex items-center gap-2"
+          className="flex cursor-pointer items-center gap-2"
         >
           {isAllChecked ? (
             <SelectedIcon className="h-5 w-5" />
@@ -82,7 +82,7 @@ export default function AgreementPage() {
             <button
               type="button"
               onClick={() => toggleOne(id)}
-              className="flex items-center gap-2"
+              className="flex cursor-pointer items-center gap-2"
             >
               {agreements[id] ? (
                 <SelectedIcon className="h-5 w-5" />
@@ -98,7 +98,7 @@ export default function AgreementPage() {
             <button
               type="button"
               onClick={() => setSelectedPopup(id)}
-              className="text-sm font-medium text-[#B0B0B0] underline"
+              className="cursor-pointer text-sm font-medium text-[#B0B0B0] underline"
             >
               보기
             </button>
@@ -110,7 +110,7 @@ export default function AgreementPage() {
         type="button"
         onClick={handleNext}
         disabled={!isAllChecked}
-        className="mt-16 w-full rounded-xl bg-[#59AC6E] py-3 text-sm font-medium text-white disabled:bg-[#D1D1D1] disabled:opacity-50"
+        className="mt-16 w-full cursor-pointer rounded-xl bg-[#59AC6E] py-3 text-sm font-medium text-white disabled:bg-[#D1D1D1] disabled:opacity-50"
       >
         확인
       </button>

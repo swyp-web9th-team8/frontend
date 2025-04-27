@@ -93,7 +93,7 @@ export default function SignupPage() {
 
         <button
           type="submit"
-          className="rounded-xl bg-[#59AC6E] px-[7.5rem] py-3 text-white disabled:bg-[#D1D1D1] disabled:opacity-50"
+          className="cursor-pointer rounded-xl bg-[#59AC6E] px-[7.5rem] py-3 text-white disabled:bg-[#D1D1D1] disabled:opacity-50"
           disabled={!isValid || !isAllRequiredFilled}
         >
           다음

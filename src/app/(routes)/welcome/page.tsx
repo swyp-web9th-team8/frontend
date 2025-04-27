@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function WelcomePage() {
   return (
-    <div className="flex h-full flex-col items-center gap-[16.8125rem] bg-white px-5 pt-[14.0625rem] pb-10">
+    <div className="flex h-full flex-col items-center gap-[16.8125rem] px-5 pt-[14.0625rem] pb-10">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

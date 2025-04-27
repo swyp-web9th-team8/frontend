@@ -31,7 +31,7 @@ export default function OnboardingPage() {
   };
 
   return (
-    <div className="flex h-screen flex-col items-center justify-between bg-white px-4 py-8">
+    <div className="flex h-screen flex-col items-center justify-between px-4 py-8">
       <div className="flex w-full flex-grow items-center justify-center overflow-hidden">
         <AnimatePresence mode="wait" custom={direction}>
           <OnboardingSlide

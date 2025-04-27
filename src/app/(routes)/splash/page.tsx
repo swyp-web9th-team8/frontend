@@ -16,7 +16,7 @@ export default function SplashPage() {
   }, [router]);
 
   return (
-    <div className="flex h-screen items-center justify-center bg-white">
+    <div className="flex h-screen items-center justify-center">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -64,7 +64,7 @@ export default function SplashPage() {
         </motion.svg>
 
         <motion.h1
-          className="mb-4 text-7xl font-semibold text-gray-800"
+          className="mb-4 text-7xl font-normal text-[#59AC6E]"
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3, duration: 1 }}
@@ -72,7 +72,7 @@ export default function SplashPage() {
           Ploggo
         </motion.h1>
         <motion.div
-          className="text-sm font-semibold text-gray-800"
+          className="text-sm font-bold text-[#59AC6E]"
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3, duration: 1 }}
