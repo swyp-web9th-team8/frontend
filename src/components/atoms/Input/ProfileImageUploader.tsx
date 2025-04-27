@@ -3,6 +3,7 @@
 import { useFormContext } from "react-hook-form";
 import { useRef, useState } from "react";
 import PlusIcon from "@/assets/icons/plus.svg";
+import Image from "next/image";
 
 export default function ProfileImageUploader() {
   const { register, setValue } = useFormContext();
@@ -35,10 +36,12 @@ export default function ProfileImageUploader() {
         className="flex h-[6.25rem] w-full cursor-pointer items-center justify-center rounded-2xl border border-dashed"
       >
         {preview ? (
-          <img
+          <Image
             src={preview}
             alt="미리보기"
             className="h-full w-full rounded-2xl object-cover"
+            width={120}
+            height={120}
           />
         ) : (
           <PlusIcon />
