@@ -71,7 +71,7 @@ export default function WelcomePage() {
       </motion.div>
 
       <Link
-        href="/"
+        href="/home"
         className="w-full rounded-xl bg-[#59AC6E] py-3 text-center text-sm font-medium text-white disabled:bg-[#D1D1D1] disabled:opacity-50"
       >
         확인
