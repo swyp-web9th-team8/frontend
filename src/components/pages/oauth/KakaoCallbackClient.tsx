@@ -21,7 +21,7 @@ export default function KakaoCallbackPage() {
         },
       );
     }
-  }, [code]);
+  }, [mutate, router, code]);
 
   return <div className="mt-20 text-center">로그인 처리 중입니다...</div>;
 }
