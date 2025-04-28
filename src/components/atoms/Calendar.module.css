@@ -1,0 +1,108 @@
+.rdpRoot {
+  --rdp-nav-height: 24px;
+  --rdp-nav_button-height: 24px;
+  --rdp-nav_button-width: 24px;
+
+  --rdp-day-width: 32px;
+  --rdp-day-height: 32px;
+  --rdp-day_button-height: 32px;
+  --rdp-day_button-width: 32px;
+
+  --rdp-accent-color: #1a1a1a;
+}
+
+.rdp-nav {
+  position: absolute;
+}
+
+.rdp-button_previous {
+  position: absolute;
+  left: 0;
+  z-index: 1;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.rdp-button_next {
+  position: absolute;
+  left: 100px;
+  z-index: 1;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.rdp-chevron {
+  width: 16px;
+  height: 16px;
+}
+
+.rdp-month_caption {
+  color: #1a1a1a;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.rdp-caption_label {
+  margin-left: 24px;
+}
+
+.rdp-months {
+  max-width: 100%;
+}
+
+.rdp-month {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rdp-weekdays {
+  display: flex;
+  justify-content: space-between;
+  color: #b0b0b0;
+}
+
+.rdp-weekday {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rdp-weeks {
+  display: flex;
+  flex-direction: column;
+  gap: 12.6px;
+}
+
+.rdp-week {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.rdp-day {
+  width: 32px;
+  height: 32px;
+}
+
+.rdp-selected {
+  background-color: #59ac6e;
+  color: #fff !important;
+  border-radius: 50%;
+}
+
+.rdp-outside {
+  color: #b0b0b0;
+}
