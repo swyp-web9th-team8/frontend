@@ -21,7 +21,7 @@ export default function AgreementPopup({
         <button
           onClick={onClose}
           aria-label="닫기"
-          className="flex items-center justify-center"
+          className="flex cursor-pointer items-center justify-center"
         >
           <BackArrow />
         </button>
@@ -37,7 +37,7 @@ export default function AgreementPopup({
       <button
         type="button"
         onClick={onConfirm}
-        className="mt-6 w-full rounded-xl bg-[#59AC6E] py-3 text-sm font-medium text-white"
+        className="mt-6 w-full cursor-pointer rounded-xl bg-[#59AC6E] py-3 text-sm font-medium text-white"
       >
         확인
       </button>

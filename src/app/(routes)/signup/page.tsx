@@ -58,7 +58,7 @@ export default function SignupPage() {
                 <label className="block text-[1rem] font-medium text-[#1A1A1A]">
                   거주 지역
                 </label>
-                <Tooltip />
+                <Tooltip text="현재는 서울에서만 서비스 이용이 가능해요" />
               </div>
               <RegionSelector />
             </div>
