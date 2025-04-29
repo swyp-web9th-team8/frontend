@@ -21,6 +21,84 @@
   font-display: swap;
 }
 
+@layer utilities {
+  .text-heading1-medium {
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 500;
+    letter-spacing: 0px;
+  }
+
+  .text-heading1-bold {
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 700;
+    letter-spacing: 0px;
+  }
+
+  .text-heading2-medium {
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 500;
+    letter-spacing: 0px;
+  }
+
+  .text-heading2-bold {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 700;
+    letter-spacing: 0px;
+  }
+
+  .text-body1-medium {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+  }
+
+  .text-body1-bold {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+  }
+
+  .text-body2-medium {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 500;
+  }
+
+  .text-body2-bold {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 700;
+  }
+
+  .text-body3-medium {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 500;
+  }
+
+  .text-body3-bold {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 700;
+  }
+
+  .text-body4-medium {
+    font-size: 10px;
+    line-height: 18px;
+    font-weight: 500;
+  }
+
+  .text-body4-bold {
+    font-size: 10px;
+    line-height: 18px;
+    font-weight: 700;
+  }
+}
+
 @theme {
   --color-grey-0: #ffffff;
   --color-grey-50: #f6f6f6;
