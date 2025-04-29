@@ -5,6 +5,19 @@
   --foreground: #171717;
 }
 
+@theme {
+  --color-grey-0: #ffffff;
+  --color-grey-50: #f6f6f6;
+  --color-grey-200: #d1d1d1;
+  --color-grey-300: #b0b0b0;
+  --color-grey-400: #888888;
+  --color-grey-950: #1a1a1a;
+
+  --color-green: #59ac6e;
+  --color-blue: #58b6ff;
+  --color-yellow: #f9ac14;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
