@@ -7,7 +7,10 @@
 
 @font-face {
   font-family: "GmarketSans-Medium";
-  src: url("/fonts/GmarketSansMedium.woff2") format("woff2");
+  src:
+    url("/fonts/GmarketSansTTFMedium.woff2") format("woff2"),
+    url("/fonts/GmarketSansTTFMedium.woff") format("woff"),
+    url("/fonts/GmarketSansTTFMedium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -15,7 +18,10 @@
 
 @font-face {
   font-family: "GmarketSans-Bold";
-  src: url("/fonts/GmarketSansBold.woff2") format("woff2");
+  src:
+    url("/fonts/GmarketSansTTFBold.woff2") format("woff2"),
+    url("/fonts/GmarketSansTTFBold.woff") format("woff"),
+    url("/fonts/GmarketSansTTFBold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
