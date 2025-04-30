@@ -5,6 +5,121 @@
   --foreground: #171717;
 }
 
+@font-face {
+  font-family: "GmarketSans-Medium";
+  src:
+    url("/fonts/GmarketSansTTFMedium.woff2") format("woff2"),
+    url("/fonts/GmarketSansTTFMedium.woff") format("woff"),
+    url("/fonts/GmarketSansTTFMedium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GmarketSans-Bold";
+  src:
+    url("/fonts/GmarketSansTTFBold.woff2") format("woff2"),
+    url("/fonts/GmarketSansTTFBold.woff") format("woff"),
+    url("/fonts/GmarketSansTTFBold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer utilities {
+  .text-heading1-medium {
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 500;
+    letter-spacing: 0px;
+  }
+
+  .text-heading1-bold {
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 700;
+    letter-spacing: 0px;
+  }
+
+  .text-heading2-medium {
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 500;
+    letter-spacing: 0px;
+  }
+
+  .text-heading2-bold {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 700;
+    letter-spacing: 0px;
+  }
+
+  .text-body1-medium {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+  }
+
+  .text-body1-bold {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+  }
+
+  .text-body2-medium {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 500;
+  }
+
+  .text-body2-bold {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 700;
+  }
+
+  .text-body3-medium {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 500;
+  }
+
+  .text-body3-bold {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 700;
+  }
+
+  .text-body4-medium {
+    font-size: 10px;
+    line-height: 18px;
+    font-weight: 500;
+  }
+
+  .text-body4-bold {
+    font-size: 10px;
+    line-height: 18px;
+    font-weight: 700;
+  }
+}
+
+@theme {
+  --color-grey-0: #ffffff;
+  --color-grey-50: #f6f6f6;
+  --color-grey-200: #d1d1d1;
+  --color-grey-300: #b0b0b0;
+  --color-grey-400: #888888;
+  --color-grey-950: #1a1a1a;
+
+  --color-green: #59ac6e;
+  --color-blue: #58b6ff;
+  --color-yellow: #f9ac14;
+  --font-gsans-bold: "GmarketSans-Bold", "sans-serif";
+  --font-gsans-medium: "GmarketSans-Medium", "sans-serif";
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -22,5 +137,5 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "GmarketSans", sans-serif;
 }

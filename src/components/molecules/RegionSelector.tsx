@@ -87,14 +87,22 @@ export default function RegionSelector() {
     const fullRegion = `${selectedGu} ${selectedDong}`;
     setValue("region", fullRegion);
     setOpen(false);
-    setStep("GU");
-    setSelectedGu("");
-    setSelectedDong("");
+    resetState();
   };
 
   const handleClose = () => {
     setOpen(false);
     resetState();
+  };
+
+  const isButtonDisabled = () => {
+    if (step === "GU") {
+      return !selectedGu;
+    }
+    if (step === "DONG") {
+      return !selectedDong;
+    }
+    return false;
   };
 
   return (
@@ -107,7 +115,7 @@ export default function RegionSelector() {
       </div>
 
       {open && (
-        <Modal onClose={handleClose}>
+        <Modal onClose={handleClose} position="center">
           <div className="flex flex-col gap-9 p-6">
             <h2 className="text-xl font-bold">
               {step === "GU" ? (
@@ -135,7 +143,7 @@ export default function RegionSelector() {
                           ? handleGuSelect(name)
                           : handleDongSelect(name)
                       }
-                      className={`rounded-xl px-4 py-3 text-sm font-medium ${
+                      className={`cursor-pointer rounded-xl px-4 py-3 text-sm font-medium ${
                         isSelected
                           ? "bg-[#59AC6E] text-white"
                           : "bg-white text-[#1A1A1A]"
@@ -149,9 +157,9 @@ export default function RegionSelector() {
             </div>
 
             <button
-              disabled={step === "DONG" && !selectedDong}
+              disabled={isButtonDisabled()}
               onClick={step === "GU" ? () => setStep("DONG") : handleComplete}
-              className="mt-6 w-full rounded-xl bg-[#59AC6E] py-3 text-white disabled:opacity-50"
+              className="mt-6 w-full cursor-pointer rounded-xl bg-[#59AC6E] py-3 text-white disabled:cursor-auto disabled:opacity-50"
             >
               {step === "GU" ? "다음" : "완료"}
             </button>
