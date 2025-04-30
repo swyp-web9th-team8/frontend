@@ -12,14 +12,15 @@ export default function ProfileImages({ src: profiles, maxCount = 2, size = 28 }
     const containerWidth = maxCount > 1 ? size + (size * 0.5 * (maxCount - 1)) : size;
 
     return (
-        <div className="flex flex-row" style={{ width: `${containerWidth}px` }}>{
+        <div className="flex flex-row" style={{ width: `${containerWidth}px`, height: `${size}px` }}>{
             Array.from({ length: maxCount }).map((_, index) => (
-                <ProfileImage
-                    key={index}
-                    src={profileArray[index] || getRandomAvatar("female")}
-                    size={size}
-                    className={`first:translate-x-0 -translate-x-1/2`}
-                />
+                <div key={index} style={{ transform: `translateX(${index * size * 0.5}px)` }} className="absolute">
+                    <ProfileImage
+                        src={profileArray[index] || getRandomAvatar("female")}
+                        size={size}
+                    />
+                </div>
+
             ))}
         </div>
     );
