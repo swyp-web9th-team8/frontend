@@ -48,7 +48,11 @@ export default function OnboardingSlide({
         else if (info.offset.x > 100) onDragRight();
       }}
     >
-      <Image />
+      <Image
+        className="h-80 w-80 object-contain"
+        role="img"
+        aria-label={slide.title}
+      />
       <div className="my-11 flex space-x-2">
         {Array.from({ length: total }).map((_, idx) => (
           <button
