@@ -6,6 +6,17 @@
 }
 
 @font-face {
+  font-family: "Gigantic";
+  src:
+    url("/fonts/Gigantic.woff2") format("woff2"),
+    url("/fonts/Gigantic.woff") format("woff"),
+    url("/fonts/Gigantic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "GmarketSans-Medium";
   src:
     url("/fonts/GmarketSansTTFMedium.woff2") format("woff2"),
@@ -118,6 +129,7 @@
   --color-yellow: #f9ac14;
   --font-gsans-bold: "GmarketSans-Bold", "sans-serif";
   --font-gsans-medium: "GmarketSans-Medium", "sans-serif";
+  --font-gigantic: "Gigantic", "sans-serif";
 }
 
 @theme inline {

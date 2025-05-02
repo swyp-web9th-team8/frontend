@@ -64,7 +64,7 @@ export default function SplashPage() {
         </motion.svg>
 
         <motion.h1
-          className="mb-4 text-[5.25rem] font-normal text-[#59AC6E]"
+          className="font-gigantic mb-4 text-[5.25rem] text-[#59AC6E]"
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3, duration: 1 }}
