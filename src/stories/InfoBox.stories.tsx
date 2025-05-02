@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import InfoBox from "../components/atoms/InfoBox/InfoBox";
+import InfoBox from "@/components/atoms/InfoBox/temp";
 
 const meta: Meta<typeof InfoBox> = {
   title: "Atoms/InfoBox",
