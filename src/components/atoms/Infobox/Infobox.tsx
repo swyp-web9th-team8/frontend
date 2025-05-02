@@ -3,11 +3,11 @@ export default function InfoBox({
   value,
 }: {
   label: string;
-  value: string;
+  value: number;
 }) {
   return (
-    <div className="flex flex-col gap-1.5 rounded-xl border px-2 py-3.5">
-      <p className="text-body3-medium text-grey-950 font-gsans-medium">
+    <div className="flex flex-col gap-1.5 rounded-xl border px-3 py-3.5">
+      <p className="text-body4-medium text-grey-950 font-gsans-medium">
         {label}
       </p>
       <div className="flex items-center gap-1.5">

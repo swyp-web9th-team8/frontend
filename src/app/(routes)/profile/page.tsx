@@ -7,9 +7,9 @@ export default function Profile() {
     <ProfilePage
       name="나리이"
       location="강남구 개포1동"
-      meetingCount="11"
-      createdCount="3"
-      recordCount="14"
+      meetingCount={11}
+      createdCount={3}
+      recordCount={14}
     />
   );
 }

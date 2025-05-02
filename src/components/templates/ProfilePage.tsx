@@ -1,4 +1,4 @@
-import InfoBox from "@/components/atoms/Infobox/Infobox";
+import InfoBox from "@/components/atoms/InfoBox/InfoBox";
 import ActivityRow from "@/components/molecules/ActivityRow";
 import SectionWithTitle from "@/components/organisms/SectionWithTitle";
 import ProfileHeader from "@/components/organisms/ProfileHeader";
@@ -13,9 +13,9 @@ import IconSupport from "@/assets/icons/IconSupport.svg";
 type ProfilePageProps = {
   name: string;
   location: string;
-  meetingCount: string;
-  createdCount: string;
-  recordCount: string;
+  meetingCount: number;
+  createdCount: number;
+  recordCount: number;
 };
 
 export default function ProfilePage({
@@ -27,7 +27,9 @@ export default function ProfilePage({
 }: ProfilePageProps) {
   return (
     <main className="h-full w-full px-4 py-6 text-sm">
-      <h1 className="mb-6 text-center text-lg font-semibold">프로필</h1>
+      <h1 className="text-heading1-medium font-gsans-medium mb-6 text-center">
+        프로필
+      </h1>
       <ProfileHeader name={name} />
 
       <section className="mb-6 grid grid-cols-3 gap-2 py-4">
