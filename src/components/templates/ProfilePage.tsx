@@ -1,7 +1,7 @@
 import InfoBox from "@/components/atoms/InfoBox/InfoBox";
 import ActivityRow from "@/components/molecules/ActivityRow";
-import SectionWithTitle from "@/components/organisms/SectionWithTitle";
-import ProfileHeader from "@/components/organisms/ProfileHeader";
+import SectionWithTitle from "@/components/organisms/profile/SectionWithTitle";
+import ProfileHeader from "@/components/organisms/profile/ProfileHeader";
 
 import IconGroup from "@/assets/icons/IconGroup01.svg";
 import IconLocation from "@/assets/icons/IconLocation.svg";
