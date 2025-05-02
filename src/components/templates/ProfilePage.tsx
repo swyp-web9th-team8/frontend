@@ -1,4 +1,4 @@
-import InfoBox from "@/components/atoms/InfoBox/temp";
+import InfoBox from "@/components/atoms/InfoBox/InfoBox";
 import ActivityRow from "@/components/molecules/ActivityRow";
 import SectionWithTitle from "@/components/organisms/SectionWithTitle";
 import ProfileHeader from "@/components/organisms/ProfileHeader";
