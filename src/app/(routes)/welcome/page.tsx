@@ -5,13 +5,13 @@ import Link from "next/link";
 
 export default function WelcomePage() {
   return (
-    <div className="flex h-full flex-col items-center gap-[16.8125rem] px-5 pt-[14.0625rem] pb-10">
+    <div className="flex h-full flex-col items-center justify-center gap-[16.8125rem] pt-[14.0625rem]">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 1 }}
-        className="flex flex-col gap-10 text-center"
+        className="flex flex-col items-center justify-center gap-[2.75rem] text-center"
       >
         <motion.svg
           width="119"
@@ -22,7 +22,6 @@ export default function WelcomePage() {
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1 }}
-          className="mx-auto mb-4 h-24 w-24"
         >
           <path
             d="M118.5 58.9624C118.298 49.4206 110.516 45.6303 91.2833 48.0595C87.8681 48.4909 84.2821 49.2709 80.7137 50.153C83.8573 48.276 86.9403 46.3126 89.6552 44.2061C104.973 32.3225 107.794 24.1396 101.19 17.2509C94.2997 10.6472 86.1171 13.4703 74.2359 28.7887C72.1289 31.5056 70.1475 34.5874 68.2507 37.7295C69.1444 34.1845 69.9344 30.6215 70.3638 27.2179C72.7935 7.98376 69.0034 0.202062 59.4616 0C49.9205 0.202307 46.1302 7.98328 48.5593 27.2174C48.9909 30.6314 49.77 34.2144 50.6514 37.7816C48.7751 34.6399 46.8115 31.5589 44.7064 28.8455C32.8225 13.5283 24.6399 10.7063 17.7504 17.3107C11.1474 24.201 13.9697 32.3831 29.289 44.2647C32.006 46.3718 35.0897 48.3536 38.2326 50.2512C34.6868 49.3568 31.1218 48.566 27.7167 48.1366C8.48255 45.7062 0.701571 49.497 0.5 59.0381C0.701571 68.5799 8.48329 72.37 27.716 69.9403C31.1319 69.5087 34.7184 68.7282 38.2876 67.846C35.1439 69.723 32.0602 71.6872 29.3453 73.7937C14.0274 85.6775 11.2063 93.8602 17.8105 100.749C24.7008 107.353 32.8829 104.53 44.7638 89.211C46.8709 86.4941 48.852 83.4111 50.7496 80.2683C49.8552 83.814 49.0651 87.3778 48.6349 90.7826C46.206 110.017 49.9961 117.798 59.5372 118C69.0783 117.798 72.8694 110.017 70.4395 90.7826C70.0078 87.3682 69.2286 83.7829 68.3474 80.2152C70.2244 83.3581 72.1878 86.4406 74.2936 89.1548C86.1775 104.472 94.3601 107.294 101.249 100.689C107.852 93.7993 105.029 85.6171 89.7102 73.7355C86.9941 71.6283 83.9116 69.6479 80.7694 67.7503C84.3145 68.644 87.8774 69.434 91.2818 69.8642C110.517 72.2938 118.298 68.5038 118.5 58.9624Z"
@@ -52,7 +51,7 @@ export default function WelcomePage() {
 
         <div>
           <motion.h1
-            className="mb-4 text-xl font-bold text-[#1A1A1A]"
+            className="text-heading1-medium font-gsans-bold text-grey-950 mb-4"
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3, duration: 1 }}
@@ -60,7 +59,7 @@ export default function WelcomePage() {
             회원가입이 완료되었어요!
           </motion.h1>
           <motion.div
-            className="text-sm font-medium text-[#1A1A1A]"
+            className="text-body1-medium font-gsans-medium text-grey-950"
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3, duration: 1 }}
@@ -72,7 +71,7 @@ export default function WelcomePage() {
 
       <Link
         href="/home"
-        className="w-full rounded-xl bg-[#59AC6E] py-3 text-center text-sm font-medium text-white disabled:bg-[#D1D1D1] disabled:opacity-50"
+        className="bg-green font-gsans-medium text-body1-medium text-grey-0 w-full rounded-xl py-3 text-center"
       >
         확인
       </Link>
