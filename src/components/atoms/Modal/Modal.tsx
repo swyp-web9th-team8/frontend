@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
+
 interface ModalProps {
   children: React.ReactNode;
   onClose: () => void;
@@ -13,6 +15,14 @@ export default function Modal({
   position = "bottom",
   disableOutsideClick = false,
 }: ModalProps) {
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
+
   const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!disableOutsideClick && e.target === e.currentTarget) {
       onClose();
@@ -21,7 +31,7 @@ export default function Modal({
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-end bg-black/40 ${position === "center" ? "justify-center" : " "}`}
+      className={`fixed inset-0 z-50 flex items-end bg-black/40 pt-[3.25rem] ${position === "center" ? "justify-center" : " "}`}
       onClick={handleOutsideClick}
     >
       <div

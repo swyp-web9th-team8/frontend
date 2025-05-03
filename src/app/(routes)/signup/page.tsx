@@ -8,6 +8,7 @@ import ProfileImageUploader from "@/components/atoms/Input/ProfileImageUploader"
 import RegionSelector from "@/components/molecules/RegionSelector";
 import { SignupFormValues } from "@/types/signup";
 import Tooltip from "@/components/atoms/Tooltip/Tooltip";
+import BackArrow from "@/assets/icons/back-arrow.svg";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -41,13 +42,26 @@ export default function SignupPage() {
             e.preventDefault();
           }
         }}
-        className="flex flex-col gap-[8.5625rem] px-5 py-[4.5rem]"
+        className="flex flex-col gap-[8.5625rem] py-[4.5rem]"
       >
         <div className="flex flex-col gap-12">
-          <h1 className="text-center text-xl font-medium">회원 가입</h1>
-          <div className="flex flex-col gap-6">
+          <div className="relative flex items-center justify-center">
+            <button
+              type="button"
+              onClick={() => router.push("/login")}
+              aria-label="뒤로가기"
+              className="absolute left-0 cursor-pointer"
+            >
+              <BackArrow />
+            </button>
+            <h1 className="text-grey-950 text-heading1-medium font-gsans-medium text-center">
+              회원 가입
+            </h1>
+          </div>
+          <ProfileImageUploader />
+          <div className="flex flex-col gap-[1.875rem]">
             <div className="flex flex-col gap-2">
-              <label className="block text-[1rem] font-medium text-[#1A1A1A]">
+              <label className="text-grey-950 font-gsans-medium text-body1-medium block">
                 성별
               </label>
               <GenderSelect />
@@ -55,7 +69,7 @@ export default function SignupPage() {
 
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-1">
-                <label className="block text-[1rem] font-medium text-[#1A1A1A]">
+                <label className="text-grey-950 font-gsans-medium text-body1-medium block">
                   거주 지역
                 </label>
                 <Tooltip text="현재는 서울에서만 서비스 이용이 가능해요" />
@@ -86,8 +100,6 @@ export default function SignupPage() {
                 },
               }}
             />
-
-            <ProfileImageUploader />
           </div>
         </div>
 

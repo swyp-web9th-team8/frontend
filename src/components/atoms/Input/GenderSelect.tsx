@@ -7,7 +7,7 @@ export default function GenderSelect() {
   const gender = watch("gender");
 
   const isSelected = (value: string) =>
-    gender === value ? "bg-[#59AC6E] text-white" : "bg-white text-[#B0B0B0]";
+    gender === value ? "bg-green text-grey-0" : "bg-grey-0 text-grey-300";
 
   const handleSelect = (value: string) => setValue("gender", value);
 
@@ -16,14 +16,14 @@ export default function GenderSelect() {
       <button
         type="button"
         onClick={() => handleSelect("male")}
-        className={`h-12 w-20 cursor-pointer rounded-full border-[0.8px] border-[#B0B0B0] text-sm ${isSelected("male")}`}
+        className={`text-body2-medium font-gsans-medium border-grey-300 h-12 w-20 cursor-pointer rounded-full border-[0.8px] pt-1 ${isSelected("male")}`}
       >
         남성
       </button>
       <button
         type="button"
         onClick={() => handleSelect("female")}
-        className={`h-12 w-20 cursor-pointer rounded-full border-[0.8px] border-[#B0B0B0] text-sm ${isSelected("female")}`}
+        className={`text-body2-medium font-gsans-medium border-grey-300 h-12 w-20 cursor-pointer rounded-full border-[0.8px] pt-1 ${isSelected("female")}`}
       >
         여성
       </button>
