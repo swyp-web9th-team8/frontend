@@ -1,0 +1,22 @@
+.slick-dots li {
+  width: 16px;
+  height: 16px;
+  margin: 0 0;
+}
+
+.slick-dots li button {
+  width: 16px;
+  height: 16px;
+}
+
+.slick-dots li button:before {
+  width: 16px;
+  height: 16px;
+  color: var(--color-gray-200);
+  opacity: 1;
+}
+
+.slick-dots li.slick-active button:before {
+  opacity: 1;
+  color: var(--color-green);
+}
