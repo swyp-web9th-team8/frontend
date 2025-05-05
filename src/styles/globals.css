@@ -103,6 +103,13 @@
     line-height: 18px;
     font-weight: 700;
   }
+
+  .scrollbar-hide {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    scrollbar-width: none;
+  }
 }
 
 @theme {
@@ -116,6 +123,7 @@
   --color-green: #59ac6e;
   --color-blue: #58b6ff;
   --color-yellow: #f9ac14;
+  --color-error: #eb4e2a;
   --font-gsans-bold: "GmarketSans-Bold", "sans-serif";
   --font-gsans-medium: "GmarketSans-Medium", "sans-serif";
 }
