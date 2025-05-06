@@ -1,22 +1,22 @@
-"use client";
-import React, { useState } from "react";
+import GatheringCreateButton from "@/components/atoms/Button/GatheringCreateButton";
+import GatheringFilterTabs from "@/components/molecules/homegatherings/GatheringFilterTabs";
+import GatheringListGroup from "@/components/organisms/homegatherings/GatheringListGroup";
 import { IGatheringItem } from "@/types/gatherings";
 import IconSearch from "@/assets/icons/IconSearch.svg";
 import IconNotification from "@/assets/icons/IconNotification.svg";
 import IconDropdown from "@/assets/icons/dropdown-arrow.svg";
-import GatheringCreateButton from "@/components/atoms/Button/GatheringCreateButton";
-import GatheringFilterTabs from "@/components/molecules/homegatherings/GatgeringFilterTabs";
-import GatheringListGroup from "@/components/organisms/homegatherings/GatheringLishGroup";
 
 interface HomeFeedTemplateProps {
   gatherings: IGatheringItem[];
+  isClosedView: boolean;
+  onChangeTab: (closed: boolean) => void;
 }
 
 export default function HomeFeedTemplate({
   gatherings,
+  isClosedView,
+  onChangeTab,
 }: HomeFeedTemplateProps) {
-  const [selectedTab, setSelectedTab] = useState<"active" | "closed">("active");
-
   const groupedByDate = gatherings.reduce<Record<string, IGatheringItem[]>>(
     (acc, curr) => {
       const date = curr.meetingTime.split("T")[0];
@@ -48,10 +48,15 @@ export default function HomeFeedTemplate({
         </div>
       </div>
 
-      <GatheringFilterTabs selected={selectedTab} onChange={setSelectedTab} />
+      <GatheringFilterTabs selected={isClosedView} onChange={onChangeTab} />
 
       {Object.entries(groupedByDate).map(([date, items]) => (
-        <GatheringListGroup key={date} date={date} items={items} />
+        <GatheringListGroup
+          key={date}
+          date={date}
+          items={items}
+          isClosed={isClosedView}
+        />
       ))}
 
       <GatheringCreateButton />
