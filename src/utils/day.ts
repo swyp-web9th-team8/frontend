@@ -1,4 +1,5 @@
 import { format, parseISO } from "date-fns";
+import { ko } from "react-day-picker/locale";
 
 export const getAbbreviatedMonth = (month: number) => {
   const monthMap = {
@@ -51,4 +52,14 @@ export const getMonth = (date: string) => {
 export const getDay = (date: string) => {
   const d = parseISO(date);
   return Number(format(d, "dd"));
+};
+
+export const formatDateKorean = (date: Date) => {
+  return format(date, "M월 dd일(E)", { locale: ko });
+};
+
+// "1:30:PM" → "오후 1:30" 형태로 변환하는 함수
+export const convertTimeFormat = (timeStr: string): string => {
+  const [h, m, amPm] = timeStr.split(":");
+  return `${amPm === "PM" ? "오후" : "오전"} ${h}:${m.padStart(2, "0")}`;
 };

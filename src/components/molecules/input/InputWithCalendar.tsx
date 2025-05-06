@@ -18,14 +18,12 @@ const InputWithCalendar = ({ name, placeholder, validationRules }: Props) => {
   const {
     state: { isOpen, selectedDate },
     handlers: {
-      handleCloseCalendar,
+      handleCloseModal,
       handleControlModal,
       handleConfirmDate,
       handleDayClick,
     },
   } = useInputWithCalendar(name);
-
-  console.log("this is", selectedDate);
 
   return (
     <div>
@@ -37,9 +35,9 @@ const InputWithCalendar = ({ name, placeholder, validationRules }: Props) => {
         readOnly
       />
       {isOpen && (
-        <Modal onClose={handleCloseCalendar}>
+        <Modal onClose={handleCloseModal}>
           <TwoButtonContents
-            onClose={handleCloseCalendar}
+            onClose={handleCloseModal}
             onConfirm={handleConfirmDate}
             buttonText={{ close: "취소", confirm: "확인" }}
           >

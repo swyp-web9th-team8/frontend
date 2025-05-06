@@ -1,21 +1,20 @@
+import { useModal } from "@/hooks/features/commons/useModal";
 import { formatDateKorean } from "@/utils/day";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { useModal } from "./commons/useModal";
 
 export const useInputWithCalendar = (name: string) => {
   const { setValue } = useFormContext();
 
-  const { isOpen, handleCancelModal, handleControlModal } = useModal();
+  const {
+    state: { isOpen },
+    handlers: { handleCloseModal, handleControlModal },
+  } = useModal();
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-
-  const handleCloseCalendar = () => {
-    handleCancelModal();
-  };
 
   const handleConfirmDate = () => {
     setValue(name, formatDateKorean(selectedDate));
-    handleCancelModal();
+    handleCloseModal();
   };
 
   const handleDayClick = (day: Date) => {
@@ -26,9 +25,8 @@ export const useInputWithCalendar = (name: string) => {
     state: { isOpen, selectedDate },
     setters: { setSelectedDate },
     handlers: {
-      handleCancelModal,
+      handleCloseModal,
       handleControlModal,
-      handleCloseCalendar,
       handleConfirmDate,
       handleDayClick,
     },
