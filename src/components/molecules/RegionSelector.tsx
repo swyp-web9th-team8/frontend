@@ -108,7 +108,7 @@ export default function RegionSelector() {
   return (
     <>
       <div
-        className={`w-full cursor-pointer rounded-full border-[0.8px] border-[#B0B0B0] px-4 py-[0.8125rem] text-sm ${current ? `text-[#1A1A1A]` : `text-[#B0B0B0]`}`}
+        className={`border-grey-300 font-gsans-medium text-body2-medium h-12 w-full cursor-pointer rounded-full border-[0.8px] px-4 pt-[1rem] pb-[0.8125rem] ${current ? `text-grey-950` : `text-grey-300`}`}
         onClick={() => setOpen(true)}
       >
         {current || "거주하는 구와 동을 선택해주세요"}
@@ -116,20 +116,20 @@ export default function RegionSelector() {
 
       {open && (
         <Modal onClose={handleClose} position="center">
-          <div className="flex flex-col gap-9 p-6">
-            <h2 className="text-xl font-bold">
+          <div className="mt-[1.125rem] flex h-full flex-col gap-9 p-6">
+            <h2 className="text-heading1-bold font-gsans-bold">
               {step === "GU" ? (
                 <>
-                  어느 <span className="text-[#59AC6E]">구</span>에 사시나요?
+                  어느 <span className="text-green">구</span>에 사시나요?
                 </>
               ) : (
                 <>
-                  어느 <span className="text-[#59AC6E]">동</span>에 사시나요?
+                  어느 <span className="text-green">동</span>에 사시나요?
                 </>
               )}
             </h2>
 
-            <div className="grid max-h-[400px] grid-cols-3 gap-2.5 overflow-y-auto">
+            <div className="grid h-[34.375rem] grid-cols-3 gap-2.5 overflow-y-auto">
               {(step === "GU" ? GU_LIST : DONG_MAP[selectedGu] || []).map(
                 (name) => {
                   const isSelected =
@@ -143,10 +143,10 @@ export default function RegionSelector() {
                           ? handleGuSelect(name)
                           : handleDongSelect(name)
                       }
-                      className={`cursor-pointer rounded-xl px-4 py-3 text-sm font-medium ${
+                      className={`font-gsans-medium text-body1-medium cursor-pointer rounded-xl px-4 py-3 ${
                         isSelected
-                          ? "bg-[#59AC6E] text-white"
-                          : "bg-white text-[#1A1A1A]"
+                          ? "bg-green text-grey-0"
+                          : "bg-grey-0 text-grey-950"
                       }`}
                     >
                       {name}
@@ -159,7 +159,7 @@ export default function RegionSelector() {
             <button
               disabled={isButtonDisabled()}
               onClick={step === "GU" ? () => setStep("DONG") : handleComplete}
-              className="mt-6 w-full cursor-pointer rounded-xl bg-[#59AC6E] py-3 text-white disabled:cursor-auto disabled:opacity-50"
+              className="text-body1-medium font-gsans-medium bg-green text-grey-0 w-full cursor-pointer rounded-xl py-3 disabled:cursor-auto disabled:opacity-50"
             >
               {step === "GU" ? "다음" : "완료"}
             </button>

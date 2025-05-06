@@ -16,28 +16,28 @@ export default function AgreementPopup({
   onConfirm,
 }: AgreementPopupProps) {
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-[#F6F6F6] px-6 py-6">
-      <div className="mb-4 flex items-center justify-between">
+    <div className="bg-grey-50 fixed inset-0 z-50 flex flex-col px-6 py-[4.5rem]">
+      <div className="relative mb-[2.75rem] flex items-center justify-center">
         <button
           onClick={onClose}
           aria-label="닫기"
-          className="flex cursor-pointer items-center justify-center"
+          className="absolute left-0 flex cursor-pointer items-center justify-center"
         >
           <BackArrow />
         </button>
-        <h2 className="flex-1 text-center text-xl font-medium text-[#1A1A1A]">
+        <h2 className="text-grey-950 text-heading1-medium font-gsans-medium text-center">
           {title}
         </h2>
       </div>
 
-      <div className="flex-1 overflow-y-auto text-sm leading-relaxed whitespace-pre-wrap text-[#1A1A1A]">
+      <div className="text-grey-950 text-body2-medium font-gsans-medium flex-1 overflow-y-auto leading-relaxed whitespace-pre-wrap">
         {content}
       </div>
 
       <button
         type="button"
         onClick={onConfirm}
-        className="mt-6 w-full cursor-pointer rounded-xl bg-[#59AC6E] py-3 text-sm font-medium text-white"
+        className="bg-green text-grey-0 font-gsans-medium text-body1-medium w-full cursor-pointer rounded-xl py-3"
       >
         확인
       </button>

@@ -2,7 +2,7 @@
 
 import { useFormContext } from "react-hook-form";
 import { useRef, useState } from "react";
-import PlusIcon from "@/assets/icons/plus.svg";
+import IconAdd from "@/assets/icons/IconAdd.svg";
 import Image from "next/image";
 
 export default function ProfileImageUploader() {
@@ -27,26 +27,26 @@ export default function ProfileImageUploader() {
   };
 
   return (
-    <div className="flex flex-col gap-2">
-      <label className="block text-[1rem] font-medium text-[#1A1A1A]">
-        프로필 사진 (선택)
-      </label>
+    <div className="flex flex-col items-center justify-center gap-3">
       <div
         onClick={handleClick}
-        className="flex h-[6.25rem] w-full cursor-pointer items-center justify-center rounded-2xl border border-dashed"
+        className={`flex h-[6.75rem] w-[6.75rem] cursor-pointer items-center justify-center rounded-full border ${preview ? "border-solid" : "border-dashed"} `}
       >
         {preview ? (
           <Image
             src={preview}
             alt="미리보기"
-            className="h-full w-full rounded-2xl object-cover"
-            width={120}
-            height={120}
+            className="h-full w-full rounded-full object-cover"
+            width={108}
+            height={108}
           />
         ) : (
-          <PlusIcon />
+          <IconAdd />
         )}
       </div>
+      <label className="text-grey-950 font-gsans-medium text-body1-medium block">
+        프로필 사진 (선택)
+      </label>
       <input
         type="file"
         accept="image/*"

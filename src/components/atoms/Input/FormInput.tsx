@@ -31,7 +31,7 @@ const FormInput = ({
       {label && (
         <label
           htmlFor={name}
-          className="text-[1rem] font-medium text-[#1A1A1A]"
+          className="text-grey-950 font-gsans-medium text-body1-medium"
         >
           {label}
         </label>
@@ -41,7 +41,7 @@ const FormInput = ({
         {...register(name, validationRules)}
         type={type}
         placeholder={placeholder}
-        className={`h-12 rounded-full px-4 py-4 text-sm font-medium placeholder:text-sm placeholder:font-medium placeholder:text-[#B0B0B0] ${inputBorderClass}`}
+        className={`placeholder:text-body2-medium placeholder:font-gsans-medium placeholder:text-grey-300 text-body2-medium font-gsans-medium h-12 rounded-full px-4 pt-5 pb-4 ${inputBorderClass}`}
       />
       {errors[name] && (
         <span className="text-[0.75rem] font-medium text-[#EB4E2A]">{`${errors[name]?.message}`}</span>
