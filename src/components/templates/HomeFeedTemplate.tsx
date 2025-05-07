@@ -5,6 +5,8 @@ import { IGatheringItem } from "@/types/gatherings";
 import IconSearch from "@/assets/icons/IconSearch.svg";
 import IconNotification from "@/assets/icons/IconNotification.svg";
 import IconDropdown from "@/assets/icons/dropdown-arrow.svg";
+import { groupGatheringsByDate } from "@/utils/gatherings";
+import { formatDate } from "@/utils/day";
 
 interface HomeFeedTemplateProps {
   gatherings: IGatheringItem[];
@@ -17,15 +19,7 @@ export default function HomeFeedTemplate({
   isClosedView,
   onChangeTab,
 }: HomeFeedTemplateProps) {
-  const groupedByDate = gatherings.reduce<Record<string, IGatheringItem[]>>(
-    (acc, curr) => {
-      const date = curr.meetingTime.split("T")[0];
-      if (!acc[date]) acc[date] = [];
-      acc[date].push(curr);
-      return acc;
-    },
-    {},
-  );
+  const groupedList = groupGatheringsByDate(gatherings);
 
   return (
     <div className="min-h-screen pt-[4.5rem] pb-28">
@@ -50,14 +44,17 @@ export default function HomeFeedTemplate({
 
       <GatheringFilterTabs selected={isClosedView} onChange={onChangeTab} />
 
-      {Object.entries(groupedByDate).map(([date, items]) => (
-        <GatheringListGroup
-          key={date}
-          date={date}
-          items={items}
-          isClosed={isClosedView}
-        />
-      ))}
+      {groupedList.map((items) => {
+        const date = formatDate(items[0].meetingTime, "yyyy-MM-dd");
+        return (
+          <GatheringListGroup
+            key={date}
+            date={date}
+            items={items}
+            isClosed={isClosedView}
+          />
+        );
+      })}
 
       <GatheringCreateButton />
     </div>
