@@ -7,3 +7,7 @@ export interface IGatheringFormValues {
   startTime: string; // "14:00"
   kakaoLink: string | null;
 }
+
+export interface ICreateFormValues {
+  image: string;
+}
