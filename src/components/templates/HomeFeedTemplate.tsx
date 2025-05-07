@@ -28,7 +28,7 @@ export default function HomeFeedTemplate({
   );
 
   return (
-    <div className="min-h-screen px-5 pt-[4.5rem] pb-28">
+    <div className="min-h-screen pt-[4.5rem] pb-28">
       <div className="mb-9 flex items-center justify-between">
         <div className="flex items-center gap-0.5">
           <h1 className="font-gsans-medium text-heading2-medium text-grey-950">

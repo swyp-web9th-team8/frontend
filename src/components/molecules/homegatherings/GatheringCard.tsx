@@ -13,7 +13,7 @@ export default function GatheringCard({
 }: GatheringCardProps) {
   return (
     <div className="flex justify-between rounded-2xl p-4 shadow-[0_4px_24px_rgba(170,170,170,0.15)]">
-      <div className="flex flex-col gap-3">
+      <div className="flex min-w-0 flex-grow flex-col gap-3">
         <div className="font-gsans-bold text-body2-medium text-grey-950">
           {gathering.title}
         </div>
@@ -29,11 +29,11 @@ export default function GatheringCard({
         </div>
       </div>
       {!isClosed && (
-        <div className="flex flex-col gap-[1.375rem]">
-          <span className="text-body3-medium font-gsans-medium text-grey-400">
+        <div className="flex w-18 flex-shrink-0 flex-col gap-[1.375rem]">
+          <span className="text-body3-medium font-gsans-medium text-grey-400 text-end">
             {gathering.participantCount}자리 남음
           </span>
-          <button className="bg-green font-gsans-medium text-body3-medium text-grey-0 rounded-full px-3 py-2">
+          <button className="bg-green font-gsans-medium text-body3-medium text-grey-0 h-[2.125rem] rounded-full px-3 py-2">
             참여하기
           </button>
         </div>
