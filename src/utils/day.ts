@@ -54,6 +54,7 @@ export const getDay = (date: string) => {
   return Number(format(d, "dd"));
 };
 
+
 /** 몇일 전 */
 // TODO: "약 몇시간 전 -> 몇시간 전" 으로 커스텀
 export const getDiffTime = (date: string) => {
@@ -70,4 +71,12 @@ export const getDiffTime = (date: string) => {
     return formatDistanceToNow(d, { addSuffix: true, locale: ko });
   }
   return format(d, "PPP (E)", { locale: ko });
+
+export const formatDateKorean = (date: Date) => {
+  return format(date, "M월 dd일(E)", { locale: ko });
+};
+
+export const convertTimeFormat = (timeStr: string): string => {
+  const [h, m, amPm] = timeStr.split(":");
+  return `${amPm === "PM" ? "오후" : "오전"} ${h}:${m.padStart(2, "0")}`;
 };
