@@ -9,5 +9,5 @@ export interface IGatheringFormValues {
 }
 
 export interface ICreateFormValues {
-  image: string;
+  images: string;
 }
