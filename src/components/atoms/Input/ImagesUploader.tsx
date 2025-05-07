@@ -90,9 +90,10 @@ function ImagesUploader({ name }: Props) {
         onChange={handleChange}
         className="hidden"
       />
-      <div className="grid grid-cols-3 gap-2.5">
-        {previews.length > 0 &&
-          previews.map((preview, index) => (
+
+      {previews.length > 0 ? (
+        <div className="grid grid-cols-3 gap-2.5">
+          {previews.map((preview, index) => (
             <div key={index} className="relative aspect-square">
               <Image
                 src={preview}
@@ -110,19 +111,19 @@ function ImagesUploader({ name }: Props) {
               </button>
             </div>
           ))}
-        {previews.length === 0 && (
-          <div onClick={handleClick} className="cursor-pointer">
-            <PreviewImage />
-          </div>
-        )}
-      </div>
+        </div>
+      ) : (
+        <div onClick={handleClick} className="cursor-pointer">
+          <PreviewImage />
+        </div>
+      )}
     </div>
   );
 }
 
 function PreviewImage() {
   return (
-    <div className="bg-greyscale-gray-50 relative flex h-24 w-96 items-center justify-center overflow-hidden rounded-2xl outline outline-[0.50px] outline-offset-[-0.50px] outline-gray-950 outline-dashed">
+    <div className="bg-greyscale-gray-50 relative flex h-24 w-full items-center justify-center overflow-hidden rounded-2xl outline outline-[0.50px] outline-offset-[-0.50px] outline-gray-950 outline-dashed">
       <div className="h-12 w-12 rounded-full bg-zinc-300">
         <IconAdd className="absolute top-1/2 left-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2" />
       </div>
