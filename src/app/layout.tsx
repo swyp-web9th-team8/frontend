@@ -28,7 +28,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} relative mx-auto min-h-screen max-w-[500px] antialiased`}
       >
-        <div className="h-screen px-5">
+        <div className="relative h-screen px-5">
           <ReactQueryProvider>{children}</ReactQueryProvider>
         </div>
       </body>
