@@ -71,6 +71,7 @@ export const getDiffTime = (date: string) => {
     return formatDistanceToNow(d, { addSuffix: true, locale: ko });
   }
   return format(d, "PPP (E)", { locale: ko });
+};
 
 export const formatDateKorean = (date: Date) => {
   return format(date, "M월 dd일(E)", { locale: ko });
