@@ -121,7 +121,7 @@ export default function SearchResultPage() {
                       {item.status}
                     </span>
                   </div>
-                  <div>
+                  <div className="flex flex-col gap-1">
                     <div className="font-gsans-medium text-body2-medium text-grey-950 flex gap-[0.8125rem]">
                       <IconCalendar className="h-5 w-5" />
                       <p>{item.date}</p>
@@ -157,17 +157,19 @@ export default function SearchResultPage() {
                       {item.status}
                     </span>
                   </div>
-                  <div className="font-gsans-medium text-body2-medium text-grey-950 flex gap-[0.8125rem]">
-                    <IconCalendar className="h-5 w-5" />
-                    <p>{item.date}</p>
-                  </div>
-                  <div className="font-gsans-medium text-body2-medium text-grey-950 flex gap-[0.8125rem]">
-                    <IconClock className="h-5 w-5" />
-                    <p>{item.time}</p>
-                  </div>
-                  <div className="font-gsans-medium text-body2-medium text-grey-950 flex gap-[0.8125rem]">
-                    <IconLocation className="h-5 w-5" />
-                    <p>{item.location}</p>
+                  <div className="flex flex-col gap-1">
+                    <div className="font-gsans-medium text-body2-medium text-grey-950 flex gap-[0.8125rem]">
+                      <IconCalendar className="h-5 w-5" />
+                      <p>{item.date}</p>
+                    </div>
+                    <div className="font-gsans-medium text-body2-medium text-grey-950 flex gap-[0.8125rem]">
+                      <IconClock className="h-5 w-5" />
+                      <p>{item.time}</p>
+                    </div>
+                    <p className="font-gsans-medium text-body2-medium text-grey-950 flex gap-[0.8125rem]">
+                      <IconLocation className="h-5 w-5" />
+                      {item.location}
+                    </p>
                   </div>
                 </li>
               ))}
