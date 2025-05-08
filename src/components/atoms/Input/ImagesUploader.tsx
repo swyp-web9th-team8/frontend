@@ -1,6 +1,7 @@
 "use client";
 
 import IconAdd from "@/assets/icons/IconAdd.svg";
+import IconClose from "@/assets/icons/IconClose.svg";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
@@ -105,17 +106,17 @@ function ImagesUploader({ name }: Props) {
               <button
                 type="button"
                 onClick={() => removeImage(index)}
-                className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-gray-200"
+                className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-black/70"
               >
-                x
+                <IconClose className="h-[14px] w-[14px] text-gray-200" />
               </button>
             </div>
           ))}
         </div>
       ) : (
-        <div onClick={handleClick} className="cursor-pointer">
+        <button onClick={handleClick} className="w-full cursor-pointer">
           <PreviewImage />
-        </div>
+        </button>
       )}
     </div>
   );
@@ -124,9 +125,9 @@ function ImagesUploader({ name }: Props) {
 function PreviewImage() {
   return (
     <div className="bg-greyscale-gray-50 relative flex h-24 w-full items-center justify-center overflow-hidden rounded-2xl outline outline-[0.50px] outline-offset-[-0.50px] outline-gray-950 outline-dashed">
-      <div className="h-12 w-12 rounded-full bg-zinc-300">
+      <button className="h-12 w-12 rounded-full bg-zinc-300">
         <IconAdd className="absolute top-1/2 left-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2" />
-      </div>
+      </button>
     </div>
   );
 }
