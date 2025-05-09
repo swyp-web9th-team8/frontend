@@ -8,14 +8,12 @@ import SearchOverlay from "@/components/templates/SearchOverlay";
 import { IGatheringItem } from "@/types/gatherings";
 import IconSearch from "@/assets/icons/IconSearch.svg";
 import IconNotification from "@/assets/icons/IconNotification.svg";
-import IconDropdown from "@/assets/icons/dropdown-arrow.svg";
 import { groupGatheringsByDate } from "@/utils/gatherings";
 import { formatDate } from "@/utils/day";
 import { useSearchStore } from "@/stores/searchStore";
-import DropdownList from "../organisms/DropdownList";
-import DropdownItem from "../molecules/DropdownItem";
 import { useModal } from "@/hooks/features/commons/useModal";
 import RegionSelectorModal from "@/components/molecules/RegionSelectorModal";
+import LocationSelectorDropdown from "../molecules/homefeed/LocationSelectorDropdown";
 
 interface HomeFeedTemplateProps {
   gatherings: IGatheringItem[];
@@ -31,7 +29,6 @@ export default function HomeFeedTemplate({
   const groupedList = groupGatheringsByDate(gatherings);
   const openSearch = useSearchStore((state) => state.open);
 
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState("서초동");
 
   const {
@@ -39,67 +36,17 @@ export default function HomeFeedTemplate({
     handlers: { handleOpenModal, handleCloseModal },
   } = useModal();
 
-  const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
-  const handleSelectLocation = (location: string) => {
-    setSelectedLocation(location);
-    setIsDropdownOpen(false);
-  };
-
-  const handleDropdownItemClick = (option: string) => {
-    if (option === "다른 지역 보기") {
-      setIsDropdownOpen(false);
-      handleOpenModal();
-    } else {
-      handleSelectLocation(option);
-    }
-  };
-
   return (
     <div className="min-h-screen pt-[4.5rem] pb-28">
       <div className="mb-9 flex items-center justify-between">
-        <div className="relative">
-          <div className="flex items-center gap-0.5">
-            <h1
-              className="font-gsans-medium text-heading2-medium text-grey-950 cursor-pointer"
-              onClick={toggleDropdown}
-            >
-              {selectedLocation}
-            </h1>
-            <button type="button" onClick={toggleDropdown}>
-              <IconDropdown
-                className={`h-6 w-6 transition-all ${isDropdownOpen ? "rotate-180" : ""}`}
-              />
-            </button>
-          </div>
-
-          {isDropdownOpen && (
-            <div className="absolute top-[2.5rem] left-0 z-10">
-              <DropdownList>
-                {["내 거주지역", "현재 위치한 지역 (동)"].map((option) => (
-                  <DropdownItem
-                    key={option}
-                    isActive={selectedLocation === option}
-                    onClick={() => handleDropdownItemClick(option)}
-                    type="selectable"
-                  >
-                    {option}
-                  </DropdownItem>
-                ))}
-
-                <DropdownItem
-                  key="다른 지역 보기"
-                  onClick={() => handleDropdownItemClick("다른 지역 보기")}
-                  type="action"
-                >
-                  다른 지역 보기
-                </DropdownItem>
-              </DropdownList>
-            </div>
-          )}
-        </div>
+        <LocationSelectorDropdown
+          selected={selectedLocation}
+          onSelect={setSelectedLocation}
+          onOpenModal={handleOpenModal}
+        />
 
         <div className="flex gap-4">
-          <button onClick={openSearch}>
+          <button onClick={openSearch} className="cursor-pointer">
             <IconSearch className="h-6 w-6" />
           </button>
           <button>
