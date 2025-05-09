@@ -11,9 +11,9 @@ interface Props {
 
 function GatheringRecruiting({ data }: Props) {
   return (
-    <div className="flex flex-col gap-[23px]">
+    <div className="flex flex-1 flex-col gap-[23px]">
       <Title title={data.title} />
-      <div className="flex flex-col gap-9">
+      <div className="flex flex-1 flex-col gap-9">
         <RecruitingSummary
           meetingTime={data.meetingTime}
           placeName={data.placeName}
@@ -25,7 +25,9 @@ function GatheringRecruiting({ data }: Props) {
           maxParticipants={data.maxParticipants}
         />
         <Description content={data.content} />
-        <JoinButton isJoined={false} />
+        <div className="mt-auto mb-[42px] w-full">
+          <JoinButton isJoined={false} />
+        </div>
       </div>
     </div>
   );
