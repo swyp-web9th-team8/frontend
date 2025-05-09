@@ -34,7 +34,7 @@ export default function SearchOverlay() {
   if (!isOpen) return null;
 
   return (
-    <div className="bg-grey-50 fixed inset-0 z-5 px-5 py-8">
+    <div className="bg-grey-50 fixed inset-0 z-50 px-5 py-8">
       <SearchHeader title="검색" onBack={close} />
 
       <div className="mb-[3.625rem]">
