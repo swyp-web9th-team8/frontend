@@ -99,9 +99,8 @@ function ImagesUploader({ name }: Props) {
               <Image
                 src={preview}
                 alt={`미리보기 ${index + 1}`}
-                className="h-full w-full rounded-xl object-cover"
-                width={0}
-                height={0}
+                fill
+                className="rounded-xl object-cover"
               />
               <button
                 type="button"
