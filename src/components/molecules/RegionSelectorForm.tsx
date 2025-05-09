@@ -60,7 +60,7 @@ const DONG_MAP: Record<string, string[]> = {
   // 다른 구의 동도 필요시 여기에 추가
 };
 
-export default function RegionSelector() {
+export default function RegionSelectorForm() {
   const { setValue, watch } = useFormContext();
   const current = watch("region");
 

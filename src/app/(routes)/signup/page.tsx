@@ -5,10 +5,10 @@ import { useRouter } from "next/navigation";
 import FormInput from "@/components/atoms/Input/FormInput";
 import GenderSelect from "@/components/atoms/Input/GenderSelect";
 import ProfileImageUploader from "@/components/atoms/Input/ProfileImageUploader";
-import RegionSelector from "@/components/molecules/RegionSelector";
 import { SignupFormValues } from "@/types/signup";
 import Tooltip from "@/components/atoms/Tooltip/Tooltip";
 import BackArrow from "@/assets/icons/back-arrow.svg";
+import RegionSelectorForm from "@/components/molecules/RegionSelectorForm";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -74,7 +74,7 @@ export default function SignupPage() {
                 </label>
                 <Tooltip text="현재는 서울에서만 서비스 이용이 가능해요" />
               </div>
-              <RegionSelector />
+              <RegionSelectorForm />
             </div>
 
             <FormInput
