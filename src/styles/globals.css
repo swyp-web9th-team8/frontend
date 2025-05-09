@@ -143,6 +143,11 @@
   .textarea-placeholder {
     @apply placeholder:text-sm placeholder:font-medium placeholder:text-[#B0B0B0];
   }
+
+  /* 모임 요약 카드의 그림자 속성 등*/
+  .card-base {
+    @apply overflow-hidden rounded-2xl px-5 py-3.5 shadow-[0px_4px_24px_0px_rgba(170,170,170,0.15)];
+  }
 }
 
 @theme {
