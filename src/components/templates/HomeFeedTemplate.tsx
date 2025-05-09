@@ -1,12 +1,14 @@
 import GatheringCreateButton from "@/components/atoms/Button/GatheringCreateButton";
 import GatheringFilterTabs from "@/components/molecules/homegatherings/GatheringFilterTabs";
 import GatheringListGroup from "@/components/organisms/homegatherings/GatheringListGroup";
+import SearchOverlay from "@/components/templates/SearchOverlay";
 import { IGatheringItem } from "@/types/gatherings";
 import IconSearch from "@/assets/icons/IconSearch.svg";
 import IconNotification from "@/assets/icons/IconNotification.svg";
 import IconDropdown from "@/assets/icons/dropdown-arrow.svg";
 import { groupGatheringsByDate } from "@/utils/gatherings";
 import { formatDate } from "@/utils/day";
+import { useSearchStore } from "@/stores/searchStore";
 
 interface HomeFeedTemplateProps {
   gatherings: IGatheringItem[];
@@ -20,6 +22,7 @@ export default function HomeFeedTemplate({
   onChangeTab,
 }: HomeFeedTemplateProps) {
   const groupedList = groupGatheringsByDate(gatherings);
+  const openSearch = useSearchStore((state) => state.open);
 
   return (
     <div className="min-h-screen pt-[4.5rem] pb-28">
@@ -33,8 +36,8 @@ export default function HomeFeedTemplate({
           </button>
         </div>
         <div className="flex gap-4">
-          <button>
-            <IconSearch />
+          <button onClick={openSearch}>
+            <IconSearch className="h-6 w-6" />
           </button>
           <button>
             <IconNotification />
@@ -57,6 +60,7 @@ export default function HomeFeedTemplate({
       })}
 
       <GatheringCreateButton />
+      <SearchOverlay />
     </div>
   );
 }
