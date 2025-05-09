@@ -1,0 +1,52 @@
+import { IGatheringItem } from "@/types/gatherings";
+
+export const homegatherings: IGatheringItem[] = [
+  {
+    postId: 1,
+    title: "아침 플로깅 함께해요!",
+    meetingTime: "2025-05-02T08:00:00",
+    placeName: "잠실 아크로 중앙정원",
+    address: "서울시 송파구 올림픽로 300",
+    participantCount: 3,
+  },
+  {
+    postId: 2,
+    title: "줍깅은 처음이라면 여기부터!",
+    meetingTime: "2025-05-02T09:00:00",
+    placeName: "잠실 아크로 중앙정원",
+    address: "서울시 송파구 올림픽로 300",
+    participantCount: 5,
+  },
+  {
+    postId: 3,
+    title: "초보자 환영 플로깅 모임",
+    meetingTime: "2025-05-02T08:00:00",
+    placeName: "잠실 아크로 중앙정원",
+    address: "서울시 송파구 올림픽로 300",
+    participantCount: 2,
+  },
+  {
+    postId: 4,
+    title: "주말 한강 플로깅",
+    meetingTime: "2025-05-03T08:00:00",
+    placeName: "한강공원",
+    address: "서울시 영등포구 여의동로 280",
+    participantCount: 4,
+  },
+  {
+    postId: 5,
+    title: "주말 아침 산책 겸 플로깅",
+    meetingTime: "2025-05-04T08:00:00",
+    placeName: "중앙공원",
+    address: "서울시 서초구 반포대로 210",
+    participantCount: 6,
+  },
+  {
+    postId: 6,
+    title: "친환경 플로깅 챌린지!",
+    meetingTime: "2025-05-04T08:00:00",
+    placeName: "서래마을 공원",
+    address: "서울시 서초구 서래로 50",
+    participantCount: 1,
+  },
+];
