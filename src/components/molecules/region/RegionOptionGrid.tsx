@@ -10,7 +10,7 @@ export default function RegionOptionGrid({
   onSelect,
 }: RegionOptionGridProps) {
   return (
-    <div className="grid h-full grid-cols-3 gap-2.5 overflow-y-auto">
+    <div className="grid grid-cols-3 gap-2.5 overflow-y-auto">
       {items.map((name) => (
         <button
           key={name}
