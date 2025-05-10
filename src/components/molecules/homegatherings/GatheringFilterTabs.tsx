@@ -1,11 +1,13 @@
 interface GatheringFilterTabsProps {
   selected: boolean;
   onChange: (closed: boolean) => void;
+  tabLabels: [string, string];
 }
 
 export default function GatheringFilterTabs({
   selected,
   onChange,
+  tabLabels,
 }: GatheringFilterTabsProps) {
   return (
     <div className="mb-3.5">
@@ -15,7 +17,7 @@ export default function GatheringFilterTabs({
           !selected ? "text-green" : "text-grey-200"
         }`}
       >
-        모집중인 모임
+        {tabLabels[0]}
       </button>
       <button
         onClick={() => onChange(true)}
@@ -23,7 +25,7 @@ export default function GatheringFilterTabs({
           selected ? "text-green" : "text-grey-200"
         }`}
       >
-        모집 완료된 모임
+        {tabLabels[1]}
       </button>
     </div>
   );

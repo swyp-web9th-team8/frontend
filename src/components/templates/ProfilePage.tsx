@@ -11,7 +11,6 @@ import IconLocation from "@/assets/icons/IconLocation.svg";
 import IconAddNew from "@/assets/icons/IconAddNew.svg";
 import IconMedal from "@/assets/icons/IconMedal01.svg";
 import IconMegaphone from "@/assets/icons/IconMegaphone.svg";
-import IconSupport from "@/assets/icons/IconSupport.svg";
 
 type ProfilePageProps = {
   name: string;
@@ -53,11 +52,6 @@ export default function ProfilePage({
           icon={<IconMedal className="h-5 w-5" />}
         />
         <ActivityRow
-          href="/profile/invite"
-          label="친구 초대하기"
-          icon={<IconAddNew className="h-5 w-5" />}
-        />
-        <ActivityRow
           href="/profile/region"
           label="지역 설정"
           value={region || "미설정"}
@@ -72,9 +66,9 @@ export default function ProfilePage({
           icon={<IconMegaphone className="h-5 w-5" />}
         />
         <ActivityRow
-          href="/profile/service"
-          label="고객센터"
-          icon={<IconSupport className="h-5 w-5" />}
+          href="/profile/invite"
+          label="친구 초대하기"
+          icon={<IconAddNew className="h-5 w-5" />}
         />
       </SectionWithTitle>
     </main>
