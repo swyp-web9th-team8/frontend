@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import GatheringCreateButton from "@/components/atoms/Button/GatheringCreateButton";
 import GatheringFilterTabs from "@/components/molecules/homegatherings/GatheringFilterTabs";
 import GatheringListGroup from "@/components/organisms/homegatherings/GatheringListGroup";
@@ -5,10 +8,12 @@ import SearchOverlay from "@/components/templates/SearchOverlay";
 import { IGatheringItem } from "@/types/gatherings";
 import IconSearch from "@/assets/icons/IconSearch.svg";
 import IconNotification from "@/assets/icons/IconNotification.svg";
-import IconDropdown from "@/assets/icons/dropdown-arrow.svg";
 import { groupGatheringsByDate } from "@/utils/gatherings";
 import { formatDate } from "@/utils/day";
 import { useSearchStore } from "@/stores/searchStore";
+import { useModal } from "@/hooks/features/commons/useModal";
+import RegionSelectorModal from "@/components/molecules/RegionSelectorModal";
+import LocationSelectorDropdown from "../molecules/homefeed/LocationSelectorDropdown";
 
 interface HomeFeedTemplateProps {
   gatherings: IGatheringItem[];
@@ -24,19 +29,24 @@ export default function HomeFeedTemplate({
   const groupedList = groupGatheringsByDate(gatherings);
   const openSearch = useSearchStore((state) => state.open);
 
+  const [selectedLocation, setSelectedLocation] = useState("서초동");
+
+  const {
+    state: { isOpen: isModalOpen },
+    handlers: { handleOpenModal, handleCloseModal },
+  } = useModal();
+
   return (
     <div className="min-h-screen pt-[4.5rem] pb-28">
       <div className="mb-9 flex items-center justify-between">
-        <div className="flex items-center gap-0.5">
-          <h1 className="font-gsans-medium text-heading2-medium text-grey-950">
-            서초동
-          </h1>
-          <button>
-            <IconDropdown className="h-6 w-6" />
-          </button>
-        </div>
+        <LocationSelectorDropdown
+          selected={selectedLocation}
+          onSelect={setSelectedLocation}
+          onOpenModal={handleOpenModal}
+        />
+
         <div className="flex gap-4">
-          <button onClick={openSearch}>
+          <button onClick={openSearch} className="cursor-pointer">
             <IconSearch className="h-6 w-6" />
           </button>
           <button>
@@ -61,6 +71,15 @@ export default function HomeFeedTemplate({
 
       <GatheringCreateButton />
       <SearchOverlay />
+
+      <RegionSelectorModal
+        open={isModalOpen}
+        onClose={handleCloseModal}
+        onSelect={(region) => {
+          setSelectedLocation(region);
+          handleCloseModal();
+        }}
+      />
     </div>
   );
 }
