@@ -1,3 +1,6 @@
+"use client";
+
+import { useRegionStore } from "@/stores/useRegionStore";
 import InfoBox from "@/components/atoms/InfoBox/InfoBox";
 import ActivityRow from "@/components/molecules/ActivityRow";
 import SectionWithTitle from "@/components/organisms/profile/SectionWithTitle";
@@ -12,7 +15,6 @@ import IconSupport from "@/assets/icons/IconSupport.svg";
 
 type ProfilePageProps = {
   name: string;
-  location: string;
   meetingCount: number;
   createdCount: number;
   recordCount: number;
@@ -20,11 +22,12 @@ type ProfilePageProps = {
 
 export default function ProfilePage({
   name,
-  location,
   meetingCount,
   createdCount,
   recordCount,
 }: ProfilePageProps) {
+  const region = useRegionStore((state) => state.region);
+
   return (
     <main className="h-full w-full px-4 py-6 text-sm">
       <h1 className="text-heading1-medium font-gsans-medium mb-6 text-center">
@@ -39,19 +42,40 @@ export default function ProfilePage({
       </section>
 
       <SectionWithTitle title="활동">
-        <ActivityRow label="내 모임" icon={<IconGroup />} />
-        <ActivityRow label="내 뱃지" icon={<IconMedal />} />
-        <ActivityRow label="친구 초대하기" icon={<IconAddNew />} />
         <ActivityRow
+          href="/profile/mygathering"
+          label="내 모임"
+          icon={<IconGroup className="h-5 w-5" />}
+        />
+        <ActivityRow
+          href="/profile/badge"
+          label="내 뱃지"
+          icon={<IconMedal className="h-5 w-5" />}
+        />
+        <ActivityRow
+          href="/profile/invite"
+          label="친구 초대하기"
+          icon={<IconAddNew className="h-5 w-5" />}
+        />
+        <ActivityRow
+          href="/profile/region"
           label="지역 설정"
-          value={location}
-          icon={<IconLocation />}
+          value={region || "미설정"}
+          icon={<IconLocation className="h-5 w-5" />}
         />
       </SectionWithTitle>
 
       <SectionWithTitle title="알림">
-        <ActivityRow label="공지사항" icon={<IconMegaphone />} />
-        <ActivityRow label="고객센터" icon={<IconSupport />} />
+        <ActivityRow
+          href="/profile/announcement"
+          label="공지사항"
+          icon={<IconMegaphone className="h-5 w-5" />}
+        />
+        <ActivityRow
+          href="/profile/service"
+          label="고객센터"
+          icon={<IconSupport className="h-5 w-5" />}
+        />
       </SectionWithTitle>
     </main>
   );
