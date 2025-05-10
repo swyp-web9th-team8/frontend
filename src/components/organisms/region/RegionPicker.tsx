@@ -1,16 +1,19 @@
 import { useState } from "react";
 import RegionOptionGrid from "@/components/molecules/region/RegionOptionGrid";
+import clsx from "clsx";
 
 interface RegionPickerProps {
   dongMap: Record<string, string[]>;
   guList: string[];
   onComplete: (gu: string, dong: string) => void;
+  className?: string;
 }
 
 export default function RegionPicker({
   guList,
   dongMap,
   onComplete,
+  className = "p-6",
 }: RegionPickerProps) {
   const [step, setStep] = useState<"GU" | "DONG">("GU");
   const [selectedGu, setSelectedGu] = useState("");
@@ -22,7 +25,7 @@ export default function RegionPicker({
   const isDisabled = step === "GU" ? !selectedGu : !selectedDong;
 
   return (
-    <div className="flex h-full flex-col gap-9 p-6">
+    <div className={clsx("flex h-full flex-col gap-9", className)}>
       <h2 className="text-heading1-bold font-gsans-bold">
         {step === "GU" ? (
           <>
