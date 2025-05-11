@@ -15,6 +15,9 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
+  "overrides": {
+    "yaml": "^2.7.1"
+  },
   "dependencies": {
     "@tanstack/react-query": "^5.74.0",
     "@types/react-slick": "^0.23.13",
