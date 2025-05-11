@@ -19,7 +19,7 @@ export default function EditNicknamePage() {
   };
 
   const onSubmit = async (data: { nickname: string }) => {
-    const { nickname } = data;
+    console.log("닉네임 변경:", data.nickname);
     // TODO: 서버에 닉네임 변경 요청
     // await updateNickname(nickname);
     router.push("/profile/edit");

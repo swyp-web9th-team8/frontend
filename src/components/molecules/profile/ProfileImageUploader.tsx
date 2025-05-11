@@ -4,6 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { useRef, useState } from "react";
 import Avatar from "@/assets/icons/avatar.svg";
 import IconWrite from "@/assets/icons/IconWrite.svg";
+import Image from "next/image";
 
 export default function ProfileImageUploader() {
   const { register, setValue } = useFormContext();
@@ -30,10 +31,12 @@ export default function ProfileImageUploader() {
     <div className="relative mx-auto mb-[1.875rem] w-fit">
       <button type="button" onClick={handleClick}>
         {preview ? (
-          <img
+          <Image
             src={preview}
-            alt="프로필 이미지"
-            className="h-18 w-18 rounded-full object-cover"
+            alt="미리보기"
+            width={72}
+            height={72}
+            className="rounded-full object-cover"
           />
         ) : (
           <Avatar className="h-18 w-18 rounded-full" />
