@@ -13,7 +13,7 @@ function Empty({ largeText, smallText, children }: Props) {
         {largeText}
       </p>
       {smallText && (
-        <p className="text-greyscale-gray-950 mb-9 justify-start self-stretch text-center text-base leading-normal font-medium">
+        <p className="text-greyscale-gray-950 mb-9 justify-start self-stretch text-center text-base leading-normal font-medium whitespace-pre-line">
           {smallText}
         </p>
       )}
