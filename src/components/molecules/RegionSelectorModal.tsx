@@ -23,7 +23,7 @@ export default function RegionSelectorModal({
   };
 
   return (
-    <Modal onClose={onClose} position="center">
+    <Modal onClose={onClose} position="bottom">
       <RegionPicker
         guList={GU_LIST}
         dongMap={DONG_MAP}
