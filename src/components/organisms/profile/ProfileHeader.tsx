@@ -17,7 +17,7 @@ export default function ProfileHeader({ name }: { name: string }) {
           </button>
         </div>
       </div>
-      <Badge />
+      <Badge className="h-[3.6875rem] w-[3.375rem]" />
     </section>
   );
 }
