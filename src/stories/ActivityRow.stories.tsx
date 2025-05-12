@@ -24,6 +24,7 @@ export const WithIcon: Story = {
   args: {
     label: "내 모임",
     icon: <IconGroup />,
+    href: "#",
   },
   parameters: {
     docs: {
@@ -39,6 +40,7 @@ export const WithValue: Story = {
     label: "지역 설정",
     value: "강남구 개포1동",
     icon: <IconLocation />,
+    href: "#",
   },
   parameters: {
     docs: {
