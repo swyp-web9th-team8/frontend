@@ -13,9 +13,9 @@ export default function Tooltip({ text }: TooltipProps) {
         <TooltipIcon />
       </div>
       <div className="invisible absolute bottom-full left-1/2 z-10 mb-2 w-max -translate-x-1/3 group-hover:visible">
-        <div className="relative rounded-md bg-[#1A1A1A] px-3 py-2 text-xs text-white shadow">
+        <div className="text-body3-medium relative rounded-md bg-gray-950 px-[14px] py-3 text-xs text-white shadow">
           {text}
-          <div className="absolute -bottom-1 left-1/3 h-2 w-2 -translate-x-1/2 rotate-45 bg-[#1A1A1A]" />
+          <div className="absolute -bottom-1 left-1/3 h-2 w-2 -translate-x-1/2 rotate-45 bg-gray-950" />
         </div>
       </div>
     </div>
