@@ -55,7 +55,11 @@ export default function HomeFeedTemplate({
         </div>
       </div>
 
-      <GatheringFilterTabs selected={isClosedView} onChange={onChangeTab} />
+      <GatheringFilterTabs
+        tabLabels={["모집중인 모임", "모집 완료된 모임"]}
+        selected={isClosedView}
+        onChange={onChangeTab}
+      />
 
       {groupedList.map((items) => {
         const date = formatDate(items[0].meetingTime, "yyyy-MM-dd");

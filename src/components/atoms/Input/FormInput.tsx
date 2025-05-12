@@ -41,7 +41,7 @@ const FormInput = ({
         {...register(name, validationRules)}
         type={type}
         placeholder={placeholder}
-        className={`placeholder:text-body2-medium placeholder:font-gsans-medium placeholder:text-grey-300 text-body2-medium font-gsans-medium h-12 rounded-full px-4 pt-5 pb-4 ${inputBorderClass}`}
+        className={`placeholder:text-body2-medium placeholder:font-gsans-medium placeholder:text-grey-300 text-body2-medium font-gsans-medium h-12 rounded-2xl px-4 pt-5 pb-4 ${inputBorderClass}`}
       />
       {errors[name] && (
         <span className="text-[0.75rem] font-medium text-[#EB4E2A]">{`${errors[name]?.message}`}</span>

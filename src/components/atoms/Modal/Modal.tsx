@@ -7,6 +7,7 @@ interface ModalProps {
   onClose: () => void;
   position?: "center" | "bottom";
   disableOutsideClick?: boolean;
+  variant?: "default" | "plain";
 }
 
 export default function Modal({
@@ -14,6 +15,7 @@ export default function Modal({
   onClose,
   position = "bottom",
   disableOutsideClick = false,
+  variant = "default",
 }: ModalProps) {
   useEffect(() => {
     const originalOverflow = document.body.style.overflow;
@@ -31,20 +33,28 @@ export default function Modal({
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-end bg-black/40 pt-[3.25rem] ${position === "center" ? "justify-center" : " "}`}
+      className={`fixed inset-0 z-50 flex bg-black/40 ${
+        position === "center"
+          ? "items-center justify-center"
+          : "items-end pt-[3.25rem]"
+      }`}
       onClick={handleOutsideClick}
     >
       <div
-        className={`relative w-full max-w-md bg-[#F6F6F6] ${
-          position === "center" ? "rounded-t-2xl" : "mt-auto rounded-t-2xl"
-        }`}
+        className={`relative max-w-md ${
+          variant === "default"
+            ? "bg-[#F6F6F6]"
+            : "bg-white p-6 text-center shadow-lg"
+        } ${position === "center" ? "w-[85%] rounded-2xl" : "mt-auto w-full rounded-t-2xl"}`}
       >
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 cursor-pointer text-2xl"
-        >
-          ×
-        </button>
+        {variant === "default" && (
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 cursor-pointer text-2xl"
+          >
+            ×
+          </button>
+        )}
         {children}
       </div>
     </div>
