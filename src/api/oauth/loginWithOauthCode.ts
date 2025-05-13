@@ -16,8 +16,14 @@ export const loginWithOauthCode = async (
   provider: "kakao" | "google",
   code: string,
 ): Promise<OAuthLoginResponse> => {
-  const url = `/auth/${provider}`;
-  const payload = { code };
+  const isGoogle = provider === "google";
 
-  return await requestHandler("post", url, payload);
+  const url = isGoogle
+    ? `/api/auth/google/callback?code=${encodeURIComponent(code)}`
+    : `/auth/kakao`;
+
+  const method = isGoogle ? "get" : "post";
+  const payload = isGoogle ? undefined : { code };
+
+  return await requestHandler(method, url, payload);
 };
