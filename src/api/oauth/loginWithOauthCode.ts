@@ -1,10 +1,22 @@
 import { requestHandler } from "@/lib/axiosInstance";
 
+interface OAuthLoginResponse {
+  user: {
+    id: number;
+    email: string;
+    nickname: string;
+    provider: "GOOGLE" | "KAKAO";
+    registered: boolean;
+  };
+  accessToken: string;
+  refreshToken: string;
+}
+
 export const loginWithOauthCode = async (
   provider: "kakao" | "google",
   code: string,
-) => {
-  const url = `/auth/${provider}`; // TODO: 백엔드 엔드포인트 확정 시 수정
+): Promise<OAuthLoginResponse> => {
+  const url = `/auth/${provider}`;
   const payload = { code };
 
   return await requestHandler("post", url, payload);
