@@ -9,6 +9,6 @@ export interface IGatheringFormValues {
 }
 
 export interface ICreateFormValues {
-  images: string[];
-  attendance: string[]; // 닉네임
+  images: File[];
+  attendance: number[]; // 닉네임
 }
