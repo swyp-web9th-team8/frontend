@@ -1,3 +1,4 @@
+import { ToastProvider } from "@/components/molecules/toast/ToastContext";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -28,8 +29,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} relative mx-auto flex min-h-screen max-w-[500px] flex-col antialiased`}
       >
-        <div className="relative flex min-h-screen flex-col px-5">
-          <ReactQueryProvider>{children}</ReactQueryProvider>
+        <div className="relative h-screen px-5">
+          <ReactQueryProvider>
+            <ToastProvider>{children}</ToastProvider>
+          </ReactQueryProvider>
         </div>
       </body>
     </html>

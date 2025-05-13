@@ -1,43 +1,32 @@
 import InputWithModal from "@/components/molecules/input/InputWithModal";
 import AttendanceList from "@/components/organisms/review/AttendanceList";
-import { ATTENDANCE_LIST } from "@/data/attendence";
+import { IReviewCreateResponse } from "@/types/review";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 interface Props {
   name: string;
+  allMembers: IReviewCreateResponse["allMembers"];
 }
 
-type AttendanceState = Record<number, boolean>;
-
-function AttendanceManager({ name }: Props) {
+function AttendanceManager({ name, allMembers }: Props) {
   const { setValue } = useFormContext();
-  const [attendance, setAttendance] = useState<AttendanceState>({});
+  const [attendanceIds, setAttendanceIds] = useState<number[]>([]);
 
-  const handleCheckbox = (id: number) => {
-    setAttendance((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
-  };
-
-  const getSelectedAttendanceNames = (
-    attendanceState: AttendanceState,
-  ): string[] => {
-    return Object.entries(attendanceState)
-      .filter(([, isChecked]) => isChecked)
-      .map(([id]) => {
-        const attendance = ATTENDANCE_LIST.find(
-          (item) => item.id === Number(id),
-        );
-        return attendance?.name ?? "";
-      })
-      .filter(Boolean);
+  const handleCheckbox = (userId: number) => {
+    setAttendanceIds((prev) =>
+      prev.includes(userId)
+        ? prev.filter((id) => id !== userId)
+        : [...prev, userId],
+    );
   };
 
   const handleModalConfirm = () => {
-    const selectedNames = getSelectedAttendanceNames(attendance);
-    setValue(name, selectedNames.join(", "));
+    const attendance = allMembers
+      .filter((member) => attendanceIds.includes(member.id))
+      .map((member) => member.nickname);
+
+    setValue(name, attendance.join(", "));
   };
 
   return (
@@ -46,7 +35,11 @@ function AttendanceManager({ name }: Props) {
       onConfirm={handleModalConfirm}
       placeholder="참여한 사람들을 체크해주세요"
     >
-      <AttendanceList attendance={attendance} onCheck={handleCheckbox} />
+      <AttendanceList
+        attendance={attendanceIds}
+        onCheck={handleCheckbox}
+        allMembers={allMembers}
+      />
     </InputWithModal>
   );
 }

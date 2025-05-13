@@ -1,22 +1,23 @@
 import AttendanceItem from "@/components/molecules/review/AttendanceItem";
-import { ATTENDANCE_LIST } from "@/data/attendence";
+import { IReviewCreateResponse } from "@/types/review";
 
 interface Props {
-  attendance: Record<number, boolean>;
+  attendance: number[];
   onCheck: (id: number) => void;
+  allMembers: IReviewCreateResponse["allMembers"];
 }
 
-function AttendanceList({ attendance, onCheck }: Props) {
+function AttendanceList({ attendance, onCheck, allMembers }: Props) {
   return (
     <div className="flex flex-col gap-[30px]">
       <p className="text-heading2-medium text-gray-950">출석체크 해주세요</p>
       <div className="flex flex-col gap-4.5">
-        {ATTENDANCE_LIST.map((item) => (
+        {allMembers.map((item) => (
           <AttendanceItem
             key={item.id}
-            name={item.name}
-            isChecked={attendance[item.id]}
-            imageUrl={item.imageUrl}
+            name={item.nickname}
+            isChecked={attendance.includes(item.id)}
+            imageUrl={item.imageUrl ?? undefined}
             onCheck={onCheck}
             id={item.id}
           />
