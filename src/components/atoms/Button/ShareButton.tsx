@@ -12,7 +12,7 @@ function ShareButton({ size = 28, title, text, href }: Props) {
     const sharedData = {
       title: title,
       text: text,
-      url: href ?? "https://polggo.co.kr",
+      url: href ?? "https://ploggo.co.kr",
     };
 
     try {

@@ -1,10 +1,10 @@
 "use client";
 
-import "react-day-picker/style.css";
-
-import styles from "@/styles/Calendar.module.css";
 import { ko } from "date-fns/locale";
 import { DayPicker, getDefaultClassNames } from "react-day-picker";
+import "react-day-picker/style.css";
+// css override
+import styles from "@/styles/Calendar.module.css";
 
 interface CalendarProps {
   date: Date;
@@ -13,6 +13,7 @@ interface CalendarProps {
 
 const Calendar = ({ date, onSelect }: CalendarProps) => {
   const defaultClassNames = getDefaultClassNames();
+  const today = new Date();
 
   return (
     <DayPicker
@@ -20,6 +21,7 @@ const Calendar = ({ date, onSelect }: CalendarProps) => {
       mode="single"
       showOutsideDays
       selected={date}
+      disabled={{ before: today }}
       onDayClick={onSelect}
       classNames={{
         today: `text-black`,

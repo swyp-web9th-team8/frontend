@@ -10,8 +10,10 @@ import { DUE_TIME_OPTIONS } from "@/constants/createForm";
 import { IGatheringFormValues } from "@/types/form";
 import { FormProvider, useForm } from "react-hook-form";
 import Input from "../atoms/Input/Input";
+import CreateButton from "../molecules/gatherings/CreateButton";
 import InputWithCount from "../molecules/input/InputWithCount";
 import InputWithDropdown from "../molecules/input/InputWithDropdown";
+import InputWithLocation from "../molecules/input/InputwithLocation";
 
 export default function GatheringsCreatePage() {
   const methods = useForm<IGatheringFormValues>({
@@ -21,7 +23,26 @@ export default function GatheringsCreatePage() {
   const {
     handleSubmit,
     formState: { isValid },
+    watch,
   } = methods;
+
+  const title = watch("title");
+  const contents = watch("contents");
+  const calendarDate = watch("calendarDate");
+  const startTime = watch("startTime");
+  const location = watch("location");
+  const maxParticipants = watch("maxParticipants");
+  const dueTime = watch("dueTime");
+
+  const isActive = !!(
+    title &&
+    contents &&
+    calendarDate &&
+    startTime &&
+    location &&
+    maxParticipants &&
+    dueTime
+  );
 
   const onSubmit = (data: IGatheringFormValues) => {
     console.log("모임생성 데이터:", data);
@@ -29,14 +50,17 @@ export default function GatheringsCreatePage() {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="mb-[31px] flex flex-1 flex-col gap-6"
+      >
         <InputWithLabel label="모임 제목" name="title">
           <Input
             name="title"
             label="모임 제목"
             placeholder="모임 제목을 입력해주세요."
             validationRules={{
-              required: "모임 제목을 입력해주세요",
+              required: true,
             }}
           />
         </InputWithLabel>
@@ -47,7 +71,7 @@ export default function GatheringsCreatePage() {
               placeholder="내용을 입력해주세요"
               rows={6}
               validationRules={{
-                required: "내용을 입력해주세요",
+                required: true,
                 maxLength: {
                   value: 150,
                   message: "150자를 초과할 수 없어요",
@@ -62,23 +86,51 @@ export default function GatheringsCreatePage() {
               <InputWithCalendar
                 name="calendarDate"
                 placeholder="4월 30일(수)"
+                validationRules={{
+                  required: true,
+                }}
               />
             </InputWithLabel>
           </div>
           <div className="w-32">
             <InputWithLabel label="모임 시간" name="startTime">
-              <InputWithTimePicker name="startTime" placeholder="오후 7:00" />
+              <InputWithTimePicker
+                name="startTime"
+                placeholder="오후 7:00"
+                validationRules={{ required: true }}
+              />
             </InputWithLabel>
           </div>
         </div>
+        <InputWithLabel label="모임 장소" name="location">
+          <InputWithLocation
+            name="location"
+            placeholder="장소를 지정해주세요"
+            validationRules={{ required: true }}
+          />
+        </InputWithLabel>
         <div className="flex gap-[25px]">
-          <InputWithLabel label="최대인원" name="maxParticipants">
+          <InputWithLabel
+            label="최대인원"
+            name="maxParticipants"
+            tooltip="본인 포함 최대인원 수를 적어주세요"
+          >
             <InputWithUnit unit="명">
-              <Input name="maxParticipants" type="number" max={10} min={1} />
+              <Input
+                name="maxParticipants"
+                type="number"
+                max={10}
+                min={1}
+                validationRules={{ required: true }}
+              />
             </InputWithUnit>
           </InputWithLabel>
           <InputWithLabel label="참여 신청 마감" name="dueTime">
-            <InputWithDropdown name="dueTime" options={DUE_TIME_OPTIONS} />
+            <InputWithDropdown
+              name="dueTime"
+              options={DUE_TIME_OPTIONS}
+              validationRules={{ required: true }}
+            />
           </InputWithLabel>
         </div>
         <InputWithLabel label="카카오톡 링크" name="kakaoLink">
@@ -88,13 +140,13 @@ export default function GatheringsCreatePage() {
             rows={6}
           />
         </InputWithLabel>
-        <button
-          type="submit"
-          className="cursor-pointer rounded-xl bg-[#59AC6E] px-[7.5rem] py-3 text-white disabled:bg-[#D1D1D1] disabled:opacity-50"
-          disabled={!isValid}
+
+        <CreateButton
+          isActive={isActive && isValid}
+          message="모임장은 모인 후에 최소 사진 1장을 올려주셔야 해요"
         >
           완료
-        </button>
+        </CreateButton>
       </form>
     </FormProvider>
   );
