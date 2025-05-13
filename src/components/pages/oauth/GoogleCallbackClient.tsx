@@ -1,27 +1,50 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useOauthLogin } from "@/hooks/mutations/useOauthLogin";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useAuthStore } from "@/stores/useAuthStore";
+import axios from "axios";
 
-export default function KakaoCallbackPage() {
+export default function GoogleCallbackClient() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const code = searchParams.get("code");
-  const router = useRouter();
-  const { mutate } = useOauthLogin();
+  const { login } = useAuthStore();
 
   useEffect(() => {
-    if (code) {
-      mutate(
-        { provider: "google", code },
-        {
-          onSuccess: () => {
-            router.push("/");
+    const handleGoogleLogin = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/login/oauth2/code/google`,
+          {
+            params: { code },
+            withCredentials: true,
           },
-        },
-      );
-    }
-  }, [mutate, router, code]);
+        );
 
-  return <div className="mt-20 text-center">로그인 처리 중입니다...</div>;
+        const { accessToken, refreshToken, user } = response.data;
+        const isNewUser = user.registered === false;
+
+        login({
+          user: {
+            id: user.id,
+            email: user.email,
+            nickname: user.nickname,
+            provider: user.provider,
+          },
+          accessToken,
+          refreshToken,
+        });
+
+        router.replace(isNewUser ? "/signup" : "/home");
+      } catch (error) {
+        console.error("Google 로그인 실패:", error);
+        router.replace("/login?error=google");
+      }
+    };
+
+    if (code) handleGoogleLogin();
+  }, [code, login, router]);
+
+  return <p>구글 로그인 처리 중입니다...</p>;
 }
