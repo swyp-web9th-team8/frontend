@@ -1,3 +1,3 @@
 export const getKakaoAuthURL = () => {
-  return `http://localhost:8080/oauth2/authorization/kakao`;
+  return `${process.env.NEXT_PUBLIC_SERVER_URL}/oauth2/authorization/kakao`;
 };
