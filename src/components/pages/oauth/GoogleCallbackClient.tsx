@@ -11,13 +11,13 @@ export default function GoogleCallbackClient() {
   const code = searchParams.get("code");
   const { login } = useAuthStore();
 
-  console.log(
-    "✅ 요청 URL:",
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/google/callback`,
-  );
-
   useEffect(() => {
     const handleGoogleLogin = async () => {
+      console.log(
+        "✅ 요청 URL:",
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/google/callback`,
+      );
+
       try {
         const response = await axios.get(
           // `${process.env.NEXT_PUBLIC_SERVER_URL}/login/oauth2/code/google`,
