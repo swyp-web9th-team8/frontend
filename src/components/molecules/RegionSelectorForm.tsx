@@ -1,64 +1,10 @@
 "use client";
 
-import { useFormContext } from "react-hook-form";
 import { useState } from "react";
+import { useFormContext } from "react-hook-form";
+import { useQuery } from "@tanstack/react-query";
+import { requestHandler } from "@/lib/axiosInstance";
 import Modal from "@/components/atoms/Modal/Modal";
-
-const GU_LIST = [
-  "강남구",
-  "강동구",
-  "강북구",
-  "강서구",
-  "관악구",
-  "광진구",
-  "구로구",
-  "금천구",
-  "노원구",
-  "도봉구",
-  "동대문구",
-  "동작구",
-  "마포구",
-  "서대문구",
-  "서초구",
-  "성동구",
-  "성북구",
-  "송파구",
-  "양천구",
-  "영등포구",
-  "용산구",
-  "은평구",
-  "종로구",
-  "중구",
-  "중랑구",
-];
-
-const DONG_MAP: Record<string, string[]> = {
-  강남구: [
-    "신사동",
-    "논현1동",
-    "논현2동",
-    "압구정동",
-    "청담동",
-    "삼성1동",
-    "삼성2동",
-    "대치1동",
-    "대치2동",
-    "대치4동",
-    "역삼1동",
-    "역삼2동",
-    "도곡1동",
-    "도곡2동",
-    "개포1동",
-    "개포2동",
-    "개포3동",
-    "개포4동",
-    "세곡동",
-    "일원본동",
-    "일원1동",
-    "수서동",
-  ],
-  // 다른 구의 동도 필요시 여기에 추가
-};
 
 export default function RegionSelectorForm() {
   const { setValue, watch } = useFormContext();
@@ -69,11 +15,27 @@ export default function RegionSelectorForm() {
   const [selectedGu, setSelectedGu] = useState("");
   const [selectedDong, setSelectedDong] = useState("");
 
-  const resetState = () => {
-    setStep("GU");
-    setSelectedGu("");
-    setSelectedDong("");
-  };
+  // 구 리스트 요청
+  const { data: districts = [] } = useQuery({
+    queryKey: ["districts"],
+    queryFn: async () => {
+      const res = await requestHandler("get", "/api/regions/districts");
+      return res.districts;
+    },
+  });
+
+  // 동 리스트 요청 (선택된 구 있을 때만 요청)
+  const { data: neighborhoods = [] } = useQuery({
+    queryKey: ["neighborhoods", selectedGu],
+    queryFn: async () => {
+      const res = await requestHandler(
+        "get",
+        `/api/regions/neighborhoods?district=${encodeURIComponent(selectedGu)}`,
+      );
+      return res.neighborhoods;
+    },
+    enabled: !!selectedGu,
+  });
 
   const handleGuSelect = (gu: string) => {
     setSelectedGu(gu);
@@ -87,22 +49,48 @@ export default function RegionSelectorForm() {
     const fullRegion = `${selectedGu} ${selectedDong}`;
     setValue("region", fullRegion);
     setOpen(false);
-    resetState();
+    setStep("GU");
+    setSelectedGu("");
+    setSelectedDong("");
   };
 
   const handleClose = () => {
     setOpen(false);
-    resetState();
+    setStep("GU");
+    setSelectedGu("");
+    setSelectedDong("");
   };
 
   const isButtonDisabled = () => {
-    if (step === "GU") {
-      return !selectedGu;
-    }
-    if (step === "DONG") {
-      return !selectedDong;
-    }
+    if (step === "GU") return !selectedGu;
+    if (step === "DONG") return !selectedDong;
     return false;
+  };
+
+  const renderList = () => {
+    const items = step === "GU" ? districts : neighborhoods;
+
+    if (!Array.isArray(items)) return null;
+
+    return items.map((name) => {
+      const isSelected =
+        (step === "GU" && selectedGu === name) ||
+        (step === "DONG" && selectedDong === name);
+
+      return (
+        <button
+          key={name}
+          onClick={() =>
+            step === "GU" ? handleGuSelect(name) : handleDongSelect(name)
+          }
+          className={`font-gsans-medium text-body1-medium cursor-pointer rounded-xl px-4 py-3 ${
+            isSelected ? "bg-green text-grey-0" : "bg-grey-0 text-grey-950"
+          }`}
+        >
+          {name}
+        </button>
+      );
+    });
   };
 
   return (
@@ -115,7 +103,7 @@ export default function RegionSelectorForm() {
       </div>
 
       {open && (
-        <Modal onClose={handleClose} position="center">
+        <Modal onClose={handleClose} position="bottom">
           <div className="mt-[1.125rem] flex h-full flex-col gap-9 p-6">
             <h2 className="text-heading1-bold font-gsans-bold">
               {step === "GU" ? (
@@ -130,30 +118,7 @@ export default function RegionSelectorForm() {
             </h2>
 
             <div className="grid h-[34.375rem] grid-cols-3 gap-2.5 overflow-y-auto">
-              {(step === "GU" ? GU_LIST : DONG_MAP[selectedGu] || []).map(
-                (name) => {
-                  const isSelected =
-                    (step === "GU" && selectedGu === name) ||
-                    (step === "DONG" && selectedDong === name);
-                  return (
-                    <button
-                      key={name}
-                      onClick={() =>
-                        step === "GU"
-                          ? handleGuSelect(name)
-                          : handleDongSelect(name)
-                      }
-                      className={`font-gsans-medium text-body1-medium cursor-pointer rounded-xl px-4 py-3 ${
-                        isSelected
-                          ? "bg-green text-grey-0"
-                          : "bg-grey-0 text-grey-950"
-                      }`}
-                    >
-                      {name}
-                    </button>
-                  );
-                },
-              )}
+              {renderList()}
             </div>
 
             <button

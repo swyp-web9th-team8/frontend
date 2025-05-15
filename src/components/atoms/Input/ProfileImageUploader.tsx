@@ -41,7 +41,7 @@ export default function ProfileImageUploader() {
             height={108}
           />
         ) : (
-          <IconAdd />
+          <IconAdd className="h-7 w-7" />
         )}
       </div>
       <label className="text-grey-950 font-gsans-medium text-body1-medium block">

@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig } from "axios";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 const DEFAULT_TIMEOUT = 5000;
@@ -8,9 +8,9 @@ export const createClient = (config?: AxiosRequestConfig) => {
     baseURL: BASE_URL,
     timeout: DEFAULT_TIMEOUT,
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-    withCredentials: false,
+    withCredentials: true,
     ...config,
   });
 
@@ -19,7 +19,7 @@ export const createClient = (config?: AxiosRequestConfig) => {
 
 export const httpClient = createClient();
 
-type RequestMethod = 'get' | 'post' | 'put' | 'delete';
+type RequestMethod = "get" | "post" | "put" | "delete";
 
 export const requestHandler = async <T>(
   method: RequestMethod,
@@ -33,16 +33,16 @@ export const requestHandler = async <T>(
     let response;
 
     switch (method) {
-      case 'post':
+      case "post":
         response = await client.post(url, payload);
         break;
-      case 'get':
+      case "get":
         response = await client.get(url);
         break;
-      case 'put':
+      case "put":
         response = await client.put(url, payload);
         break;
-      case 'delete':
+      case "delete":
         response = await client.delete(url);
         break;
       default:
@@ -51,7 +51,7 @@ export const requestHandler = async <T>(
 
     return response.data;
   } catch (error) {
-    console.error('API 요청 중 오류 발생:', error);
+    console.error("API 요청 중 오류 발생:", error);
     throw error;
   }
 };

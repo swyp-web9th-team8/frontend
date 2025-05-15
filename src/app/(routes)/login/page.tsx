@@ -19,7 +19,7 @@ export default function LoginPage() {
           <GoogleLoginButton />
         </div>
         <div className="flex gap-1">
-          <IconExclamation />
+          <IconExclamation className="h-4 w-4" />
           <p className="text-grey-400 font-gsans-medium text-body3-medium">
             안전한 줍깅이 활동을 위해 로그인을 해야 이용 가능해요
           </p>
