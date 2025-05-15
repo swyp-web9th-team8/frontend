@@ -15,8 +15,8 @@ interface AuthState {
   refreshToken: string | null;
   login: (payload: {
     user: User;
-    accessToken: string;
-    refreshToken: string;
+    accessToken?: string;
+    refreshToken?: string;
   }) => void;
   logout: () => void;
 }
@@ -30,7 +30,7 @@ export const useAuthStore = create<AuthState>()(
         accessToken: null,
         refreshToken: null,
 
-        login: ({ user, accessToken, refreshToken }) =>
+        login: ({ user, accessToken = null, refreshToken = null }) =>
           set({
             isLoggedIn: true,
             user,
