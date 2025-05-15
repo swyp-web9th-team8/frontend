@@ -16,6 +16,7 @@ import RegionSelectorModal from "@/components/molecules/RegionSelectorModal";
 import LocationSelectorDropdown from "../molecules/homefeed/LocationSelectorDropdown";
 import { getDongFromRegion } from "@/utils/region";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { useRegionStore } from "@/stores/useRegionStore";
 
 interface HomeFeedTemplateProps {
   gatherings: IGatheringItem[];
@@ -30,16 +31,17 @@ export default function HomeFeedTemplate({
 }: HomeFeedTemplateProps) {
   const groupedList = groupGatheringsByDate(gatherings);
   const openSearch = useSearchStore((state) => state.open);
+  const authRegion = useAuthStore((state) => state.user?.region);
 
-  const region = useAuthStore((state) => state.user?.region);
-  const [selectedLocation, setSelectedLocation] = useState("");
+  const region = useRegionStore((state) => state.region);
+  const setRegion = useRegionStore((state) => state.setRegion);
 
   useEffect(() => {
-    if (region) {
-      const dong = getDongFromRegion(region);
-      setSelectedLocation(dong);
+    if (!region && authRegion) {
+      const dong = getDongFromRegion(authRegion);
+      setRegion(dong);
     }
-  }, [region]);
+  }, [authRegion, region, setRegion]);
 
   const {
     state: { isOpen: isModalOpen },
@@ -50,8 +52,8 @@ export default function HomeFeedTemplate({
     <div className="min-h-screen pt-[4.5rem] pb-28">
       <div className="mb-9 flex items-center justify-between">
         <LocationSelectorDropdown
-          selected={selectedLocation}
-          onSelect={setSelectedLocation}
+          selected={region || ""}
+          onSelect={setRegion}
           onOpenModal={handleOpenModal}
         />
 
@@ -90,7 +92,7 @@ export default function HomeFeedTemplate({
         open={isModalOpen}
         onClose={handleCloseModal}
         onSelect={(region) => {
-          setSelectedLocation(region);
+          setRegion(region);
           handleCloseModal();
         }}
       />

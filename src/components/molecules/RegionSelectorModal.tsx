@@ -2,7 +2,6 @@
 
 import Modal from "@/components/atoms/Modal/Modal";
 import RegionPicker from "@/components/organisms/region/RegionPicker";
-import { GU_LIST, DONG_MAP } from "@/data/regions";
 
 interface RegionSelectorModalProps {
   open: boolean;
@@ -24,11 +23,7 @@ export default function RegionSelectorModal({
 
   return (
     <Modal onClose={onClose} position="bottom">
-      <RegionPicker
-        guList={GU_LIST}
-        dongMap={DONG_MAP}
-        onComplete={handleComplete}
-      />
+      <RegionPicker onComplete={handleComplete} />
     </Modal>
   );
 }
