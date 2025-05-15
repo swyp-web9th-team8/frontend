@@ -2,11 +2,11 @@ import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { SignupFormValues } from "@/types/signup";
 import { requestHandler } from "@/lib/axiosInstance";
+import { AxiosError } from "axios";
 
 export const useSignup = () => {
   const router = useRouter();
   const { user } = useAuthStore();
-
   const handleSubmitSignup = async (data: SignupFormValues) => {
     const email = user?.email;
     if (!email) {
@@ -34,14 +34,18 @@ export const useSignup = () => {
       } else {
         alert(response.error || "회원가입에 실패했습니다.");
       }
-    } catch (error: any) {
-      if (error.response?.data?.error === "Not authenticated") {
-        alert("로그인 인증이 필요합니다. 다시 로그인해주세요.");
-        router.push("/login");
+    } catch (error: unknown) {
+      if (error instanceof AxiosError && error.response?.data?.error) {
+        const errorMsg = error.response.data.error;
+
+        if (errorMsg === "Not authenticated") {
+          alert("로그인 인증이 필요합니다. 다시 로그인해주세요.");
+          router.push("/login");
+        } else {
+          alert(errorMsg || "회원가입에 실패했습니다.");
+        }
       } else {
-        alert(
-          error.response?.data?.error || "예기치 않은 오류가 발생했습니다.",
-        );
+        alert("예기치 않은 오류가 발생했습니다.");
       }
     }
   };
