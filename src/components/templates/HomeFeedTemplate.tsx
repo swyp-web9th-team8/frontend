@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GatheringCreateButton from "@/components/atoms/Button/GatheringCreateButton";
 import GatheringFilterTabs from "@/components/molecules/homegatherings/GatheringFilterTabs";
 import GatheringListGroup from "@/components/organisms/homegatherings/GatheringListGroup";
@@ -14,6 +14,8 @@ import { useSearchStore } from "@/stores/searchStore";
 import { useModal } from "@/hooks/features/commons/useModal";
 import RegionSelectorModal from "@/components/molecules/RegionSelectorModal";
 import LocationSelectorDropdown from "../molecules/homefeed/LocationSelectorDropdown";
+import { getDongFromRegion } from "@/utils/region";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 interface HomeFeedTemplateProps {
   gatherings: IGatheringItem[];
@@ -29,7 +31,15 @@ export default function HomeFeedTemplate({
   const groupedList = groupGatheringsByDate(gatherings);
   const openSearch = useSearchStore((state) => state.open);
 
-  const [selectedLocation, setSelectedLocation] = useState("서초동");
+  const region = useAuthStore((state) => state.user?.region);
+  const [selectedLocation, setSelectedLocation] = useState("");
+
+  useEffect(() => {
+    if (region) {
+      const dong = getDongFromRegion(region);
+      setSelectedLocation(dong);
+    }
+  }, [region]);
 
   const {
     state: { isOpen: isModalOpen },
