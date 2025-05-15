@@ -4,6 +4,12 @@ import { devtools, persist } from "zustand/middleware";
 export interface User {
   id: number;
   email: string;
+  nickname: string;
+  gender: "male" | "female";
+  provider: "KAKAO" | "GOOGLE";
+  registered: boolean;
+  region: string; // 예: "강남구 개포동"
+  profileImageUrl: string;
 }
 
 interface AuthState {
