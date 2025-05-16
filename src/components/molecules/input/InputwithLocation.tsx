@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import useOutsideClick from "@/hooks/features/commons/useOutsideClick";
 import DaumPostcodeEmbed from "react-daum-postcode";
 import { RegisterOptions, useFormContext } from "react-hook-form";
 import Input from "../../atoms/Input/Input";
+import { useToast } from "../toast/ToastContext";
 
 interface Props {
   name: string;
@@ -14,26 +15,19 @@ interface Props {
 
 const InputWithLocation = ({ name, placeholder, validationRules }: Props) => {
   const { setValue } = useFormContext();
-  const [isOpen, setIsOpen] = useState(false);
+  const showToast = useToast();
+  const { ref, isOpen, setIsOpen } = useOutsideClick();
 
   /** 우편번호 검색 서비스 */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleComplete = (data: any) => {
-    let fullAddress = data.address;
-    let extraAddress = "";
+    const address = data.address;
 
-    if (data.addressType === "R") {
-      if (data.bname !== "") {
-        extraAddress += data.bname;
-      }
-      if (data.buildingName !== "") {
-        extraAddress +=
-          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-      }
-      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+    if (data.sido !== "서울") {
+      showToast("현재는 서울에서만 서비스 이용이 가능해요");
+      return;
     }
-
-    setValue(name, fullAddress);
+    setValue(name, address);
     setIsOpen(false);
   };
 
@@ -46,7 +40,11 @@ const InputWithLocation = ({ name, placeholder, validationRules }: Props) => {
         onClick={() => setIsOpen(true)}
         readOnly
       />
-      {isOpen && <DaumPostcodeEmbed onComplete={handleComplete} />}
+      {isOpen && (
+        <div ref={ref} className="mt-4" id="postcode-modal">
+          <DaumPostcodeEmbed onComplete={handleComplete} />
+        </div>
+      )}
     </div>
   );
 };
