@@ -19,7 +19,7 @@ export default function ProfilePage() {
   const { setProfile, profile } = useUserStore();
   const { setRegion } = useRegionStore();
 
-  const { data: data = [], isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["userprofile"],
     queryFn: async () => {
       const res = await requestHandler("get", "/api/users/profile");

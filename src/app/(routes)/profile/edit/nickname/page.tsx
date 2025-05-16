@@ -1,11 +1,11 @@
 "use client";
 
 import { useForm, FormProvider } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import EditNicknameTemplate from "@/components/templates/EditNicknameTemplate";
+import { useUpdateNickname } from "@/hooks/mutations/useUpdateNickname";
 
 export default function EditNicknamePage() {
-  const router = useRouter();
+  const { mutate } = useUpdateNickname();
   const methods = useForm({
     defaultValues: { nickname: "" },
     mode: "onChange",
@@ -18,11 +18,8 @@ export default function EditNicknamePage() {
     trigger("nickname");
   };
 
-  const onSubmit = async (data: { nickname: string }) => {
-    console.log("닉네임 변경:", data.nickname);
-    // TODO: 서버에 닉네임 변경 요청
-    // await updateNickname(nickname);
-    router.push("/profile/edit");
+  const onSubmit = (data: { nickname: string }) => {
+    mutate(data.nickname);
   };
 
   return (
