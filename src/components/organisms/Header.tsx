@@ -13,7 +13,7 @@ function Header({ title, backButton, rightButton }: Props) {
   const router = useRouter();
 
   return (
-    <div className="font-gsans-medium relative flex items-center justify-center px-5 pt-8 pb-11 text-xl leading-normal font-medium">
+    <div className="font-gsans-medium relative -mx-5 flex items-center justify-center px-5 pt-8 pb-11 text-xl leading-normal font-medium">
       <div className="absolute left-5">
         {backButton && (
           <button onClick={() => router.back()} aria-label="뒤로 가기">

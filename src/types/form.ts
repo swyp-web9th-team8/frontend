@@ -1,12 +1,12 @@
 export interface IGatheringFormValues {
   title: string;
-  contents: string;
+  content: string;
   maxParticipants: number;
-  calendarDate: string;
-  location: string;
+  datePart: string;
+  address: string;
   dueTime: string;
-  startTime: string; // "14:00"
-  kakaoLink: string | null;
+  timePart: string; // "14:00"
+  openChatUrl: string | null;
 }
 
 export interface ICreateFormValues {

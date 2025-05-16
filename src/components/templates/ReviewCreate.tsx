@@ -3,13 +3,18 @@
 import ImagesUploader from "@/components/atoms/Input/ImagesUploader";
 import ReviewCreateItemWithLabel from "@/components/molecules/review/ReviewCreateItemWithLabel";
 import { reviewCreateInfo } from "@/data/review";
+import { useFetchGatheringDetail } from "@/hooks/queries/useFetchGatheringDetail";
 import { ICreateFormValues } from "@/types/form";
+import { useSearchParams } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
 import ReviewSummaryCard from "../molecules/review/ReviewSummaryCard";
 import AttendanceManager from "../organisms/review/AttendanceManager";
 import ReviewCreateButton from "../organisms/review/ReviewCreateButton";
 
 function ReviewCreate() {
+  const searchParams = useSearchParams();
+  const postId = searchParams.get("id");
+
   const methods = useForm<ICreateFormValues>({
     mode: "onChange",
     defaultValues: {
@@ -21,6 +26,11 @@ function ReviewCreate() {
   const { handleSubmit, watch } = methods;
 
   const watchImages = watch("images");
+
+  // 상세 조회
+  const { data } = useFetchGatheringDetail(Number(postId));
+
+  console.log(data);
 
   const onSubmit = (data: ICreateFormValues) => {
     console.log(data);

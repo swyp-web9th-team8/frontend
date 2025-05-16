@@ -24,3 +24,50 @@ export interface ICreateGatheringRequest {
   openChatUrl: string | undefined | null;
   maxParticipants: number;
 }
+
+export interface IFetchGatheringListRequest {
+  pos: string;
+  page: number;
+  size: number;
+  sort?: string[];
+}
+
+export interface IParticipant {
+  id: number;
+  nickname: string;
+  profileImage: string;
+}
+
+export interface IFetchOngoingGatheringContent {
+  id: number;
+  title: string;
+  meetingTime: string;
+  placeId: string;
+  placeName: string;
+  address: string;
+  participantCount: number;
+  participants: IParticipant[];
+}
+
+export interface IFetchGatheringListResponse {
+  content: IFetchGatheringListRequest[];
+  page: number;
+  size: number;
+  totalPages: number;
+  totalElements: number;
+  timestamp: string;
+}
+
+export interface IFetchGatheringDetailResponse {
+  id: number;
+  title: string;
+  content: string;
+  writer: IParticipant;
+  address: string;
+  meetingTime: string;
+  openChatUrl: string;
+  maxParticipants: number;
+  deadLine: string;
+  participants: IParticipant[];
+  imageUrls: string[];
+}

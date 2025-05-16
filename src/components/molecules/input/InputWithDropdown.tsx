@@ -32,8 +32,6 @@ const InputWithDropdown = ({
     },
   } = useInputWithDropdown(name);
 
-  console.log(isOpen);
-
   return (
     <div className="relative" ref={ref}>
       <div>
