@@ -28,7 +28,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 
   const showToast: Props["showToast"] = (
     message,
-    { duration = 20000, position = "bottom-center", showIcon = true } = {},
+    { duration = 3000, position = "bottom-center", showIcon = true } = {},
   ) => {
     setToast({ message, duration, position, showIcon });
     setTimeout(() => setToast(null), duration);
