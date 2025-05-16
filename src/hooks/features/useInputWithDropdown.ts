@@ -1,27 +1,29 @@
-import { useModal } from "@/hooks/features/commons/useModal";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
+import useOutsideClick from "./commons/useOutsideClick";
 
 export const useInputWithDropdown = (name: string) => {
   const { setValue } = useFormContext();
 
-  const {
-    state: { isOpen },
-    handlers: { handleCloseModal, handleControlModal },
-  } = useModal();
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
+
+  const { ref, isOpen, setIsOpen } = useOutsideClick();
 
   const handleDropdownItemClick = (item: string) => {
     setSelectedItem(item);
-    handleCloseModal();
+    setIsOpen(false);
     setValue(name, item);
   };
 
   const handleButtonclick = () => {
-    handleControlModal();
+    setIsOpen(!isOpen);
   };
 
+  const handleCloseModal = () => setIsOpen(false);
+  const handleControlModal = () => setIsOpen(!false);
+
   return {
+    ref: { ref },
     state: { isOpen, selectedItem },
     setters: { setSelectedItem },
     handlers: {

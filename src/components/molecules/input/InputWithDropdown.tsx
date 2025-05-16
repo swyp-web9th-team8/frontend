@@ -23,6 +23,7 @@ const InputWithDropdown = ({
   options,
 }: Props) => {
   const {
+    ref: { ref },
     state: { isOpen, selectedItem },
     handlers: {
       handleControlModal,
@@ -31,8 +32,10 @@ const InputWithDropdown = ({
     },
   } = useInputWithDropdown(name);
 
+  console.log(isOpen);
+
   return (
-    <div className="relative">
+    <div className="relative" ref={ref}>
       <div>
         <Input
           name={name}
