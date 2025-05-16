@@ -1,18 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import IconNotification from "@/assets/icons/IconNotification.svg";
+import IconSearch from "@/assets/icons/IconSearch.svg";
 import GatheringCreateButton from "@/components/atoms/Button/GatheringCreateButton";
 import GatheringFilterTabs from "@/components/molecules/homegatherings/GatheringFilterTabs";
+import RegionSelectorModal from "@/components/molecules/RegionSelectorModal";
 import GatheringListGroup from "@/components/organisms/homegatherings/GatheringListGroup";
 import SearchOverlay from "@/components/templates/SearchOverlay";
-import { IGatheringItem } from "@/types/gatherings";
-import IconSearch from "@/assets/icons/IconSearch.svg";
-import IconNotification from "@/assets/icons/IconNotification.svg";
-import { groupGatheringsByDate } from "@/utils/gatherings";
-import { formatDate } from "@/utils/day";
-import { useSearchStore } from "@/stores/searchStore";
 import { useModal } from "@/hooks/features/commons/useModal";
-import RegionSelectorModal from "@/components/molecules/RegionSelectorModal";
+import { useFetchCompletedPostId } from "@/hooks/queries/useReview";
+import { useSearchStore } from "@/stores/searchStore";
+import { IGatheringItem } from "@/types/gatherings";
+import { formatDate } from "@/utils/day";
+import { groupGatheringsByDate } from "@/utils/gatherings";
+import { useState } from "react";
 import LocationSelectorDropdown from "../molecules/homefeed/LocationSelectorDropdown";
 
 interface HomeFeedTemplateProps {
@@ -35,6 +36,9 @@ export default function HomeFeedTemplate({
     state: { isOpen: isModalOpen },
     handlers: { handleOpenModal, handleCloseModal },
   } = useModal();
+
+  const { data } = useFetchCompletedPostId();
+  console.log("data", data);
 
   return (
     <div className="min-h-screen pt-[4.5rem] pb-28">

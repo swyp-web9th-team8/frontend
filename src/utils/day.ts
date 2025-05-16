@@ -90,3 +90,45 @@ export const formatDateAndTime = (
   const d = parseISO(date);
   return format(d, formatString, { locale: ko });
 };
+
+/**
+ * Converts Korean local time string to UTC ISO string with 'Z' timezone
+ * @param koreanTime - Korean time string (e.g., "5월 17일(토) 오전 9:06")
+ * @returns {string} ISO string in UTC with 'Z' timezone
+ */
+export const convertKoreanTimeToUTC = (koreanTime: string): string => {
+  // Parse Korean time format
+  const timeMatch = koreanTime.match(
+    /(\d+)월\s*(\d+)일.*(오전|오후)\s*(\d+):(\d+)/,
+  );
+
+  if (!timeMatch) {
+    throw new Error("Invalid Korean time format");
+  }
+
+  const [, month, day, amPm, hours, minutes] = timeMatch;
+  console.log(day);
+  let hour = parseInt(hours);
+
+  // Convert to 24-hour format
+  if (amPm === "오후" && hour !== 12) {
+    hour += 12;
+  } else if (amPm === "오전" && hour === 12) {
+    hour = 0;
+  }
+
+  // Create date object in KST
+  const now = new Date();
+  const kstDate = new Date(
+    now.getFullYear(),
+    parseInt(month) - 1, // month is 0-based
+    parseInt(day),
+    hour,
+    parseInt(minutes),
+  );
+
+  // Convert to UTC by subtracting 9 hours
+  const utcDate = new Date(kstDate.getTime() - 9 * 60 * 60 * 1000);
+
+  return utcDate.toISOString();
+};
