@@ -1,6 +1,9 @@
 import axios, { AxiosRequestConfig } from "axios";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+const BASE_URL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:8080"
+    : process.env.NEXT_PUBLIC_SERVER_URL;
 const DEFAULT_TIMEOUT = 5000;
 
 export const createClient = (config?: AxiosRequestConfig) => {

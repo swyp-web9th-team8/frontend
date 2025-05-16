@@ -1,11 +1,6 @@
-import axios from "axios";
+import { requestHandler } from "@/lib/axiosInstance";
 
 export const getMyProfile = async () => {
-  const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/me`,
-    {
-      withCredentials: true,
-    },
-  );
+  const response = await requestHandler("get", `/api/auth/me`);
   return response.data;
 };

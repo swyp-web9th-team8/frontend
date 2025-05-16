@@ -14,3 +14,13 @@ export interface IGatheringItem {
   address: string;
   participantCount: number;
 }
+
+/** 모임 작성 */
+export interface ICreateGatheringRequest {
+  title: string;
+  content: string;
+  address: string;
+  meetingTime: string;
+  openChatUrl: string | undefined | null;
+  maxParticipants: number;
+}
