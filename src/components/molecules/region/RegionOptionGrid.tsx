@@ -21,7 +21,7 @@ export default function RegionOptionGrid({
         <button
           key={name}
           onClick={() => onSelect(name)}
-          className={`font-gsans-medium text-body1-medium cursor-pointer rounded-xl px-4 py-3 ${
+          className={`font-gsans-medium text-body2-medium h-[52px] cursor-pointer rounded-xl px-2 py-1 ${
             selected === name
               ? "bg-green text-grey-0"
               : "bg-grey-0 text-grey-950"
