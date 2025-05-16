@@ -1,17 +1,15 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useUpdateRegion } from "@/hooks/mutations/useUpdateRegion";
 import RegionPicker from "@/components/organisms/region/RegionPicker";
-import { useRegionStore } from "@/stores/useRegionStore";
 import Header from "@/components/organisms/Header";
 
 export default function RegionSettingPage() {
-  const router = useRouter();
-  const setRegion = useRegionStore((state) => state.setRegion);
+  const { mutate: updateRegion } = useUpdateRegion();
 
   const handleComplete = (gu: string, dong: string) => {
-    setRegion(`${gu} ${dong}`);
-    router.push("/profile");
+    const fullRegion = `${gu} ${dong}`;
+    updateRegion(fullRegion);
   };
 
   return (

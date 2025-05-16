@@ -1,8 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { useUserStore } from "@/stores/useUserStore";
-import { useRegionStore } from "@/stores/useRegionStore";
+import { getUserProfile } from "@/api/profile/getUserProfile";
 import InfoBox from "@/components/atoms/InfoBox/InfoBox";
 import ActivityRow from "@/components/molecules/ActivityRow";
 import SectionWithTitle from "@/components/organisms/profile/SectionWithTitle";
@@ -12,27 +11,13 @@ import IconLocation from "@/assets/icons/IconLocation.svg";
 import IconAddNew from "@/assets/icons/IconAddNew.svg";
 import IconMedal from "@/assets/icons/IconMedal01.svg";
 import IconMegaphone from "@/assets/icons/IconMegaphone.svg";
-import { useEffect } from "react";
-import { requestHandler } from "@/lib/axiosInstance";
 
 export default function ProfilePage() {
-  const { setProfile, profile } = useUserStore();
-  const { setRegion } = useRegionStore();
-
-  const { data, isLoading } = useQuery({
+  const { data: profile, isLoading } = useQuery({
     queryKey: ["userprofile"],
-    queryFn: async () => {
-      const res = await requestHandler("get", "/api/users/profile");
-      return res.data;
-    },
+    queryFn: getUserProfile,
+    refetchOnMount: true,
   });
-
-  useEffect(() => {
-    if (data && (!profile || profile.id !== data.id)) {
-      setProfile(data);
-      setRegion(data.region);
-    }
-  }, [data, profile?.id, setProfile, setRegion]);
 
   if (isLoading || !profile) return <p className="text-center">로딩 중...</p>;
 
@@ -41,6 +26,7 @@ export default function ProfilePage() {
       <h1 className="text-heading1-medium font-gsans-medium mb-6 text-center">
         프로필
       </h1>
+
       <ProfileHeader
         name={profile.nickname}
         profileImageUrl={profile.profileImageUrl}
