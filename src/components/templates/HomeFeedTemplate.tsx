@@ -1,20 +1,22 @@
 "use client";
 
-import IconNotification from "@/assets/icons/IconNotification.svg";
-import IconSearch from "@/assets/icons/IconSearch.svg";
+import { useEffect } from "react";
 import GatheringCreateButton from "@/components/atoms/Button/GatheringCreateButton";
 import GatheringFilterTabs from "@/components/molecules/homegatherings/GatheringFilterTabs";
-import RegionSelectorModal from "@/components/molecules/RegionSelectorModal";
 import GatheringListGroup from "@/components/organisms/homegatherings/GatheringListGroup";
 import SearchOverlay from "@/components/templates/SearchOverlay";
-import { useModal } from "@/hooks/features/commons/useModal";
-import { useFetchCompletedPostId } from "@/hooks/queries/useReview";
-import { useSearchStore } from "@/stores/searchStore";
 import { IGatheringItem } from "@/types/gatherings";
-import { formatDate } from "@/utils/day";
+import IconSearch from "@/assets/icons/IconSearch.svg";
+import IconNotification from "@/assets/icons/IconNotification.svg";
 import { groupGatheringsByDate } from "@/utils/gatherings";
-import { useState } from "react";
+import { formatDate } from "@/utils/day";
+import { useSearchStore } from "@/stores/searchStore";
+import { useModal } from "@/hooks/features/commons/useModal";
+import RegionSelectorModal from "@/components/molecules/RegionSelectorModal";
 import LocationSelectorDropdown from "../molecules/homefeed/LocationSelectorDropdown";
+import { getDongFromRegion } from "@/utils/region";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { useRegionStore } from "@/stores/useRegionStore";
 
 interface HomeFeedTemplateProps {
   gatherings: IGatheringItem[];
@@ -29,23 +31,29 @@ export default function HomeFeedTemplate({
 }: HomeFeedTemplateProps) {
   const groupedList = groupGatheringsByDate(gatherings);
   const openSearch = useSearchStore((state) => state.open);
+  const authRegion = useAuthStore((state) => state.user?.region);
 
-  const [selectedLocation, setSelectedLocation] = useState("서초동");
+  const region = useRegionStore((state) => state.region);
+  const setRegion = useRegionStore((state) => state.setRegion);
+
+  useEffect(() => {
+    if (!region && authRegion) {
+      const dong = getDongFromRegion(authRegion);
+      setRegion(dong);
+    }
+  }, [authRegion, region, setRegion]);
 
   const {
     state: { isOpen: isModalOpen },
     handlers: { handleOpenModal, handleCloseModal },
   } = useModal();
 
-  const { data } = useFetchCompletedPostId();
-  console.log("data", data);
-
   return (
     <div className="min-h-screen pt-[4.5rem] pb-28">
       <div className="mb-9 flex items-center justify-between">
         <LocationSelectorDropdown
-          selected={selectedLocation}
-          onSelect={setSelectedLocation}
+          selected={region || ""}
+          onSelect={setRegion}
           onOpenModal={handleOpenModal}
         />
 
@@ -84,7 +92,7 @@ export default function HomeFeedTemplate({
         open={isModalOpen}
         onClose={handleCloseModal}
         onSelect={(region) => {
-          setSelectedLocation(region);
+          setRegion(region);
           handleCloseModal();
         }}
       />

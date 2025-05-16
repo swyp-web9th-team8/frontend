@@ -15,7 +15,7 @@ export const useRegionStore = create<RegionState>()(
       clearRegion: () => set({ region: null }),
     }),
     {
-      name: "userRegion",
+      name: "region-store", // localStorage key
     },
   ),
 );

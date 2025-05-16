@@ -2,13 +2,19 @@ interface RegionOptionGridProps {
   items: string[];
   selected: string;
   onSelect: (value: string) => void;
+  loading?: boolean;
 }
 
 export default function RegionOptionGrid({
   items,
   selected,
   onSelect,
+  loading = false,
 }: RegionOptionGridProps) {
+  if (loading) {
+    return <div className="text-grey-400 text-center text-sm">로딩 중...</div>;
+  }
+
   return (
     <div className="grid grid-cols-3 gap-2.5 overflow-y-auto">
       {items.map((name) => (
