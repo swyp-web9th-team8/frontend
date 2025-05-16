@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import GatheringCreateButton from "@/components/atoms/Button/GatheringCreateButton";
 import GatheringFilterTabs from "@/components/molecules/homegatherings/GatheringFilterTabs";
 import GatheringListGroup from "@/components/organisms/homegatherings/GatheringListGroup";

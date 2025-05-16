@@ -15,6 +15,9 @@ import InputWithCount from "../molecules/input/InputWithCount";
 import InputWithDropdown from "../molecules/input/InputWithDropdown";
 import InputWithLocation from "../molecules/input/InputwithLocation";
 
+import { useCreateGathering } from "@/hooks/queries/useCreateGathering";
+import { convertKoreanTimeToUTC } from "@/utils/day";
+
 export default function GatheringsCreatePage() {
   const methods = useForm<IGatheringFormValues>({
     mode: "onChange",
@@ -44,8 +47,29 @@ export default function GatheringsCreatePage() {
     dueTime
   );
 
+  const { mutate } = useCreateGathering();
+
   const onSubmit = (data: IGatheringFormValues) => {
-    console.log("모임생성 데이터:", data);
+    const {
+      title,
+      contents,
+      location,
+      calendarDate,
+      startTime,
+      maxParticipants,
+      kakaoLink,
+    } = data;
+    const meetingTime = convertKoreanTimeToUTC(calendarDate + " " + startTime);
+    console.log("meetingTime", meetingTime);
+
+    mutate({
+      title,
+      content: contents,
+      address: location,
+      meetingTime,
+      maxParticipants,
+      openChatUrl: kakaoLink || null,
+    });
   };
 
   return (

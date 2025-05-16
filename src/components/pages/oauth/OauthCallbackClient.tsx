@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { getMyProfile } from "@/api/auth/getMyProfile";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function OauthCallbackClient() {
   const router = useRouter();
