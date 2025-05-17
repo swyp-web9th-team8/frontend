@@ -43,13 +43,22 @@ export default function GatheringCard({
           <span className="text-body3-medium font-gsans-medium text-grey-400 text-end">
             {gathering.maxParticipants - gathering.participantCount}자리 남음
           </span>
-          <button
-            onClick={handleParticipate}
-            disabled={isPending}
-            className="bg-green font-gsans-medium text-body3-medium text-grey-0 h-[2.125rem] rounded-full px-3 py-2 disabled:opacity-50"
-          >
-            {isPending ? "참여중..." : "참여하기"}
-          </button>
+          {gathering.iin ? (
+            <button
+              disabled
+              className="bg-grey-200 font-gsans-medium text-body3-medium text-grey-0 h-[2.125rem] rounded-full px-3 py-2"
+            >
+              참여하기
+            </button>
+          ) : (
+            <button
+              onClick={handleParticipate}
+              disabled={isPending}
+              className="bg-green font-gsans-medium text-body3-medium text-grey-0 h-[2.125rem] rounded-full px-3 py-2 disabled:opacity-50"
+            >
+              {isPending ? "참여중..." : "참여하기"}
+            </button>
+          )}
         </div>
       )}
     </div>
