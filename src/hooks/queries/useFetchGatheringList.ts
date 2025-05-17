@@ -1,8 +1,11 @@
 import {
   fetchClosedgatheringList,
+  fetchCompletedGatheringList,
   fetchOngoingGatheringList,
 } from "@/api/gatherings/gatherings";
 import {
+  IFetchGatheringCompletedLisContent,
+  IFetchGatheringCompletedListResponse,
   IFetchGatheringListResponse,
   IGatheringItem,
 } from "@/types/gatherings";
@@ -53,4 +56,31 @@ export const useFetchGatheringList = (
 export const useFetchClosedGatheringList = () => {};
 
 /** 모임 화면 - 활동이 완료된 모임 */
-export const useFetchCompletedGatheringList = () => {};
+export const useFetchCompletedGatheringList = () => {
+  const { data, fetchNextPage, hasNextPage, refetch } =
+    useInfiniteQuery<IFetchGatheringCompletedListResponse>({
+      queryKey: ["fetchGatheringCompletedList"],
+      queryFn: ({ pageParam }) => {
+        const payload = {
+          page: pageParam as number,
+          size: ROWS_PER_PAGE,
+        };
+        return fetchCompletedGatheringList(payload);
+      },
+      getNextPageParam: (lastPage) => {
+        const nextPage = lastPage.page + 1;
+        return lastPage.totalPages - 1 !== lastPage.page ? nextPage : undefined;
+      },
+      initialPageParam: 0,
+    });
+
+  const response: IFetchGatheringCompletedLisContent[] =
+    data?.pages.flatMap((page) => page.content) || [];
+
+  return {
+    fetchNextPage,
+    hasNextPage,
+    refetch,
+    data: response,
+  };
+};

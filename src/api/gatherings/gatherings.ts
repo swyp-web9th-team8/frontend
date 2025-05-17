@@ -23,8 +23,11 @@ export const fetchClosedgatheringList = async (
   return await requestHandler("get", `/api/post/list/rec${query}`);
 };
 
-export const fetchCompletedGatheringList = async () => {
-  return await requestHandler("get", "/api/post/list/com");
+export const fetchCompletedGatheringList = async (
+  payload: IFetchGatheringListRequest,
+) => {
+  const query = `?page=${payload.page}&size=${payload.size}`;
+  return await requestHandler("get", `/api/post/list/com${query}`);
 };
 
 export const fetchGatheringDetail = async (postId: number) => {

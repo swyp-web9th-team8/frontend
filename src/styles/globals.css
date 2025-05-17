@@ -121,6 +121,10 @@
     }
     scrollbar-width: none;
   }
+
+  .bottom-padding {
+    @apply pb-[95px];
+  }
 }
 
 @layer components {
