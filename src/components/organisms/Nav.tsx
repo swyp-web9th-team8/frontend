@@ -45,24 +45,29 @@ const NAV_ITEM_STYLE = {
 
 export default function Nav() {
   const pathname = usePathname();
-  const pathnameFirst = pathname.split("/")[1];
-  console.log(pathnameFirst);
   return (
     <div className="shadow-[0px_4px_24px_0px_rgba(170,170,170,0.30)]justify-center fixed bottom-0 flex w-96 w-full max-w-[500px] items-end bg-white px-10 pt-2.5 pb-5">
-      {NAV_ITEMS.map((item, index) => (
-        <Link
-          key={index}
-          href={item.href}
-          className={`flex flex-1 flex-col items-center justify-center gap-0.5 ${`/${pathnameFirst}` === item.href ? NAV_ITEM_STYLE.active.icon : NAV_ITEM_STYLE.default.icon}`}
-        >
-          {item.icon}
-          <div
-            className={`text-body3-medium ${`/${pathnameFirst}` === item.href ? NAV_ITEM_STYLE.active.text : NAV_ITEM_STYLE.default.text}`}
+      {NAV_ITEMS.map((item, index) => {
+        const isActive =
+          item.href === "/home"
+            ? pathname === "/home"
+            : pathname.startsWith(item.href);
+
+        return (
+          <Link
+            key={index}
+            href={item.href}
+            className={`flex flex-1 flex-col items-center justify-center gap-0.5 ${isActive ? NAV_ITEM_STYLE.active.icon : NAV_ITEM_STYLE.default.icon}`}
           >
-            {item.label}
-          </div>
-        </Link>
-      ))}
+            {item.icon}
+            <div
+              className={`text-body3-medium ${isActive ? NAV_ITEM_STYLE.active.text : NAV_ITEM_STYLE.default.text}`}
+            >
+              {item.label}
+            </div>
+          </Link>
+        );
+      })}
     </div>
   );
 }
