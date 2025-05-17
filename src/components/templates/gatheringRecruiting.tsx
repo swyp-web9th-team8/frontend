@@ -3,13 +3,10 @@ import JoinButton from "@/components/molecules/recruiting/JoinButton";
 import ParticipantSummary from "@/components/molecules/recruiting/ParticipantSummary";
 import RecruitingSummary from "@/components/molecules/recruiting/RecruitingSummary";
 import Title from "@/components/molecules/recruiting/Title";
-import { IRecrutingGatherings } from "@/types/recruitingGatherings";
+import { recruitingGatherings } from "@/data/recruitingGatherings";
 
-interface Props {
-  data: IRecrutingGatherings;
-}
-
-function GatheringRecruiting({ data }: Props) {
+function GatheringRecruiting() {
+  const data = recruitingGatherings;
   return (
     <div className="flex flex-1 flex-col gap-[23px]">
       <Title title={data.title} />

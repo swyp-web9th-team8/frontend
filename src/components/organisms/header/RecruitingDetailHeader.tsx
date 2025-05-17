@@ -9,7 +9,7 @@ function RecruitingDetailHeader() {
   const { id } = useParams();
 
   return (
-    <header className="font-gsans-medium bg-green relative flex items-center justify-center pt-[29px] pb-[14px] text-xl leading-normal font-medium">
+    <header className="font-gsans-medium bg-green relative -mx-5 flex items-center justify-center pt-[29px] pb-[14px] text-xl leading-normal font-medium">
       <div className="absolute left-3">
         <IconChevronLeft
           className="h-8 w-8 cursor-pointer text-gray-950"

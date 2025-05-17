@@ -7,7 +7,9 @@ import InputWithLabel from "@/components/molecules/input/InputWithLabel";
 import InputWithTimePicker from "@/components/molecules/input/InputWithTimePicker";
 import InputWithUnit from "@/components/molecules/input/InputWithUnit";
 import { DUE_TIME_OPTIONS } from "@/constants/createForm";
+import { useCreateGathering } from "@/hooks/queries/useCreateGathering";
 import { IGatheringFormValues } from "@/types/form";
+import { convertKoreanTimeToUTC } from "@/utils/day";
 import { FormProvider, useForm } from "react-hook-form";
 import Input from "../atoms/Input/Input";
 import CreateButton from "../molecules/gatherings/CreateButton";
@@ -15,8 +17,14 @@ import InputWithCount from "../molecules/input/InputWithCount";
 import InputWithDropdown from "../molecules/input/InputWithDropdown";
 import InputWithLocation from "../molecules/input/InputwithLocation";
 
-import { useCreateGathering } from "@/hooks/queries/useCreateGathering";
-import { convertKoreanTimeToUTC } from "@/utils/day";
+const TITLE = "title";
+const CONTENT = "content";
+const DATE_PART = "datePart";
+const TIME_PART = "timePart";
+const ADDRESS = "address";
+const MAX_PARTICIPANTS = "maxParticipants";
+const DUE_TIME = "dueTime";
+const OPEN_CHAT_URL = "openChatUrl";
 
 export default function GatheringsCreatePage() {
   const methods = useForm<IGatheringFormValues>({
@@ -29,20 +37,20 @@ export default function GatheringsCreatePage() {
     watch,
   } = methods;
 
-  const title = watch("title");
-  const contents = watch("contents");
-  const calendarDate = watch("calendarDate");
-  const startTime = watch("startTime");
-  const location = watch("location");
-  const maxParticipants = watch("maxParticipants");
-  const dueTime = watch("dueTime");
+  const title = watch(TITLE);
+  const content = watch(CONTENT);
+  const datePart = watch(DATE_PART);
+  const timePart = watch(TIME_PART);
+  const address = watch(ADDRESS);
+  const maxParticipants = watch(MAX_PARTICIPANTS);
+  const dueTime = watch(DUE_TIME);
 
   const isActive = !!(
     title &&
-    contents &&
-    calendarDate &&
-    startTime &&
-    location &&
+    content &&
+    datePart &&
+    timePart &&
+    address &&
     maxParticipants &&
     dueTime
   );
@@ -50,25 +58,16 @@ export default function GatheringsCreatePage() {
   const { mutate } = useCreateGathering();
 
   const onSubmit = (data: IGatheringFormValues) => {
-    const {
-      title,
-      contents,
-      location,
-      calendarDate,
-      startTime,
-      maxParticipants,
-      kakaoLink,
-    } = data;
-    const meetingTime = convertKoreanTimeToUTC(calendarDate + " " + startTime);
-    console.log("meetingTime", meetingTime);
+    const { datePart, timePart, ...rest } = data;
+    const meetingTime = convertKoreanTimeToUTC(datePart, timePart);
 
     mutate({
       title,
-      content: contents,
-      address: location,
+      content: rest.content,
+      address: rest.address,
       meetingTime,
-      maxParticipants,
-      openChatUrl: kakaoLink || null,
+      maxParticipants: rest.maxParticipants,
+      openChatUrl: rest.openChatUrl || null,
     });
   };
 
@@ -80,7 +79,7 @@ export default function GatheringsCreatePage() {
       >
         <InputWithLabel label="모임 제목" name="title">
           <Input
-            name="title"
+            name={TITLE}
             label="모임 제목"
             placeholder="모임 제목을 입력해주세요."
             validationRules={{
@@ -88,10 +87,10 @@ export default function GatheringsCreatePage() {
             }}
           />
         </InputWithLabel>
-        <InputWithLabel label="모임 내용" name="contents">
-          <InputWithCount name="contents">
+        <InputWithLabel label="모임 내용" name={CONTENT}>
+          <InputWithCount name={CONTENT}>
             <TextArea
-              name="contents"
+              name={CONTENT}
               placeholder="내용을 입력해주세요"
               rows={6}
               validationRules={{
@@ -106,9 +105,9 @@ export default function GatheringsCreatePage() {
         </InputWithLabel>
         <div className="flex gap-[25px]">
           <div className="w-32">
-            <InputWithLabel label="모임 날짜" name="calendarDate">
+            <InputWithLabel label="모임 날짜" name={DATE_PART}>
               <InputWithCalendar
-                name="calendarDate"
+                name={DATE_PART}
                 placeholder="4월 30일(수)"
                 validationRules={{
                   required: true,
@@ -117,18 +116,18 @@ export default function GatheringsCreatePage() {
             </InputWithLabel>
           </div>
           <div className="w-32">
-            <InputWithLabel label="모임 시간" name="startTime">
+            <InputWithLabel label="모임 시간" name={TIME_PART}>
               <InputWithTimePicker
-                name="startTime"
+                name={TIME_PART}
                 placeholder="오후 7:00"
                 validationRules={{ required: true }}
               />
             </InputWithLabel>
           </div>
         </div>
-        <InputWithLabel label="모임 장소" name="location">
+        <InputWithLabel label="모임 장소" name={ADDRESS}>
           <InputWithLocation
-            name="location"
+            name={ADDRESS}
             placeholder="장소를 지정해주세요"
             validationRules={{ required: true }}
           />
@@ -136,12 +135,12 @@ export default function GatheringsCreatePage() {
         <div className="flex gap-[25px]">
           <InputWithLabel
             label="최대인원"
-            name="maxParticipants"
+            name={MAX_PARTICIPANTS}
             tooltip="본인 포함 최대인원 수를 적어주세요"
           >
             <InputWithUnit unit="명">
               <Input
-                name="maxParticipants"
+                name={MAX_PARTICIPANTS}
                 type="number"
                 max={10}
                 min={1}
@@ -151,15 +150,15 @@ export default function GatheringsCreatePage() {
           </InputWithLabel>
           <InputWithLabel label="참여 신청 마감" name="dueTime">
             <InputWithDropdown
-              name="dueTime"
+              name={DUE_TIME}
               options={DUE_TIME_OPTIONS}
               validationRules={{ required: true }}
             />
           </InputWithLabel>
         </div>
-        <InputWithLabel label="카카오톡 링크" name="kakaoLink">
+        <InputWithLabel label="카카오톡 링크" name={OPEN_CHAT_URL}>
           <InputWithKaKaoLink
-            name="kakaoLink"
+            name={OPEN_CHAT_URL}
             placeholder="오픈채팅방 링크를 공유해주세요."
             rows={6}
           />

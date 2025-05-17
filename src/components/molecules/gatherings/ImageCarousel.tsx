@@ -18,7 +18,7 @@ export default function ImageCarousel() {
   };
 
   return (
-    <Slider {...settings}>
+    <Slider {...settings} className="overflow-hidden">
       <GatheringImage />
       <GatheringImage />
     </Slider>

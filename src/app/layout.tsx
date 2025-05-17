@@ -1,4 +1,5 @@
 import { ToastProvider } from "@/components/molecules/toast/ToastContext";
+import { ReConfirmModalProvider } from "@/components/organisms/modal/ReConfirmModalContext";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -32,7 +33,9 @@ export default function RootLayout({
       >
         <div className="relative h-screen px-5">
           <ReactQueryProvider>
-            <ToastProvider>{children}</ToastProvider>
+            <ToastProvider>
+              <ReConfirmModalProvider>{children}</ReConfirmModalProvider>
+            </ToastProvider>
           </ReactQueryProvider>
         </div>
       </body>
