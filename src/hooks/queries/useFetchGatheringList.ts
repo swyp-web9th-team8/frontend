@@ -2,7 +2,10 @@ import {
   fetchClosedgatheringList,
   fetchOngoingGatheringList,
 } from "@/api/gatherings/gatherings";
-import { IFetchGatheringListResponse } from "@/types/gatherings";
+import {
+  IFetchGatheringListResponse,
+  IGatheringItem,
+} from "@/types/gatherings";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 const ROWS_PER_PAGE = 20;
@@ -25,12 +28,13 @@ export const useFetchGatheringList = (closed: boolean) => {
       },
       getNextPageParam: (lastPage) => {
         const nextPage = lastPage.page + 1;
-        return lastPage.totalPages !== lastPage.page ? nextPage : undefined;
+        return lastPage.totalPages - 1 !== lastPage.page ? nextPage : undefined;
       },
       initialPageParam: 0,
     });
 
-  const response = data?.pages.flatMap((page) => page.content) || [];
+  const response: IGatheringItem[] =
+    data?.pages.flatMap((page) => page.content) || [];
 
   return {
     fetchNextPage,

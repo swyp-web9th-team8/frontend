@@ -138,3 +138,8 @@ export const convertKoreanTimeToUTC = (
     throw error;
   }
 };
+
+export const formatMeetingTime = (date: string) => {
+  const d = parseISO(date);
+  return format(d, "a h시", { locale: ko });
+};

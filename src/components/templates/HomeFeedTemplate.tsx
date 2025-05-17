@@ -15,7 +15,6 @@ import { useFetchCompletedPostId } from "@/hooks/queries/useReview";
 import { useSearchStore } from "@/stores/searchStore";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useRegionStore } from "@/stores/useRegionStore";
-import { IGatheringItem } from "@/types/gatherings";
 import { formatDate } from "@/utils/day";
 import { groupGatheringsByDate } from "@/utils/gatherings";
 import { getDongFromRegion } from "@/utils/region";
@@ -24,17 +23,19 @@ import LocationSelectorDropdown from "../molecules/homefeed/LocationSelectorDrop
 import ReviewConfirmModal from "../organisms/modal/ReviewConfirmModal";
 
 interface HomeFeedTemplateProps {
-  gatherings: IGatheringItem[];
   isClosedView: boolean;
   onChangeTab: (closed: boolean) => void;
 }
 
 export default function HomeFeedTemplate({
-  gatherings,
   isClosedView,
   onChangeTab,
 }: HomeFeedTemplateProps) {
-  const groupedList = groupGatheringsByDate(gatherings);
+  const {
+    data: gatheringList,
+    fetchNextPage,
+    hasNextPage,
+  } = useFetchGatheringList(isClosedView);
   const openSearch = useSearchStore((state) => state.open);
   const authRegion = useAuthStore((state) => state.user?.region);
 
@@ -55,11 +56,6 @@ export default function HomeFeedTemplate({
 
   const { reviewOpen, reviewId } = useFetchCompletedPostId();
 
-  const { data, fetchNextPage, hasNextPage } =
-    useFetchGatheringList(isClosedView);
-
-  console.log(data);
-
   const { setTarget } = useIntersectionObserver({
     hasNextPage,
     fetchNextPage,
@@ -72,6 +68,8 @@ export default function HomeFeedTemplate({
       console.log("위 경도", latitude, longitude);
     }
   }, [latitude, longitude]);
+
+  const groupedList = groupGatheringsByDate(gatheringList || []);
 
   return (
     <div className="min-h-screen pt-[4.5rem] pb-28">
@@ -101,15 +99,14 @@ export default function HomeFeedTemplate({
       {groupedList.map((items) => {
         const date = formatDate(items[0].meetingTime, "yyyy-MM-dd");
         return (
-          <>
+          <div key={date}>
             <GatheringListGroup
-              key={date}
               date={date}
               items={items}
               isClosed={isClosedView}
             />
             <div ref={setTarget}></div>
-          </>
+          </div>
         );
       })}
 
