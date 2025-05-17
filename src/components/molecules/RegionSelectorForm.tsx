@@ -83,7 +83,7 @@ export default function RegionSelectorForm() {
           onClick={() =>
             step === "GU" ? handleGuSelect(name) : handleDongSelect(name)
           }
-          className={`font-gsans-medium text-body1-medium cursor-pointer rounded-xl px-4 py-3 ${
+          className={`font-gsans-medium text-body2-medium h-13 cursor-pointer rounded-xl px-2 py-1 ${
             isSelected ? "bg-green text-grey-0" : "bg-grey-0 text-grey-950"
           }`}
         >
@@ -117,7 +117,7 @@ export default function RegionSelectorForm() {
               )}
             </h2>
 
-            <div className="grid h-[34.375rem] grid-cols-3 gap-2.5 overflow-y-auto">
+            <div className="grid max-h-[calc(100vh-18rem)] grid-cols-3 gap-2.5 overflow-y-auto">
               {renderList()}
             </div>
 
