@@ -1,4 +1,5 @@
 import { format, formatDistanceToNow, parseISO } from "date-fns";
+import { toZonedTime } from "date-fns-tz";
 import { ko } from "date-fns/locale";
 
 export const getAbbreviatedMonth = (month: number) => {
@@ -91,44 +92,49 @@ export const formatDateAndTime = (
   return format(d, formatString, { locale: ko });
 };
 
-/**
- * Converts Korean local time string to UTC ISO string with 'Z' timezone
- * @param koreanTime - Korean time string (e.g., "5월 17일(토) 오전 9:06")
- * @returns {string} ISO string in UTC with 'Z' timezone
- */
-export const convertKoreanTimeToUTC = (koreanTime: string): string => {
-  // Parse Korean time format
-  const timeMatch = koreanTime.match(
-    /(\d+)월\s*(\d+)일.*(오전|오후)\s*(\d+):(\d+)/,
-  );
+//TODO: 리팩토링
+export const convertKoreanTimeToUTC = (
+  datePart: string,
+  timePart: string,
+): string => {
+  try {
+    // 요일 제거: "5월 23일(금)" -> "5월 23일"
+    // '5월 23일(금)' → 월: 5, 일: 23
+    const monthMatch = datePart.match(/(\d+)월/);
+    const dayMatch = datePart.match(/(\d+)일/);
 
-  if (!timeMatch) {
-    throw new Error("Invalid Korean time format");
+    if (!monthMatch || !dayMatch) {
+      throw new Error("날짜 형식이 잘못되었습니다.");
+    }
+
+    const month = parseInt(monthMatch[1], 10);
+    const day = parseInt(dayMatch[1], 10);
+
+    const year = new Date().getFullYear();
+
+    // '오전 0:00' → 오전/오후 + 시:분 분리
+    const [amPm, time] = timePart.split(" ");
+    const [hours, minutes] = time.split(":").map(Number);
+    let hour = hours;
+
+    if (amPm === "오후" && hour !== 12) {
+      hour += 12;
+    } else if (amPm === "오전" && hour === 12) {
+      hour = 0;
+    }
+
+    // "YYYY-MM-DD HH:mm" 문자열 만들기
+    const dateStr = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")} ${String(hour).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+
+    const d = new Date(dateStr);
+    const utcDate = toZonedTime(d, "Asia/Seoul");
+    return utcDate.toISOString();
+
+    // 원하는 형식 출력
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(`시간 변환 중 오류가 발생했습니다: ${error.message}`);
+    }
+    throw error;
   }
-
-  const [, month, day, amPm, hours, minutes] = timeMatch;
-  console.log(day);
-  let hour = parseInt(hours);
-
-  // Convert to 24-hour format
-  if (amPm === "오후" && hour !== 12) {
-    hour += 12;
-  } else if (amPm === "오전" && hour === 12) {
-    hour = 0;
-  }
-
-  // Create date object in KST
-  const now = new Date();
-  const kstDate = new Date(
-    now.getFullYear(),
-    parseInt(month) - 1, // month is 0-based
-    parseInt(day),
-    hour,
-    parseInt(minutes),
-  );
-
-  // Convert to UTC by subtracting 9 hours
-  const utcDate = new Date(kstDate.getTime() - 9 * 60 * 60 * 1000);
-
-  return utcDate.toISOString();
 };

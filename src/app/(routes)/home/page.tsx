@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import HomeFeedTemplate from "@/components/templates/HomeFeedTemplate";
-import { homegatherings } from "@/data/homegatherings";
 import { closedGatherings } from "@/data/closedgatherings";
+import { homegatherings } from "@/data/homegatherings";
+import { useState } from "react";
 
 export default function HomePage() {
   const [isClosedView, setIsClosedView] = useState(false);
