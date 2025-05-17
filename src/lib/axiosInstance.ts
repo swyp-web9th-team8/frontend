@@ -1,10 +1,18 @@
-import axios, { AxiosRequestConfig } from "axios";
+import { handleLogout, isSessionExpiredError } from "@/utils/auth";
+import axios, { AxiosError, AxiosRequestConfig } from "axios";
 
 const BASE_URL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:8080"
     : process.env.NEXT_PUBLIC_SERVER_URL;
 const DEFAULT_TIMEOUT = 5000;
+
+const PUBLIC_PATHS = [
+  "/api/auth/login",
+  "/api/auth/register",
+  "/api/auth/google",
+  "/api/auth/kakao",
+];
 
 export const createClient = (config?: AxiosRequestConfig) => {
   const axiosInstance = axios.create({
@@ -16,6 +24,22 @@ export const createClient = (config?: AxiosRequestConfig) => {
     withCredentials: true,
     ...config,
   });
+
+  // 브라우저 환경에서만 인터셉터 등록
+  if (typeof window !== "undefined") {
+    axiosInstance.interceptors.response.use(
+      (response) => response,
+      (error: AxiosError<unknown>) => {
+        const isPublicPath = PUBLIC_PATHS.some((path) =>
+          error.config?.url?.includes(path),
+        );
+        if (!isPublicPath && isSessionExpiredError(error)) {
+          handleLogout();
+        }
+        return Promise.reject(error);
+      },
+    );
+  }
 
   return axiosInstance;
 };
