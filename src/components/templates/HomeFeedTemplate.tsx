@@ -6,18 +6,17 @@ import GatheringCreateButton from "@/components/atoms/Button/GatheringCreateButt
 import GatheringFilterTabs from "@/components/molecules/homegatherings/GatheringFilterTabs";
 import RegionSelectorModal from "@/components/molecules/RegionSelectorModal";
 import GatheringListGroup from "@/components/organisms/homegatherings/GatheringListGroup";
-import SearchOverlay from "@/components/templates/SearchOverlay";
 import { useGeolocation } from "@/hooks/features/commons/useGeoLocation";
 import useIntersectionObserver from "@/hooks/features/commons/useIntersectionObserver";
 import { useModal } from "@/hooks/features/commons/useModal";
 import { useFetchGatheringList } from "@/hooks/queries/useFetchGatheringList";
 import { useFetchCompletedPostId } from "@/hooks/queries/useReview";
-import { useSearchStore } from "@/stores/searchStore";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useRegionStore } from "@/stores/useRegionStore";
 import { formatDate } from "@/utils/day";
 import { groupGatheringsByDate } from "@/utils/gatherings";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import LocationSelectorDropdown from "../molecules/homefeed/LocationSelectorDropdown";
 import ReviewConfirmModal from "../organisms/modal/ReviewConfirmModal";
 
@@ -30,6 +29,7 @@ export default function HomeFeedTemplate({
   isClosedView,
   onChangeTab,
 }: HomeFeedTemplateProps) {
+  const router = useRouter();
   const region = useRegionStore((state) => state.region);
   const setRegion = useRegionStore((state) => state.setRegion);
   const authRegion = useAuthStore((state) => state.user?.region);
@@ -51,8 +51,6 @@ export default function HomeFeedTemplate({
     fetchNextPage,
   });
 
-  const openSearch = useSearchStore((state) => state.open);
-
   const {
     state: { isOpen: isModalOpen },
     handlers: { handleOpenModal, handleCloseModal },
@@ -68,6 +66,10 @@ export default function HomeFeedTemplate({
     }
   }, [latitude, longitude]);
 
+  const handleSearchClick = () => {
+    router.push("/search");
+  };
+
   const groupedList = groupGatheringsByDate(gatheringList || []);
 
   return (
@@ -80,7 +82,7 @@ export default function HomeFeedTemplate({
         />
 
         <div className="flex gap-4">
-          <button onClick={openSearch} className="cursor-pointer">
+          <button onClick={handleSearchClick} className="cursor-pointer">
             <IconSearch className="h-6 w-6" />
           </button>
           <button>
@@ -110,7 +112,6 @@ export default function HomeFeedTemplate({
       })}
 
       <GatheringCreateButton />
-      <SearchOverlay />
 
       <RegionSelectorModal
         open={isModalOpen}

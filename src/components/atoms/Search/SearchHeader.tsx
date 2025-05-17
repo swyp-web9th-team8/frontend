@@ -3,14 +3,12 @@ import BackArrow from "@/assets/icons/back-arrow.svg";
 
 interface SearchHeaderProps {
   title: string;
-  onBack?: () => void;
 }
 
-export default function SearchHeader({ title, onBack }: SearchHeaderProps) {
+export default function SearchHeader({ title }: SearchHeaderProps) {
   const router = useRouter();
   const handleBack = () => {
-    if (onBack) return onBack();
-    router.back();
+    router.push("/home");
   };
 
   return (

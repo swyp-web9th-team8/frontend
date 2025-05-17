@@ -12,7 +12,7 @@ export const fetchOngoingGatheringList = async (
   payload: IFetchGatheringListRequest,
 ) => {
   // TODO: 백엔드 v 파라미터 선택값으로 수정된 후 v 삭제
-  const query = `?pos=${payload.pos}&page=${payload.page}&size=${payload.size}&v=모임`;
+  const query = `?pos=${payload.pos}&page=${payload.page}&size=${payload.size}&v=${payload.v}`;
   return await requestHandler("get", `/api/post/list/ing${query}`);
 };
 
