@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 import type { Configuration } from "webpack";
 
 // PWA 플러그인 초기화 시, 개발 환경에선 disable=true
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const withPWA = require("next-pwa")({
   dest: "public",
   disable: process.env.NODE_ENV === "development",
@@ -10,7 +11,10 @@ const withPWA = require("next-pwa")({
 const nextConfig: NextConfig = {
   images: {
     dangerouslyAllowSVG: true,
-    remotePatterns: [{ hostname: "placehold.co" }],
+    remotePatterns: [
+      { hostname: "placehold.co" },
+      { hostname: "lh3.googleusercontent.com" },
+    ],
   },
   webpack(config: Configuration) {
     config.module?.rules?.push({

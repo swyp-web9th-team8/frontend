@@ -1,4 +1,4 @@
-import Header from "@/components/organisms/Header";
+import CompletedGatheringHeader from "@/components/organisms/header/CreateReviewHeader";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 
@@ -14,7 +14,7 @@ export default function ReviewCreateLayout({
 }>) {
   return (
     <div className="flex h-full flex-col">
-      <Header title="모임 리뷰" />
+      <CompletedGatheringHeader />
       {children}
     </div>
   );
