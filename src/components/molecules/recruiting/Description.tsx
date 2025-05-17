@@ -1,8 +1,8 @@
-interface Props {
-  content: string;
-}
+import { IFetchGatheringDetailResponse } from "@/types/gatherings";
 
-function Description({ content }: Props) {
+type Props = Pick<IFetchGatheringDetailResponse, "data">;
+
+function Description({ data: { content } }: Props) {
   return (
     <div className="inline-flex flex-col items-start justify-start gap-1.5 self-stretch">
       <div className="text-body1-bold justify-start self-stretch text-gray-950">

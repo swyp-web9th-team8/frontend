@@ -23,6 +23,7 @@ export interface ICreateGatheringRequest {
   meetingTime: string;
   openChatUrl: string | undefined | null;
   maxParticipants: number;
+  deadline?: 60 | 30;
 }
 
 export interface IFetchGatheringListRequest {
@@ -35,7 +36,7 @@ export interface IFetchGatheringListRequest {
 export interface IParticipant {
   id: number;
   nickname: string;
-  profileImage: string;
+  profileImage: string | undefined;
 }
 
 export interface IFetchOngoingGatheringContent {
@@ -59,15 +60,18 @@ export interface IFetchGatheringListResponse {
 }
 
 export interface IFetchGatheringDetailResponse {
-  id: number;
-  title: string;
-  content: string;
-  writer: IParticipant;
-  address: string;
-  meetingTime: string;
-  openChatUrl: string;
-  maxParticipants: number;
-  deadLine: string;
-  participants: IParticipant[];
-  imageUrls: string[];
+  data: {
+    id: number;
+    title: string;
+    content: string;
+    writer: IParticipant;
+    address: string;
+    meetingTime: string;
+    openChatUrl: string;
+    maxParticipants: number;
+    deadLine: string;
+    participants: IParticipant[];
+    imageUrls?: string[];
+    iin: boolean; // 작성자이거나 참여자일 때
+  };
 }

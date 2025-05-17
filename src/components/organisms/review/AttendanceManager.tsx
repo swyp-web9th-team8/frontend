@@ -1,12 +1,12 @@
 import InputWithModal from "@/components/molecules/input/InputWithModal";
 import AttendanceList from "@/components/organisms/review/AttendanceList";
-import { IReviewCreateResponse } from "@/types/review";
+import { IParticipant } from "@/types/gatherings";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 interface Props {
   name: string;
-  allMembers: IReviewCreateResponse["allMembers"];
+  allMembers: IParticipant[];
 }
 
 function AttendanceManager({ name, allMembers }: Props) {

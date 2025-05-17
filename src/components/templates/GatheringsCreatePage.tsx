@@ -6,7 +6,7 @@ import InputWithKaKaoLink from "@/components/molecules/input/InputWithKaKaoLink"
 import InputWithLabel from "@/components/molecules/input/InputWithLabel";
 import InputWithTimePicker from "@/components/molecules/input/InputWithTimePicker";
 import InputWithUnit from "@/components/molecules/input/InputWithUnit";
-import { DUE_TIME_OPTIONS } from "@/constants/createForm";
+import { DUE_TIME, DUE_TIME_OPTIONS } from "@/constants/createForm";
 import { useCreateGathering } from "@/hooks/queries/useCreateGathering";
 import { IGatheringFormValues } from "@/types/form";
 import { convertKoreanTimeToUTC } from "@/utils/day";
@@ -23,7 +23,7 @@ const DATE_PART = "datePart";
 const TIME_PART = "timePart";
 const ADDRESS = "address";
 const MAX_PARTICIPANTS = "maxParticipants";
-const DUE_TIME = "dueTime";
+const DEAD_LINE = "deadLine";
 const OPEN_CHAT_URL = "openChatUrl";
 
 export default function GatheringsCreatePage() {
@@ -43,7 +43,7 @@ export default function GatheringsCreatePage() {
   const timePart = watch(TIME_PART);
   const address = watch(ADDRESS);
   const maxParticipants = watch(MAX_PARTICIPANTS);
-  const dueTime = watch(DUE_TIME);
+  const deadLine = watch(DEAD_LINE);
 
   const isActive = !!(
     title &&
@@ -52,7 +52,7 @@ export default function GatheringsCreatePage() {
     timePart &&
     address &&
     maxParticipants &&
-    dueTime
+    deadLine
   );
 
   const { mutate } = useCreateGathering();
@@ -66,8 +66,11 @@ export default function GatheringsCreatePage() {
       content: rest.content,
       address: rest.address,
       meetingTime,
-      maxParticipants: rest.maxParticipants,
+      maxParticipants: Number(rest.maxParticipants),
       openChatUrl: rest.openChatUrl || null,
+      deadline: DUE_TIME_OPTIONS.find(
+        (option) => option.screen === rest.deadLine,
+      )?.request as DUE_TIME,
     });
   };
 
@@ -148,10 +151,10 @@ export default function GatheringsCreatePage() {
               />
             </InputWithUnit>
           </InputWithLabel>
-          <InputWithLabel label="참여 신청 마감" name="dueTime">
+          <InputWithLabel label="참여 신청 마감" name={DEAD_LINE}>
             <InputWithDropdown
-              name={DUE_TIME}
-              options={DUE_TIME_OPTIONS}
+              name={DEAD_LINE}
+              options={DUE_TIME_OPTIONS.map((option) => option.screen)}
               validationRules={{ required: true }}
             />
           </InputWithLabel>

@@ -1,22 +1,22 @@
 import { postReview } from "@/api/gatherings/review";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 export const usePostReview = () => {
+  const router = useRouter();
   return useMutation({
     mutationFn: ({
       postId,
       files,
-      participantIds,
+      userIds,
     }: {
       postId: number;
       files: File[];
-      participantIds: number[];
-    }) => postReview(postId, files, participantIds),
-    onSuccess: (data) => {
-      console.log("✅", data);
+      userIds: number[];
+    }) => postReview(postId, files, userIds),
+    onSuccess: () => {
+      router.push("/home");
     },
-    onError: (error) => {
-      console.error("❌", error);
-    },
+    onError: () => {},
   });
 };

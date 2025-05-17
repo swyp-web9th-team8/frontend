@@ -128,7 +128,9 @@ export const convertKoreanTimeToUTC = (
 
     const d = new Date(dateStr);
     const utcDate = toZonedTime(d, "Asia/Seoul");
-    return utcDate.toISOString();
+
+    const isoWithoutMillis = utcDate.toISOString().split(".")[0];
+    return isoWithoutMillis;
 
     // 원하는 형식 출력
   } catch (error) {

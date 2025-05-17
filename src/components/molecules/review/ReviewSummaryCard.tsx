@@ -2,11 +2,15 @@
 
 import CalendarIcon from "@/assets/icons/calendar01.svg";
 import LocationIcon from "@/assets/icons/IconLocation.svg";
-import { IReviewCreateResponse } from "@/types/review";
+import { IFetchGatheringDetailResponse } from "@/types/gatherings";
+import { formatDateAndTime } from "@/utils/day";
 
-type Props = Pick<IReviewCreateResponse, "title" | "meetingTime" | "placeName">;
+type Props = Pick<IFetchGatheringDetailResponse, "data">;
 
-function ReviewSummaryCard({ title, meetingTime, placeName }: Props) {
+function ReviewSummaryCard({ data: { title, meetingTime, address } }: Props) {
+  const date = formatDateAndTime(meetingTime, "yyyy년 M월 d일");
+  const time = formatDateAndTime(meetingTime, "a h시 m분");
+
   return (
     <div data-property-1="체크" data-리뷰-여부="false" className="card-base">
       <div className="inline-flex w-60 flex-col items-start justify-start gap-3">
@@ -22,13 +26,13 @@ function ReviewSummaryCard({ title, meetingTime, placeName }: Props) {
           <div className="inline-flex items-center justify-start gap-3 self-stretch">
             <CalendarIcon className="h-6 w-6" />
             <div className="justify-start text-sm leading-none font-medium text-gray-950">
-              {meetingTime}
+              {date}&nbsp;{time}
             </div>
           </div>
           <div className="inline-flex items-center justify-start gap-3">
             <LocationIcon className="h-6 w-6" />
             <div className="text-greyscale-gray-950 justify-start text-sm leading-none font-medium">
-              {placeName}
+              {address}
             </div>
           </div>
         </div>

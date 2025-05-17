@@ -6,8 +6,9 @@ export const MINITUES = Array.from({ length: 60 }, (_, i) =>
 
 export const AMPM = ["AM", "PM"];
 
+export type DUE_TIME = 30 | 60 | undefined;
+
 export const DUE_TIME_OPTIONS = [
-  "모임 시작 30분 전",
-  "모임 시작 1시간 전",
-  "신청 마감 없음",
+  { screen: "모임 시작 30분 전", request: 30 },
+  { screen: "모임 시작 1시간간 전", request: 60 },
 ];

@@ -5,15 +5,14 @@ import ClockIcon from "@/assets/icons/clock.svg";
 import ChatIcon from "@/assets/icons/IconChat.svg";
 import LocationIcon from "@/assets/icons/location.svg";
 import GatheringIconTextItem from "@/components/molecules/GatheringIconTextItem";
-import { IRecrutingGatherings } from "@/types/recruitingGatherings";
+import { IFetchGatheringDetailResponse } from "@/types/gatherings";
 import { formatDateAndTime } from "@/utils/day";
 
-type Props = Pick<
-  IRecrutingGatherings,
-  "meetingTime" | "placeName" | "openChatUrl"
->;
+type Props = Pick<IFetchGatheringDetailResponse, "data">;
 
-function RecruitingSummary({ meetingTime, placeName, openChatUrl }: Props) {
+function RecruitingSummary({
+  data: { meetingTime, address, openChatUrl },
+}: Props) {
   const date = formatDateAndTime(meetingTime, "yyyy년 M월 d일");
   const time = formatDateAndTime(meetingTime, "a h시 m분");
 
@@ -24,8 +23,8 @@ function RecruitingSummary({ meetingTime, placeName, openChatUrl }: Props) {
         <GatheringIconTextItem Icon={ClockIcon} text={time} />
         <GatheringIconTextItem
           Icon={LocationIcon}
-          text={placeName}
-          href={`https://map.kakao.com/link/search/${placeName}`}
+          text={address}
+          href={`https://map.kakao.com/link/search/${address}`}
         />
       </div>
       <div>
