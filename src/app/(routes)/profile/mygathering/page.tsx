@@ -4,39 +4,90 @@ import { useState } from "react";
 import GatheringFilterTabs from "@/components/molecules/homegatherings/GatheringFilterTabs";
 import Header from "@/components/organisms/Header";
 import MyGatheringCardList from "@/components/organisms/mygathering/MyGatheringCardList";
-import { mygatherings } from "@/data/mygathering";
 import { useRouter } from "next/navigation";
 import Empty from "@/components/organisms/Empty";
+import {
+  useCreatedGatherings,
+  useParticipatedGatherings,
+} from "@/hooks/queries/useMyGatherings";
+
+const calculateDday = (meetingDt: string) => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const meetingDate = new Date(meetingDt);
+  meetingDate.setHours(0, 0, 0, 0);
+
+  const diffTime = meetingDate.getTime() - today.getTime();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  if (diffDays === 0) return "D-day";
+  if (diffDays < 0) return "종료";
+  return `D-${diffDays}`;
+};
 
 export default function MyGatheringPage() {
   const [isMineTab, setIsMineTab] = useState(false);
   const router = useRouter();
 
-  const myGatherings = mygatherings
-    .filter((g) => g.isMine)
-    .map((g) => ({
-      id: g.postId,
-      title: g.title,
-      date: g.date,
-      time: g.time,
-      location: g.placeName,
-      status: g.status,
-      isReviewed: g.isReviewed,
-    }));
+  const {
+    data: participatedData = [],
+    isLoading: isLoadingParticipated,
+    error: participatedError,
+  } = useParticipatedGatherings();
 
-  const joinedGatherings = mygatherings
-    .filter((g) => !g.isMine)
-    .map((g) => ({
-      id: g.postId,
-      title: g.title,
-      date: g.date,
-      time: g.time,
-      location: g.placeName,
-      status: g.status,
-      isReviewed: g.isReviewed,
-    }));
+  const {
+    data: createdData = [],
+    isLoading: isLoadingCreated,
+    error: createdError,
+  } = useCreatedGatherings();
 
-  const isEmptyMyGatherings = isMineTab && myGatherings.length === 0;
+  const isLoading = isLoadingParticipated || isLoadingCreated;
+  const error = participatedError || createdError;
+
+  if (isLoading) {
+    return (
+      <div className="py-6">
+        <Header title="내 모임" backButton rightButton />
+        <div className="flex h-[60vh] items-center justify-center">
+          <p>로딩 중...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="py-6">
+        <Header title="내 모임" backButton rightButton />
+        <div className="flex h-[60vh] items-center justify-center">
+          <p>데이터를 불러오는데 실패했습니다.</p>
+        </div>
+      </div>
+    );
+  }
+
+  const participatedGatherings = (participatedData || []).map((g) => ({
+    id: g.id,
+    title: g.title,
+    date: new Date(g.meetingDt).toLocaleDateString(),
+    time: new Date(g.meetingDt).toLocaleTimeString(),
+    location: g.placeName || "장소 미정",
+    status: g.completed ? "완료" : calculateDday(g.meetingDt),
+    isReviewed: false,
+  }));
+
+  const createdGatherings = (createdData || []).map((g) => ({
+    id: g.id,
+    title: g.title,
+    date: new Date(g.meetingDt).toLocaleDateString(),
+    time: new Date(g.meetingDt).toLocaleTimeString(),
+    location: g.placeName || "장소 미정",
+    status: g.completed ? "완료" : calculateDday(g.meetingDt),
+    isReviewed: false,
+  }));
+
+  const isEmptyMyGatherings =
+    isMineTab && (!createdData || createdGatherings.length === 0);
 
   return (
     <div className="py-6">
@@ -65,7 +116,7 @@ export default function MyGatheringPage() {
           </div>
         ) : (
           <MyGatheringCardList
-            items={isMineTab ? myGatherings : joinedGatherings}
+            items={isMineTab ? createdGatherings : participatedGatherings}
           />
         )}
       </div>
