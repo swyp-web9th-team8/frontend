@@ -30,3 +30,7 @@ export const fetchCompletedGatheringList = async () => {
 export const fetchGatheringDetail = async (postId: number) => {
   return await requestHandler("get", `/api/post/${postId}`);
 };
+
+export const participateGathering = async (postId: number) => {
+  return await requestHandler("post", `/api/post/${postId}/participate`);
+};

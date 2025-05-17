@@ -92,6 +92,7 @@ export const formatDateAndTime = (
   return format(d, formatString, { locale: ko });
 };
 
+// day.ts 마지막 함수
 //TODO: 리팩토링
 export const convertKoreanTimeToUTC = (
   datePart: string,
@@ -128,7 +129,9 @@ export const convertKoreanTimeToUTC = (
 
     const d = new Date(dateStr);
     const utcDate = toZonedTime(d, "Asia/Seoul");
-    return utcDate.toISOString();
+
+    const isoWithoutMillis = utcDate.toISOString().split(".")[0];
+    return isoWithoutMillis;
 
     // 원하는 형식 출력
   } catch (error) {
