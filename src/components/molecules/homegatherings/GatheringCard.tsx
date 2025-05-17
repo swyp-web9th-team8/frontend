@@ -3,6 +3,7 @@ import IconLocation from "@/assets/icons/location.svg";
 import { IGatheringItem } from "@/types/gatherings";
 import { formatMeetingTime } from "@/utils/day";
 import { useParticipateGathering } from "@/hooks/queries/useParticipateGathering";
+import { useRouter } from "next/navigation";
 
 interface GatheringCardProps {
   gathering: IGatheringItem;
@@ -14,13 +15,22 @@ export default function GatheringCard({
   isClosed = false,
 }: GatheringCardProps) {
   const { mutate: participate, isPending } = useParticipateGathering();
+  const router = useRouter();
 
-  const handleParticipate = () => {
+  const handleParticipate = (e: React.MouseEvent) => {
+    e.stopPropagation();
     participate(gathering.id);
   };
 
+  const handleClick = () => {
+    router.push(`/gatherings/recruiting/${gathering.id}`);
+  };
+
   return (
-    <div className="flex justify-between rounded-2xl p-4 shadow-[0_4px_24px_rgba(170,170,170,0.15)]">
+    <div
+      onClick={handleClick}
+      className="flex cursor-pointer justify-between rounded-2xl p-4 shadow-[0_4px_24px_rgba(170,170,170,0.15)]"
+    >
       <div className="flex min-w-0 flex-grow flex-col gap-3">
         <div className="font-gsans-bold text-body2-medium text-grey-950">
           {gathering.title}
@@ -44,20 +54,18 @@ export default function GatheringCard({
             {gathering.maxParticipants - gathering.participantCount}자리 남음
           </span>
           {gathering.iin ? (
-            <button
-              disabled
-              className="bg-grey-200 font-gsans-medium text-body3-medium text-grey-0 h-[2.125rem] rounded-full px-3 py-2"
-            >
+            <div className="bg-grey-200 font-gsans-medium text-body3-medium text-grey-0 h-[2.125rem] rounded-full px-3 py-2">
               참여하기
-            </button>
+            </div>
           ) : (
-            <button
+            <div
               onClick={handleParticipate}
-              disabled={isPending}
-              className="bg-green font-gsans-medium text-body3-medium text-grey-0 h-[2.125rem] rounded-full px-3 py-2 disabled:opacity-50"
+              className={`bg-green font-gsans-medium text-body3-medium text-grey-0 h-[2.125rem] cursor-pointer rounded-full px-3 py-2 ${
+                isPending ? "opacity-50" : ""
+              }`}
             >
               {isPending ? "참여중..." : "참여하기"}
-            </button>
+            </div>
           )}
         </div>
       )}
