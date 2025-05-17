@@ -15,38 +15,43 @@ import { useFetchCompletedPostId } from "@/hooks/queries/useReview";
 import { useSearchStore } from "@/stores/searchStore";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useRegionStore } from "@/stores/useRegionStore";
-import { IGatheringItem } from "@/types/gatherings";
 import { formatDate } from "@/utils/day";
 import { groupGatheringsByDate } from "@/utils/gatherings";
-import { getDongFromRegion } from "@/utils/region";
 import { useEffect } from "react";
 import LocationSelectorDropdown from "../molecules/homefeed/LocationSelectorDropdown";
 import ReviewConfirmModal from "../organisms/modal/ReviewConfirmModal";
 
 interface HomeFeedTemplateProps {
-  gatherings: IGatheringItem[];
   isClosedView: boolean;
   onChangeTab: (closed: boolean) => void;
 }
 
 export default function HomeFeedTemplate({
-  gatherings,
   isClosedView,
   onChangeTab,
 }: HomeFeedTemplateProps) {
-  const groupedList = groupGatheringsByDate(gatherings);
-  const openSearch = useSearchStore((state) => state.open);
-  const authRegion = useAuthStore((state) => state.user?.region);
-
   const region = useRegionStore((state) => state.region);
   const setRegion = useRegionStore((state) => state.setRegion);
+  const authRegion = useAuthStore((state) => state.user?.region);
 
   useEffect(() => {
     if (!region && authRegion) {
-      const dong = getDongFromRegion(authRegion);
-      setRegion(dong);
+      setRegion(authRegion);
     }
   }, [authRegion, region, setRegion]);
+
+  const {
+    data: gatheringList,
+    fetchNextPage,
+    hasNextPage,
+  } = useFetchGatheringList(isClosedView, region || "");
+
+  const { setTarget } = useIntersectionObserver({
+    hasNextPage,
+    fetchNextPage,
+  });
+
+  const openSearch = useSearchStore((state) => state.open);
 
   const {
     state: { isOpen: isModalOpen },
@@ -55,16 +60,6 @@ export default function HomeFeedTemplate({
 
   const { reviewOpen, reviewId } = useFetchCompletedPostId();
 
-  const { data, fetchNextPage, hasNextPage } =
-    useFetchGatheringList(isClosedView);
-
-  console.log(data);
-
-  const { setTarget } = useIntersectionObserver({
-    hasNextPage,
-    fetchNextPage,
-  });
-
   const { latitude, longitude } = useGeolocation();
 
   useEffect(() => {
@@ -72,6 +67,8 @@ export default function HomeFeedTemplate({
       console.log("위 경도", latitude, longitude);
     }
   }, [latitude, longitude]);
+
+  const groupedList = groupGatheringsByDate(gatheringList || []);
 
   return (
     <div className="min-h-screen pt-[4.5rem] pb-28">
@@ -101,15 +98,14 @@ export default function HomeFeedTemplate({
       {groupedList.map((items) => {
         const date = formatDate(items[0].meetingTime, "yyyy-MM-dd");
         return (
-          <>
+          <div key={date}>
             <GatheringListGroup
-              key={date}
               date={date}
               items={items}
               isClosed={isClosedView}
             />
-            <div ref={setTarget}></div>
-          </>
+            <div className="h-4" ref={setTarget}></div>
+          </div>
         );
       })}
 

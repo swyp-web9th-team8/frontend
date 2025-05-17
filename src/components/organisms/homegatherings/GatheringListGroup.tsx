@@ -24,7 +24,7 @@ export default function GatheringListGroup({
       <div className="flex flex-col gap-3">
         {items.map((gathering) => (
           <GatheringCard
-            key={gathering.postId}
+            key={gathering.id}
             gathering={gathering}
             isClosed={isClosed}
           />

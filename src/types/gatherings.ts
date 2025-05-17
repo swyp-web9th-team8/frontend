@@ -7,12 +7,19 @@ export interface IGatheringListValues {
 }
 
 export interface IGatheringItem {
-  postId: number;
+  id: number;
   title: string;
   meetingTime: string;
-  placeName: string;
+  placeId: string | null;
+  placeName: string | null;
   address: string;
   participantCount: number;
+  participants: IParticipant[];
+  thumbnail: string | null;
+  latitude: number;
+  longitude: number;
+  maxParticipants: number;
+  iin: boolean;
 }
 
 /** 모임 작성 */
@@ -51,7 +58,7 @@ export interface IFetchOngoingGatheringContent {
 }
 
 export interface IFetchGatheringListResponse {
-  content: IFetchGatheringListRequest[];
+  content: IGatheringItem[];
   page: number;
   size: number;
   totalPages: number;

@@ -1,8 +1,6 @@
 "use client";
 
 import HomeFeedTemplate from "@/components/templates/HomeFeedTemplate";
-import { closedGatherings } from "@/data/closedgatherings";
-import { homegatherings } from "@/data/homegatherings";
 import { useState } from "react";
 
 export default function HomePage() {
@@ -10,7 +8,6 @@ export default function HomePage() {
 
   return (
     <HomeFeedTemplate
-      gatherings={isClosedView ? closedGatherings : homegatherings}
       isClosedView={isClosedView}
       onChangeTab={(closed) => setIsClosedView(closed)}
     />

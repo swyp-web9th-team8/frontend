@@ -92,6 +92,7 @@ export const formatDateAndTime = (
   return format(d, formatString, { locale: ko });
 };
 
+// day.ts 마지막 함수
 //TODO: 리팩토링
 export const convertKoreanTimeToUTC = (
   datePart: string,
@@ -139,4 +140,9 @@ export const convertKoreanTimeToUTC = (
     }
     throw error;
   }
+};
+
+export const formatMeetingTime = (date: string) => {
+  const d = parseISO(date);
+  return format(d, "a h시", { locale: ko });
 };
