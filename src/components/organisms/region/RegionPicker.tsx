@@ -28,7 +28,12 @@ export default function RegionPicker({
   const isDisabled = step === "GU" ? !selectedGu : !selectedDong;
 
   return (
-    <div className={clsx("flex h-full flex-col gap-9", className)}>
+    <div
+      className={clsx(
+        "flex h-full max-h-[calc(100vh-6rem)] flex-col gap-9",
+        className,
+      )}
+    >
       <h2 className="text-heading1-bold font-gsans-bold">
         {step === "GU" ? (
           <>
@@ -41,12 +46,14 @@ export default function RegionPicker({
         )}
       </h2>
 
-      <RegionOptionGrid
-        items={step === "GU" ? guList : dongList}
-        selected={step === "GU" ? selectedGu : selectedDong}
-        onSelect={step === "GU" ? setSelectedGu : setSelectedDong}
-        loading={step === "DONG" && isLoading}
-      />
+      <div className="max-h-[calc(100vh-18rem)] overflow-y-auto">
+        <RegionOptionGrid
+          items={step === "GU" ? guList : dongList}
+          selected={step === "GU" ? selectedGu : selectedDong}
+          onSelect={step === "GU" ? setSelectedGu : setSelectedDong}
+          loading={step === "DONG" && isLoading}
+        />
+      </div>
 
       <button
         disabled={isDisabled}

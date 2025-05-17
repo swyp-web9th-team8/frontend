@@ -1,6 +1,8 @@
 "use client";
 
+import { useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
+import { useUserStore } from "@/stores/useUserStore";
 import ProfileImageUploader from "@/components/molecules/profile/ProfileImageUploader";
 import NicknameField from "@/components/molecules/profile/NicknameField";
 import { useLogout } from "@/hooks/mutations/useLogout";
@@ -10,19 +12,31 @@ interface EditProfileFormProps {
 }
 
 export default function EditProfileForm({ onWithdraw }: EditProfileFormProps) {
+  const { profile } = useUserStore();
+  const { handleLogout } = useLogout();
+
   const methods = useForm({
     defaultValues: {
-      profileImage: null,
-      nickname: "나리어",
+      profileImage: profile?.profileImageUrl ?? null,
+      nickname: profile?.nickname ?? "",
     },
   });
 
-  const { handleLogout } = useLogout();
+  useEffect(() => {
+    if (profile) {
+      methods.reset({
+        profileImage: profile.profileImageUrl,
+        nickname: profile.nickname,
+      });
+    }
+  }, [profile, methods]);
 
   return (
     <FormProvider {...methods}>
       <form>
-        <ProfileImageUploader />
+        <ProfileImageUploader
+          profileImageUrl={profile?.profileImageUrl ?? ""}
+        />
         <NicknameField />
         <div className="text-body2-medium font-gsans-medium text-grey-400 mt-6 flex items-center justify-center gap-3">
           <button

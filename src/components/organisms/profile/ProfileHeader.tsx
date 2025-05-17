@@ -2,10 +2,17 @@
 
 import { useRouter } from "next/navigation";
 import Avatar from "@/assets/icons/avatar.svg";
-import Badge from "@/assets/icons/badge-yellow.svg";
 import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
 
-export default function ProfileHeader({ name }: { name: string }) {
+export default function ProfileHeader({
+  name,
+  lastBadgeIconDir,
+  profileImageUrl,
+}: {
+  name: string;
+  lastBadgeIconDir: string | null;
+  profileImageUrl: string;
+}) {
   const router = useRouter();
 
   const handleEditClick = () => {
@@ -15,7 +22,18 @@ export default function ProfileHeader({ name }: { name: string }) {
   return (
     <section className="mb-6 flex items-center justify-between px-2">
       <div className="flex items-center gap-3">
-        <Avatar className="h-14 w-14 rounded-full" />
+        {profileImageUrl ? (
+          <img
+            src={profileImageUrl}
+            alt="프로필 이미지"
+            width={56}
+            height={56}
+            className="rounded-full"
+          />
+        ) : (
+          <Avatar className="h-14 w-14 rounded-full" />
+        )}
+
         <div className="flex flex-col gap-1">
           <p className="text-body1-medium text-grey-950 font-gsans-medium">
             {name}
@@ -29,7 +47,9 @@ export default function ProfileHeader({ name }: { name: string }) {
           </button>
         </div>
       </div>
-      <Badge className="h-[3.6875rem] w-[3.375rem]" />
+      {lastBadgeIconDir && (
+        <img src={lastBadgeIconDir} alt="뱃지 아이콘" width={54} height={59} />
+      )}
     </section>
   );
 }

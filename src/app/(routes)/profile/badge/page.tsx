@@ -4,14 +4,32 @@ import Header from "@/components/organisms/Header";
 import BadgeProgressBar from "@/components/molecules/badge/BadgeProgressBar";
 import { BADGES } from "@/data/badge";
 import BadgeCardItem from "@/components/molecules/badge/BadgeCardItem";
-import { useBadgeStatus } from "@/hooks/features/useBadgeStatus";
-
-const myActivityCount = 13;
-const acquiredBadges = 1;
+import { getBadge } from "@/api/profile/getBadge";
+import { useQuery } from "@tanstack/react-query";
 
 export default function BadgePage() {
-  const { currentBadge, nextBadge, hasAllBadges } =
-    useBadgeStatus(acquiredBadges);
+  const { data, isLoading } = useQuery({
+    queryKey: ["userbadge"],
+    queryFn: getBadge,
+    refetchOnMount: true,
+  });
+
+  const { userBadge = [], remainingActionsForNextBadge = 0 } = data?.data ?? {};
+  const latestBadge = userBadge[userBadge.length - 1];
+
+  const acquiredBadges = userBadge.length;
+  const hasAllBadges = acquiredBadges >= BADGES.length;
+
+  const currentBadge = BADGES[acquiredBadges - 1] ?? null;
+  const nextBadge = BADGES[acquiredBadges] ?? null;
+
+  const grantedDate = latestBadge?.grantedAt
+    ? new Date(latestBadge.grantedAt).toISOString().split("T")[0]
+    : null;
+
+  if (isLoading) {
+    return <p className="text-center">로딩 중...</p>;
+  }
 
   return (
     <div className="px-4 py-6">
@@ -21,7 +39,7 @@ export default function BadgePage() {
         {currentBadge && <currentBadge.Icon className="h-[5.25rem] w-[5rem]" />}
 
         <p className="text-grey-400 text-body3-medium font-gsans-medium">
-          {new Date().toISOString().split("T")[0]} 획득
+          {grantedDate ?? "획득한 뱃지가 없어요"}
         </p>
       </div>
 
@@ -29,12 +47,10 @@ export default function BadgePage() {
         label={
           hasAllBadges ? "더 이상 딸 수 있는 뱃지가 없어요" : "다음 뱃지까지"
         }
-        current={myActivityCount}
-        total={
-          hasAllBadges
-            ? BADGES[BADGES.length - 1].required
-            : nextBadge?.required || 0
+        current={
+          nextBadge ? nextBadge.required - remainingActionsForNextBadge : 0
         }
+        total={nextBadge?.required ?? currentBadge?.required ?? 0}
         isFull={hasAllBadges}
       />
 

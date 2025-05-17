@@ -2,11 +2,17 @@
 
 import { useFormContext } from "react-hook-form";
 import { useRef, useState } from "react";
-import Avatar from "@/assets/icons/avatar.svg";
 import IconWrite from "@/assets/icons/IconWrite.svg";
 import Image from "next/image";
+import Avatar from "@/assets/icons/avatar.svg";
 
-export default function ProfileImageUploader() {
+interface ProfileImageUploaderProps {
+  profileImageUrl: string;
+}
+
+export default function ProfileImageUploader({
+  profileImageUrl,
+}: ProfileImageUploaderProps) {
   const { register, setValue } = useFormContext();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -38,9 +44,16 @@ export default function ProfileImageUploader() {
             height={72}
             className="rounded-full object-cover"
           />
+        ) : profileImageUrl ? (
+          <img
+            src={profileImageUrl}
+            alt="프로필 이미지"
+            className="h-18 w-18 rounded-full object-cover"
+          />
         ) : (
           <Avatar className="h-18 w-18 rounded-full" />
         )}
+
         <div className="bg-green absolute right-0 bottom-0 flex h-5 w-5 items-center justify-center rounded-full">
           <IconWrite className="text-grey-0 h-2.5 w-2.5" />
         </div>
