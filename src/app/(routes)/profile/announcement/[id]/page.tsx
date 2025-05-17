@@ -24,11 +24,11 @@ export default function AnnouncementDetailPage() {
     return <p className="py-6 text-center">로딩 중...</p>;
   }
 
-  if (isError || !data?.data) {
+  if (isError || !data) {
     return <p className="p-4">공지사항을 찾을 수 없습니다.</p>;
   }
 
-  const { title, content } = data.data;
+  const { title, content } = data;
 
   return (
     <div>

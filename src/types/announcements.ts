@@ -3,4 +3,5 @@ export interface AnnouncementItem {
   title: string;
   content: string;
   active: true;
+  createdDt: string;
 }

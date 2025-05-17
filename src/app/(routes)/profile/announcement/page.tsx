@@ -5,7 +5,8 @@ import Header from "@/components/organisms/Header";
 import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
 import { useQuery } from "@tanstack/react-query";
 import { getAnnounces } from "@/api/profile/getAnnounces";
-import { AnnouncementItem } from "@/data/announcements";
+import { AnnouncementItem } from "@/types/announcements";
+import { formatDate } from "@/utils/day";
 
 export default function AnnouncementPage() {
   const { data, isLoading } = useQuery({
@@ -39,9 +40,9 @@ export default function AnnouncementPage() {
                 className="flex items-center justify-between py-3.5"
               >
                 <div className="flex flex-col gap-1">
-                  {/* <span className="text-body3-medium text-grey-400">
-                  {item.date}
-                </span> */}
+                  <span className="text-body3-medium text-grey-400">
+                    {formatDate(item.createdDt, "yyyy.MM.dd")}
+                  </span>
                   <p className="text-body2-medium font-gsans-medium text-grey-950">
                     {item.title}
                   </p>
