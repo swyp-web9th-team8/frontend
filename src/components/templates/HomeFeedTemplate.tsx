@@ -11,14 +11,14 @@ import useIntersectionObserver from "@/hooks/features/commons/useIntersectionObs
 import { useModal } from "@/hooks/features/commons/useModal";
 import { useFetchGatheringList } from "@/hooks/queries/useFetchGatheringList";
 import { useFetchCompletedPostId } from "@/hooks/queries/useReview";
-import { useAuthStore } from "@/stores/useAuthStore";
-import { useRegionStore } from "@/stores/useRegionStore";
+import { useUserProfile } from "@/hooks/queries/useUserProfile";
 import { formatDate } from "@/utils/day";
 import { groupGatheringsByDate } from "@/utils/gatherings";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import LocationSelectorDropdown from "../molecules/homefeed/LocationSelectorDropdown";
 import ReviewConfirmModal from "../organisms/modal/ReviewConfirmModal";
+import { useRegionStore } from "@/stores/useRegionStore";
 
 interface HomeFeedTemplateProps {
   isClosedView: boolean;
@@ -32,13 +32,13 @@ export default function HomeFeedTemplate({
   const router = useRouter();
   const region = useRegionStore((state) => state.region);
   const setRegion = useRegionStore((state) => state.setRegion);
-  const authRegion = useAuthStore((state) => state.user?.region);
+  const { data: userProfile } = useUserProfile();
 
   useEffect(() => {
-    if (!region && authRegion) {
-      setRegion(authRegion);
+    if (!region && userProfile?.region) {
+      setRegion(userProfile.region);
     }
-  }, [authRegion, region, setRegion]);
+  }, [userProfile?.region, region, setRegion]);
 
   const {
     data: gatheringList,

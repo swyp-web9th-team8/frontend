@@ -1,19 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getUserProfile } from "@/api/profile/getUserProfile";
 import { useUserStore } from "@/stores/useUserStore";
 import EditProfileTemplate from "@/components/templates/EditProfileTemplate";
+import { useUserProfile } from "@/hooks/queries/useUserProfile";
 
 export default function EditProfilePage() {
   const { setProfile } = useUserStore();
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["userProfile"],
-    queryFn: getUserProfile,
-    staleTime: 1000 * 60 * 5,
-  });
+  const { data, isLoading } = useUserProfile();
 
   useEffect(() => {
     if (data) {
