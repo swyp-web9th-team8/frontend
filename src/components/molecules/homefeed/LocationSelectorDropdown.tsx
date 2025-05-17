@@ -4,7 +4,7 @@ import { useState } from "react";
 import IconDropdown from "@/assets/icons/dropdown-arrow.svg";
 import DropdownList from "@/components/organisms/DropdownList";
 import DropdownItem from "@/components/molecules/DropdownItem";
-import { useAuthStore } from "@/stores/useAuthStore";
+import { useUserProfile } from "@/hooks/queries/useUserProfile";
 
 interface LocationSelectorDropdownProps {
   selected: string;
@@ -18,17 +18,16 @@ export default function LocationSelectorDropdown({
   onOpenModal,
 }: LocationSelectorDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: userProfile } = useUserProfile();
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
-
-  const region = useAuthStore((state) => state.user?.region);
 
   const handleClick = (option: string) => {
     if (option === "다른 지역 보기") {
       onOpenModal();
     } else if (option === "내 거주지역") {
-      if (region) {
-        onSelect(region);
+      if (userProfile?.region) {
+        onSelect(userProfile.region);
       }
     } else {
       onSelect(option);
@@ -63,7 +62,7 @@ export default function LocationSelectorDropdown({
               let isActive = false;
 
               if (option === "내 거주지역") {
-                isActive = selected === region;
+                isActive = selected === userProfile?.region;
               } else {
                 isActive = selected === option;
               }

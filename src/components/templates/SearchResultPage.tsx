@@ -1,64 +1,76 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-
+import { useSearchParams, useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import SearchHeader from "@/components/atoms/Search/SearchHeader";
 import SearchInput from "@/components/molecules/search/SearchInput";
 import SearchCardList from "@/components/organisms/Search/SearchCardList";
-
-// 가짜 데이터
-const mockResults = {
-  upcoming: [
-    {
-      id: 1,
-      title: "한강공원 플로깅",
-      date: "2025년 4월 26일 토요일",
-      time: "오전 10시",
-      location: "여의도 한강공원",
-      status: "D-1",
-    },
-  ],
-  past: [
-    {
-      id: 2,
-      title: "한강공원 플로깅",
-      date: "2025년 4월 13일 일요일",
-      time: "오전 8시",
-      location: "한강공원",
-      status: "완료",
-    },
-    {
-      id: 3,
-      title: "한강공원 플로깅",
-      date: "2025년 4월 12일 토요일",
-      time: "오전 8시",
-      location: "한강공원",
-      status: "완료",
-    },
-  ],
-};
-
-async function fetchSearchResults(keyword: string) {
-  await new Promise((res) => setTimeout(res, 500)); // simulate latency
-  if (!keyword) throw new Error("검색어가 없습니다.");
-  return mockResults;
-}
+import SearchHistory from "@/components/molecules/search/SearchHistory";
+import { useFetchGatheringList } from "@/hooks/queries/useFetchGatheringList";
+import { useRegionStore } from "@/stores/useRegionStore";
+import {
+  addSearchKeyword,
+  getSearchHistory,
+  removeSearchKeyword,
+} from "@/utils/searchHistory";
 
 export default function SearchResultPage() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const q = searchParams.get("q") || "";
   const [keyword, setKeyword] = useState(q);
+  const [searchTerm, setSearchTerm] = useState(q);
+  const [history, setHistory] = useState<string[]>([]);
+  const region = useRegionStore((state) => state.region) || "";
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["search", keyword],
-    queryFn: () => fetchSearchResults(keyword),
-    enabled: !!keyword,
-  });
+  // 최근 검색어 로드
+  useEffect(() => {
+    setHistory(getSearchHistory().slice(0, 10));
+  }, []);
+
+  // URL의 검색어 파라미터가 변경되면 검색어와 검색 실행 키워드를 업데이트
+  useEffect(() => {
+    setKeyword(q);
+    setSearchTerm(q);
+  }, [q]);
+
+  const { data: gatheringList } = useFetchGatheringList(
+    false,
+    region,
+    searchTerm,
+  );
 
   const handleSearch = () => {
-    // 추후 검색 제출 시 URL 변경 혹은 쿼리 트리거
+    if (!keyword.trim()) return;
+
+    // 검색어 저장
+    addSearchKeyword(keyword);
+    setHistory(getSearchHistory().slice(0, 10));
+
+    // 검색 실행 키워드 업데이트
+    setSearchTerm(keyword);
+
+    // URL 업데이트
+    router.push(`/search/result?q=${encodeURIComponent(keyword)}`);
+  };
+
+  const handleRemove = (item: string) => {
+    removeSearchKeyword(item);
+    setHistory((prev) => prev.filter((v) => v !== item));
+  };
+
+  const handleHistoryClick = (searchKeyword: string) => {
+    setKeyword(searchKeyword);
+    setSearchTerm(searchKeyword);
+    router.push(`/search/result?q=${encodeURIComponent(searchKeyword)}`);
+  };
+
+  const handleKeywordChange = (value: string) => {
+    setKeyword(value);
+    if (!value) {
+      setSearchTerm("");
+      router.push("/search");
+    }
   };
 
   return (
@@ -68,28 +80,43 @@ export default function SearchResultPage() {
       <div className="mb-12">
         <SearchInput
           value={keyword}
-          onChange={setKeyword}
+          onChange={handleKeywordChange}
           onSubmit={handleSearch}
-          onClear={() => setKeyword("")}
+          onClear={() => {
+            setKeyword("");
+            setSearchTerm("");
+            router.push("/search");
+          }}
         />
       </div>
 
-      {isLoading && <p>로딩 중...</p>}
-      {isError && <p>검색 중 오류가 발생했습니다.</p>}
+      {!keyword && (
+        <SearchHistory
+          history={history}
+          onRemove={handleRemove}
+          onItemClick={handleHistoryClick}
+        />
+      )}
 
-      {data && (
+      {keyword && searchTerm && gatheringList && gatheringList.length > 0 && (
         <div className="flex flex-col gap-[2.375rem]">
           <SearchCardList
-            title="다가오는 모임"
-            items={data.upcoming}
+            title="검색 결과"
+            items={gatheringList.map((item) => ({
+              id: item.id,
+              title: item.title,
+              date: item.meetingTime,
+              time: item.meetingTime,
+              location: item.placeName || item.address,
+              status: "모집중",
+            }))}
             highlightColor="bg-[#F6A314]"
           />
-          <SearchCardList
-            title="완료된 모임"
-            items={data.past}
-            highlightColor="bg-green"
-          />
         </div>
+      )}
+
+      {keyword && searchTerm && gatheringList && gatheringList.length === 0 && (
+        <p className="text-center text-gray-500">검색 결과가 없습니다.</p>
       )}
     </div>
   );

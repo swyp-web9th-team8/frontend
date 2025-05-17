@@ -3,11 +3,13 @@ import IconClose from "@/assets/icons/IconClose.svg";
 interface SearchHistoryProps {
   history: string[];
   onRemove: (item: string) => void;
+  onItemClick: (item: string) => void;
 }
 
 export default function SearchHistory({
   history,
   onRemove,
+  onItemClick,
 }: SearchHistoryProps) {
   if (history.length === 0) return null;
 
@@ -22,7 +24,12 @@ export default function SearchHistory({
             key={item}
             className="bg-grey-0 text-grey-800 border-grey-200 flex items-center gap-1.5 rounded-full border px-3.5 py-2.5"
           >
-            <span>{item}</span>
+            <button
+              onClick={() => onItemClick(item)}
+              className="cursor-pointer"
+            >
+              <span>{item}</span>
+            </button>
             <button
               onClick={() => onRemove(item)}
               className="text-grey-950 font-gsans-medium text-body2-medium"

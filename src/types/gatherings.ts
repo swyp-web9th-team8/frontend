@@ -38,6 +38,7 @@ export interface IFetchGatheringListRequest {
   page: number;
   size: number;
   sort?: string[];
+  v?: string;
 }
 
 export interface IParticipant {
