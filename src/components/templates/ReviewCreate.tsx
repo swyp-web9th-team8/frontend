@@ -2,7 +2,7 @@
 
 import ImagesUploader from "@/components/atoms/Input/ImagesUploader";
 import ReviewCreateItemWithLabel from "@/components/molecules/review/ReviewCreateItemWithLabel";
-import { reviewCreateInfo } from "@/data/review";
+import { usePostReview } from "@/hooks/mutations/useReview";
 import { useFetchGatheringDetail } from "@/hooks/queries/useFetchGatheringDetail";
 import { ICreateFormValues } from "@/types/form";
 import { useSearchParams } from "next/navigation";
@@ -12,6 +12,14 @@ import ReviewSummaryCard from "../molecules/review/ReviewSummaryCard";
 import AttendanceManager from "../organisms/review/AttendanceManager";
 import ReviewCreateButton from "../organisms/review/ReviewCreateButton";
 
+function ReviewCreate() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ReviewCreateContent />
+    </Suspense>
+  );
+}
+
 function ReviewCreateContent() {
   const searchParams = useSearchParams();
   const postId = searchParams.get("id");
@@ -20,18 +28,27 @@ function ReviewCreateContent() {
     mode: "onChange",
     defaultValues: {
       images: [],
-      attendance: [],
+      userIds: [],
     },
   });
 
   const { handleSubmit, watch } = methods;
   const watchImages = watch("images");
+
+  const { mutate: postReview } = usePostReview();
   const { data } = useFetchGatheringDetail(Number(postId));
-  console.log(data);
+
+  const participants = data?.participants || [];
 
   const onSubmit = (data: ICreateFormValues) => {
-    console.log(data);
+    postReview({
+      postId: Number(postId),
+      files: data.images,
+      userIds: data.userIds || [],
+    });
   };
+
+  if (!data) return <div>Loading...</div>;
 
   return (
     <FormProvider {...methods}>
@@ -40,17 +57,10 @@ function ReviewCreateContent() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <ReviewCreateItemWithLabel label="완료된 모임">
-          <ReviewSummaryCard
-            title={reviewCreateInfo.title}
-            meetingTime={reviewCreateInfo.meetingTime}
-            placeName={reviewCreateInfo.placeName}
-          />
+          <ReviewSummaryCard data={data} />
         </ReviewCreateItemWithLabel>
         <ReviewCreateItemWithLabel label="출석 체크">
-          <AttendanceManager
-            name="attendance"
-            allMembers={reviewCreateInfo.allMembers}
-          />
+          <AttendanceManager name="userIds" allMembers={participants} />
         </ReviewCreateItemWithLabel>
         <ReviewCreateItemWithLabel label="모임 사진을 1장 이상 올려주세요">
           <ImagesUploader
@@ -66,14 +76,6 @@ function ReviewCreateContent() {
         </div>
       </form>
     </FormProvider>
-  );
-}
-
-function ReviewCreate() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <ReviewCreateContent />
-    </Suspense>
   );
 }
 

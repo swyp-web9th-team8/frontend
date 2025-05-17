@@ -1,10 +1,10 @@
 import AttendanceItem from "@/components/molecules/review/AttendanceItem";
-import { IReviewCreateResponse } from "@/types/review";
+import { IParticipant } from "@/types/gatherings";
 
 interface Props {
   attendance: number[];
   onCheck: (id: number) => void;
-  allMembers: IReviewCreateResponse["allMembers"];
+  allMembers: IParticipant[];
 }
 
 function AttendanceList({ attendance, onCheck, allMembers }: Props) {
@@ -17,7 +17,7 @@ function AttendanceList({ attendance, onCheck, allMembers }: Props) {
             key={item.id}
             name={item.nickname}
             isChecked={attendance.includes(item.id)}
-            imageUrl={item.imageUrl ?? undefined}
+            imageUrl={item.profileImage ?? undefined}
             onCheck={onCheck}
             id={item.id}
           />

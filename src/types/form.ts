@@ -4,12 +4,12 @@ export interface IGatheringFormValues {
   maxParticipants: number;
   datePart: string;
   address: string;
-  dueTime: string;
+  deadLine: string;
   timePart: string; // "14:00"
   openChatUrl: string | null;
 }
 
 export interface ICreateFormValues {
   images: File[];
-  attendance: number[]; // 닉네임
+  userIds: number[]; // 닉네임
 }

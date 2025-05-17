@@ -4,9 +4,12 @@ export const fetchCompletedPostId = async () => {
   return await requestHandler("get", "api/users/completed-post-ids");
 };
 
-const postReviewImage = async (postId: number, file: File) => {
+const postReviewImages = async (postId: number, files: File[]) => {
   const formData = new FormData();
-  formData.append("file", file);
+
+  files.forEach((file) => {
+    formData.append(`files`, file);
+  });
 
   return await requestHandler("post", `/api/post/${postId}/image`, formData, {
     headers: {
@@ -15,22 +18,16 @@ const postReviewImage = async (postId: number, file: File) => {
   });
 };
 
-/** 리뷰 이미지들 보내는 요청 */
-export const postReviewImages = async (postId: number, files: File[]) => {
-  const uploadPromises = files.map((file) => postReviewImage(postId, file));
-  return Promise.all(uploadPromises);
-};
-
 export const postReview = async (
   postId: number,
   files: File[],
-  participantIds: number[],
+  userIds: number[],
 ) => {
-  const uploadPromises = files.map((file) => postReviewImage(postId, file));
+  const uploadPromises = await postReviewImages(postId, files);
   const participantsPromise = await requestHandler(
     "post",
-    `/api/post${postId}/certificate`,
-    participantIds,
+    `/api/post/${postId}/certificate`,
+    { userIds },
   );
-  return Promise.all([...uploadPromises, ...participantsPromise]);
+  return Promise.all([uploadPromises, participantsPromise]);
 };
