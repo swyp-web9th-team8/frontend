@@ -25,7 +25,7 @@ export const useFetchGatheringList = (closed: boolean) => {
       },
       getNextPageParam: (lastPage) => {
         const nextPage = lastPage.page + 1;
-        return lastPage.totalPages !== lastPage.page ? nextPage : undefined;
+        return lastPage.totalPages - 1 !== lastPage.page ? nextPage : undefined;
       },
       initialPageParam: 0,
     });
