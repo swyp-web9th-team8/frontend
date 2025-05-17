@@ -11,13 +11,13 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 const ROWS_PER_PAGE = 20;
 
 /** 홈 화면 - 모집중/마감된 모임 */
-export const useFetchGatheringList = (closed: boolean) => {
+export const useFetchGatheringList = (closed: boolean, pos: string) => {
   const { data, fetchNextPage, hasNextPage, refetch } =
     useInfiniteQuery<IFetchGatheringListResponse>({
-      queryKey: ["fetchGatheringList", closed],
+      queryKey: ["fetchGatheringList", closed, pos],
       queryFn: ({ pageParam }) => {
         const payload = {
-          pos: "도봉구 창동",
+          pos,
           page: pageParam as number,
           size: ROWS_PER_PAGE,
         };

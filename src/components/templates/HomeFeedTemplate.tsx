@@ -17,7 +17,6 @@ import { useAuthStore } from "@/stores/useAuthStore";
 import { useRegionStore } from "@/stores/useRegionStore";
 import { formatDate } from "@/utils/day";
 import { groupGatheringsByDate } from "@/utils/gatherings";
-import { getDongFromRegion } from "@/utils/region";
 import { useEffect } from "react";
 import LocationSelectorDropdown from "../molecules/homefeed/LocationSelectorDropdown";
 import ReviewConfirmModal from "../organisms/modal/ReviewConfirmModal";
@@ -31,23 +30,28 @@ export default function HomeFeedTemplate({
   isClosedView,
   onChangeTab,
 }: HomeFeedTemplateProps) {
+  const region = useRegionStore((state) => state.region);
+  const setRegion = useRegionStore((state) => state.setRegion);
+  const authRegion = useAuthStore((state) => state.user?.region);
+
+  useEffect(() => {
+    if (!region && authRegion) {
+      setRegion(authRegion);
+    }
+  }, [authRegion, region, setRegion]);
+
   const {
     data: gatheringList,
     fetchNextPage,
     hasNextPage,
-  } = useFetchGatheringList(isClosedView);
+  } = useFetchGatheringList(isClosedView, region || "");
+
+  const { setTarget } = useIntersectionObserver({
+    hasNextPage,
+    fetchNextPage,
+  });
+
   const openSearch = useSearchStore((state) => state.open);
-  const authRegion = useAuthStore((state) => state.user?.region);
-
-  const region = useRegionStore((state) => state.region);
-  const setRegion = useRegionStore((state) => state.setRegion);
-
-  useEffect(() => {
-    if (!region && authRegion) {
-      const dong = getDongFromRegion(authRegion);
-      setRegion(dong);
-    }
-  }, [authRegion, region, setRegion]);
 
   const {
     state: { isOpen: isModalOpen },
@@ -55,11 +59,6 @@ export default function HomeFeedTemplate({
   } = useModal();
 
   const { reviewOpen, reviewId } = useFetchCompletedPostId();
-
-  const { setTarget } = useIntersectionObserver({
-    hasNextPage,
-    fetchNextPage,
-  });
 
   const { latitude, longitude } = useGeolocation();
 
@@ -105,7 +104,7 @@ export default function HomeFeedTemplate({
               items={items}
               isClosed={isClosedView}
             />
-            <div ref={setTarget}></div>
+            <div className="h-4" ref={setTarget}></div>
           </div>
         );
       })}

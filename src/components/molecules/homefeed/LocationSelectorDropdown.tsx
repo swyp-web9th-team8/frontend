@@ -5,7 +5,6 @@ import IconDropdown from "@/assets/icons/dropdown-arrow.svg";
 import DropdownList from "@/components/organisms/DropdownList";
 import DropdownItem from "@/components/molecules/DropdownItem";
 import { useAuthStore } from "@/stores/useAuthStore";
-import { getDongFromRegion } from "@/utils/region";
 
 interface LocationSelectorDropdownProps {
   selected: string;
@@ -28,8 +27,9 @@ export default function LocationSelectorDropdown({
     if (option === "다른 지역 보기") {
       onOpenModal();
     } else if (option === "내 거주지역") {
-      const dong = getDongFromRegion(region);
-      onSelect(dong);
+      if (region) {
+        onSelect(region);
+      }
     } else {
       onSelect(option);
     }
@@ -63,7 +63,7 @@ export default function LocationSelectorDropdown({
               let isActive = false;
 
               if (option === "내 거주지역") {
-                isActive = selected === getDongFromRegion(region);
+                isActive = selected === region;
               } else {
                 isActive = selected === option;
               }

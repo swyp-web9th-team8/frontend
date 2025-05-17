@@ -30,9 +30,11 @@ export default function GatheringCard({
             <IconClock className="h-4 w-4" />
             <span>{formatMeetingTime(gathering.meetingTime)}</span>
           </div>
-          <div className="text-body2-medium font-gsans-medium text-grey-950 flex gap-2">
+          <div className="text-body2-medium font-gsans-medium text-grey-950 flex w-full gap-2">
             <IconLocation className="h-4 w-4" />
-            <span>{gathering.address}</span>
+            <span className="min-w-[8.75rem] truncate">
+              {gathering.address}
+            </span>
           </div>
         </div>
       </div>
