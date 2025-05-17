@@ -18,7 +18,7 @@ const NAV_ITEMS = [
   {
     label: "모임",
     icon: <GatheringIcon className={iconStyle} />,
-    href: `/gatherings`,
+    href: `/gatherings/completed`,
   },
   {
     label: "랭킹",
