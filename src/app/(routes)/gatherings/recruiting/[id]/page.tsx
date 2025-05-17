@@ -1,7 +1,12 @@
 import GatheringRecruiting from "@/components/templates/gatheringRecruiting";
 
-function GatheringRecruitingPage() {
-  return <GatheringRecruiting />;
+async function GatheringRecruitingPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  return <GatheringRecruiting id={Number(id)} />;
 }
 
 export default GatheringRecruitingPage;
