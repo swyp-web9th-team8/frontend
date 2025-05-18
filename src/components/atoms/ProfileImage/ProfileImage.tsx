@@ -13,7 +13,7 @@ export default function ProfileImage({ src, size = 28 }: Props) {
       alt="profile"
       width={size}
       height={size}
-      className={`rounded-full`}
+      className={`rounded-full object-cover`}
     />
   );
 }
