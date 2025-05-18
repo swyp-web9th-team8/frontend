@@ -107,7 +107,7 @@ export default function MyGatheringPage() {
               smallText="새 모임을 만들어 보실래요?"
             >
               <button
-                onClick={() => router.push("/gathering/create")}
+                onClick={() => router.push("/gatherings/create")}
                 className="bg-green text-body1-medium font-gsans-medium text-grey-0 cursor-pointer rounded-xl px-[2.75rem] py-3"
               >
                 모임 만들기
