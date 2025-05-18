@@ -1,9 +1,13 @@
 import IconClock from "@/assets/icons/clock.svg";
 import IconLocation from "@/assets/icons/location.svg";
+import {
+  useLeaveCancelGathering,
+  useParticipateGathering,
+} from "@/hooks/queries/useParticipateGathering";
 import { IGatheringItem } from "@/types/gatherings";
 import { formatMeetingTime } from "@/utils/day";
-import { useParticipateGathering } from "@/hooks/queries/useParticipateGathering";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 interface GatheringCardProps {
   gathering: IGatheringItem;
@@ -15,11 +19,21 @@ export default function GatheringCard({
   isClosed = false,
 }: GatheringCardProps) {
   const { mutate: participate, isPending } = useParticipateGathering();
+  const { mutate: leave } = useLeaveCancelGathering();
+
   const router = useRouter();
+
+  const [isJoined, setIsJoined] = useState(gathering.iin);
 
   const handleParticipate = (e: React.MouseEvent) => {
     e.stopPropagation();
-    participate(gathering.id);
+    if (!isJoined) {
+      participate(gathering.id);
+      setIsJoined(true);
+    } else {
+      leave(gathering.id);
+      setIsJoined(false);
+    }
   };
 
   const handleClick = () => {
@@ -53,13 +67,20 @@ export default function GatheringCard({
           <span className="text-body3-medium font-gsans-medium text-grey-400 text-end">
             {gathering.maxParticipants - gathering.participantCount}자리 남음
           </span>
-          {gathering.iin ? (
-            <div className="bg-grey-200 font-gsans-medium text-body3-medium text-grey-0 h-[2.125rem] rounded-full px-3 py-2">
+          {isJoined ? (
+            <div
+              onClick={(e) => {
+                handleParticipate(e);
+              }}
+              className="bg-grey-200 font-gsans-medium text-body3-medium text-grey-0 h-[2.125rem] rounded-full px-3 py-2"
+            >
               참여하기
             </div>
           ) : (
             <div
-              onClick={handleParticipate}
+              onClick={(e) => {
+                handleParticipate(e);
+              }}
               className={`bg-green font-gsans-medium text-body3-medium text-grey-0 h-[2.125rem] cursor-pointer rounded-full px-3 py-2 ${
                 isPending ? "opacity-50" : ""
               }`}

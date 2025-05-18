@@ -19,7 +19,7 @@ function GatheringRecruiting({ id }: Props) {
   }
 
   const areadyJoined =
-    data.iin || data.participants.length + 1 < data.maxParticipants;
+    data.iin || Boolean(data.participants.length + 1 >= data.maxParticipants);
 
   return (
     <>
@@ -31,7 +31,7 @@ function GatheringRecruiting({ id }: Props) {
             <ParticipantSummary data={data} />
             <Description data={data} />
             <div className="mt-auto mb-[42px] w-full">
-              <JoinButton isJoined={areadyJoined} />
+              <JoinButton areadyJoined={areadyJoined} id={id} />
             </div>
           </div>
         </div>
