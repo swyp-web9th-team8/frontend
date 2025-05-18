@@ -10,5 +10,5 @@ export type DUE_TIME = 30 | 60 | undefined;
 
 export const DUE_TIME_OPTIONS = [
   { screen: "모임 시작 30분 전", request: 30 },
-  { screen: "모임 시작 1시간간 전", request: 60 },
+  { screen: "모임 시작 1시간 전", request: 60 },
 ];
