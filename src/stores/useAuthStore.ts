@@ -15,6 +15,7 @@ export interface User {
 interface AuthState {
   isLoggedIn: boolean;
   user: User | null;
+  profileImageUrl: string | null;
   login: (user: User) => void;
   logout: () => void;
 }
@@ -25,11 +26,13 @@ export const useAuthStore = create<AuthState>()(
       (set) => ({
         isLoggedIn: false,
         user: null,
+        profileImageUrl: null,
 
         login: (user) =>
           set({
             isLoggedIn: true,
             user,
+            profileImageUrl: user.profileImageUrl,
           }),
 
         logout: () => {

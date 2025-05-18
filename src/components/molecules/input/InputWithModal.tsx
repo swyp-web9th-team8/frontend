@@ -47,7 +47,7 @@ function InputWithModal({
         <button
           onClick={() => setIsOpen(!isOpen)}
           type="button"
-          className="absolute top-1/2 right-4 -translate-y-1/2"
+          className="absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer"
         >
           <IconChevronBelow className="h-6 w-6" />
         </button>

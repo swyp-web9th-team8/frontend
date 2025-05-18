@@ -1,5 +1,7 @@
+import RankingTemplate from "@/components/templates/RankingTemplate";
+
 function RankingPage() {
-  return <div>RankingPage</div>;
+  return <RankingTemplate />;
 }
 
 export default RankingPage;
