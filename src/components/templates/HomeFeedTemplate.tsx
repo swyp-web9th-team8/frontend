@@ -68,7 +68,7 @@ export default function HomeFeedTemplate({
   const groupedList = groupGatheringsByDate(gatheringList || []);
 
   return (
-    <div className="flex flex-1 flex-col pt-[4.5rem] pb-28">
+    <div className="flex flex-1 flex-col pt-[4.5rem]">
       <div className="mb-9 flex items-center justify-between">
         <LocationSelectorDropdown
           latitude={latitude || undefined}

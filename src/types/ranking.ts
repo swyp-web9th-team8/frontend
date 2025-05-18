@@ -13,5 +13,5 @@ export interface IRankingResponseDataItem {
   nickname: string;
   profileImageDir: string;
   totalMeet: number;
-  ranking: number;
+  rank: number;
 }

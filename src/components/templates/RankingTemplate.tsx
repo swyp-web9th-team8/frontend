@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from "@/assets/icons/Loading.svg";
 import RankingList from "@/components/organisms/ranking/RankingList";
 import { useFetchRanking } from "@/hooks/queries/useRanking";
 import { RankingType } from "@/types/ranking";
@@ -13,7 +14,12 @@ function RankingTemplate() {
 
   const { data, isLoading } = useFetchRanking(rankingType);
 
-  if (!data || isLoading) return <div>Loading...</div>;
+  if (!data || isLoading)
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <Loading className="h-[87px] w-[87px] animate-spin" />
+      </div>
+    );
 
   const handleChangeTab = (closed: boolean) => {
     if (closed) {

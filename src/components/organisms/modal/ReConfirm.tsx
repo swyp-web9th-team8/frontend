@@ -16,9 +16,13 @@ function ReConfirm({ showIcon = true, title, description, showDate }: Props) {
       {showDate && (
         <p className="text-body3-medium text-grey-400 mb-5">{showDate}</p>
       )}
-      <p className="text-heading1-bold mb-[14px] text-gray-950">{title}</p>
+      <p className="text-heading1-bold mb-[14px] overflow-hidden break-keep text-gray-950">
+        {title}
+      </p>
       {description && (
-        <p className="text-body2-medium text-gray-400">{description}</p>
+        <p className="text-body2-medium break-keep text-gray-400">
+          {description}
+        </p>
       )}
     </div>
   );

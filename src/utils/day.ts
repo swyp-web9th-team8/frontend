@@ -1,4 +1,4 @@
-import { add, format, formatDistanceToNow, parseISO } from "date-fns";
+import { add, format, formatDistanceToNow } from "date-fns";
 import { toZonedTime } from "date-fns-tz";
 import { ko } from "date-fns/locale";
 
@@ -36,7 +36,7 @@ export const getAbbreviatedDayOfWeek = (dayOfWeek: string) => {
 };
 
 export const formatDate = (date: string, formatString?: string) => {
-  const d = parseISO(date);
+  const d = add(new Date(date), { hours: 9 });
   return format(d, formatString || "yyyy-MM-dd");
 };
 
