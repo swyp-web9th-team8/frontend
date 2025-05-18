@@ -96,7 +96,7 @@ export function ReConfirmModalProvider({ children }: { children: ReactNode }) {
     if (!isOpen) return null;
 
     return (
-      <Modal onClose={closeModal} position="center">
+      <Modal onClose={closeModal} position="center" variant="plain">
         <TwoButtonContents
           onClose={closeModal}
           onConfirm={handleConfirm}

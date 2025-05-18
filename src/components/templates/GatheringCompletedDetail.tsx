@@ -17,10 +17,17 @@ export default function GatheringCompletedDetail({ id }: Props) {
     return <div>Loading...</div>;
   }
 
+  console.log(
+    "data",
+    data.imageUrls?.map((url) => url),
+  );
+
+  const imageUrls = data.imageUrls?.map((url) => url) || [];
+
   return (
     <div className="flex flex-col gap-4">
       <div className="mr-[-20px] mb-8">
-        <ImageCarousel />
+        <ImageCarousel imageUrls={imageUrls} />
       </div>
       <GreenBadge>모임 완료 ✌️</GreenBadge>
       <GatheringInfo data={data} />

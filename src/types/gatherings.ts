@@ -33,6 +33,13 @@ export interface ICreateGatheringRequest {
   deadline?: 60 | 30;
 }
 
+export interface ICreateGatheringResponse {
+  data: {
+    address: string;
+    meetingTime: string;
+  };
+}
+
 export interface IFetchGatheringListRequest {
   pos?: string;
   page: number;
