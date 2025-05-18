@@ -1,14 +1,17 @@
 "use client";
 
-import { useFormContext } from "react-hook-form";
-import { useRef, useState } from "react";
 import IconAdd from "@/assets/icons/IconAdd.svg";
+import { useAuthStore } from "@/stores/useAuthStore";
 import Image from "next/image";
+import { useRef, useState } from "react";
+import { useFormContext } from "react-hook-form";
 
 export default function ProfileImageUploader() {
+  const { profileImageUrl } = useAuthStore();
+
   const { register, setValue } = useFormContext();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
+  const [preview, setPreview] = useState<string | null>(profileImageUrl);
 
   const handleClick = () => {
     fileInputRef.current?.click();

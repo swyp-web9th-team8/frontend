@@ -1,14 +1,16 @@
-import { useRouter } from "next/navigation";
+import { requestHandler } from "@/lib/axiosInstance";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { SignupFormValues } from "@/types/signup";
-import { requestHandler } from "@/lib/axiosInstance";
 import { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
 
 export const useSignup = () => {
   const router = useRouter();
   const { user } = useAuthStore();
   const handleSubmitSignup = async (data: SignupFormValues) => {
     const email = user?.email;
+    const profileImageUrl = user?.profileImageUrl;
+
     if (!email) {
       alert("이메일 정보가 없습니다. 다시 로그인해주세요.");
       router.replace("/login");
@@ -20,7 +22,7 @@ export const useSignup = () => {
       nickname: data.nickname,
       gender: data.gender,
       region: data.region,
-      profileImageUrl: "https://example.com/profile.jpg",
+      profileImageUrl: profileImageUrl || null,
     };
 
     try {
