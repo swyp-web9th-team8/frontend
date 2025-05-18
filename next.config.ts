@@ -18,6 +18,7 @@ const nextConfig: NextConfig = {
       { hostname: "example.com" },
       { hostname: "img1.kakaocdn.net" },
       { hostname: "localhost", port: "8080" },
+      { hostname: "api.ploggo.co.kr" },
     ],
   },
   webpack(config: Configuration) {
