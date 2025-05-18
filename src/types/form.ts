@@ -11,5 +11,5 @@ export interface IGatheringFormValues {
 
 export interface ICreateFormValues {
   images: File[];
-  userIds: number[]; // 닉네임
+  nicknames: string; // 닉네임 (ex. ooo, ooo)
 }

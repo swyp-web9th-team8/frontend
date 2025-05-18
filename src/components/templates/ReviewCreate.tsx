@@ -28,7 +28,7 @@ function ReviewCreateContent() {
     mode: "onChange",
     defaultValues: {
       images: [],
-      userIds: [],
+      nicknames: "",
     },
   });
 
@@ -41,10 +41,16 @@ function ReviewCreateContent() {
   const participants = data?.participants || [];
 
   const onSubmit = (data: ICreateFormValues) => {
+    const nicknamesArray = data.nicknames.split(", ");
+
+    const userIds = nicknamesArray
+      .map((nickname) => participants.find((p) => p.nickname === nickname)?.id)
+      .filter((id) => id !== undefined);
+
     postReview({
       postId: Number(postId),
       files: data.images,
-      userIds: data.userIds || [],
+      userIds,
     });
   };
 
@@ -60,7 +66,7 @@ function ReviewCreateContent() {
           <ReviewSummaryCard data={data} />
         </ReviewCreateItemWithLabel>
         <ReviewCreateItemWithLabel label="출석 체크">
-          <AttendanceManager name="userIds" allMembers={participants} />
+          <AttendanceManager name="nicknames" allMembers={participants} />
         </ReviewCreateItemWithLabel>
         <ReviewCreateItemWithLabel label="모임 사진을 1장 이상 올려주세요">
           <ImagesUploader

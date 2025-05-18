@@ -3,7 +3,7 @@ import Nav from "@/components/organisms/Nav";
 
 function RankingLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div>
+    <div className="font-gsans-medium bottom-padding flex-flex-col flex-1">
       <RecruitingDetailHeader
         sharedButton={{
           title: "랭킹",

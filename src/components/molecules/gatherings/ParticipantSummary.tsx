@@ -1,7 +1,7 @@
 import ProfileImage from "@/components/atoms/ProfileImage/ProfileImage";
-import ProfileImages from "@/components/atoms/ProfileImage/ProfileImages";
 import ParticipantWithLabel from "@/components/molecules/ParticipantWithLabel";
 import { IFetchGatheringDetailResponse } from "@/types/gatherings";
+import ParticipantImageWithText from "../participant/ParticipantImageWithText";
 
 type Props = Pick<IFetchGatheringDetailResponse, "data">;
 
@@ -17,17 +17,11 @@ export default function ParticipantSummary({
         </div>
       </ParticipantWithLabel>
       <ParticipantWithLabel title="참가인원">
-        <ProfileImages
-          src={participants
-            .filter((p) => p.profileImage)
-            .map((p) => p.profileImage)}
-          maxCount={2}
+        <ParticipantImageWithText
+          participantCount={participants.length + 1}
+          participants={[...participants, writer]}
+          size="large"
         />
-        {participants.length - 2 && (
-          <div className="justify-start text-sm leading-none font-medium text-gray-950">
-            외 {participants.length - 2}명
-          </div>
-        )}
       </ParticipantWithLabel>
     </div>
   );
