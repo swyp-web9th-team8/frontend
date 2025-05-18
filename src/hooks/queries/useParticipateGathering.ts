@@ -28,13 +28,19 @@ export const useLeaveCancelGathering = () => {
 
   return useMutation({
     mutationFn: (postId: number) => leaveGathering(postId),
-    onSuccess: () => {
+    onSuccess: (res) => {
+      if (res.statusCode === "BAD_REQUEST") {
+        throw new Error("주최자는 모임을 나갈 수 없습니다");
+      }
+
       queryClient.invalidateQueries({
         queryKey: ["fetchGatheringList", "useFetchGatheringDetail"],
       });
     },
-    onError: () => {
-      showToast("모임 나가기에 실패했습니다. 다시 시도해주세요.");
+    onError: (error) => {
+      showToast(
+        error.message || "모임 나가기에 실패했습니다. 다시 시도해주세요.",
+      );
     },
   });
 };
