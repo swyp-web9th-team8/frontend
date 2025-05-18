@@ -13,24 +13,26 @@ interface ProfileImageUploaderProps {
 export default function ProfileImageUploader({
   profileImageUrl,
 }: ProfileImageUploaderProps) {
-  const { register, setValue } = useFormContext();
+  const { register, setValue } = useFormContext<{
+    profileImage: File | string | null;
+  }>();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
-
   const handleClick = () => {
     fileInputRef.current?.click();
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      setValue("profileImage", file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
+    if (!file) return;
+
+    setValue("profileImage", file);
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreview(reader.result as string);
+    };
+    reader.readAsDataURL(file);
   };
 
   return (
@@ -60,6 +62,7 @@ export default function ProfileImageUploader({
           <IconWrite className="text-grey-0 h-2.5 w-2.5" />
         </div>
       </button>
+
       <input
         type="file"
         accept="image/*"

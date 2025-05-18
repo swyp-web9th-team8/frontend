@@ -27,9 +27,7 @@ export default function ProfileHeader({
           <Image
             src={profileImageUrl}
             alt="프로필 이미지"
-            width={56}
-            height={56}
-            className="rounded-full"
+            className="h-14 w-14 rounded-full object-cover"
           />
         ) : (
           <Avatar className="h-14 w-14 rounded-full" />

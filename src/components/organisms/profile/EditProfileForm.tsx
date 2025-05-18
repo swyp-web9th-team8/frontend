@@ -2,17 +2,18 @@
 
 import { useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import { useUserStore } from "@/stores/useUserStore";
 import ProfileImageUploader from "@/components/molecules/profile/ProfileImageUploader";
 import NicknameField from "@/components/molecules/profile/NicknameField";
 import { useLogout } from "@/hooks/mutations/useLogout";
+import { useImageUrl } from "@/utils/useImageUrl";
+import { useUserProfile } from "@/hooks/queries/useUserProfile";
 
 interface EditProfileFormProps {
   onWithdraw: () => void;
 }
 
 export default function EditProfileForm({ onWithdraw }: EditProfileFormProps) {
-  const { profile } = useUserStore();
+  const { data: profile } = useUserProfile();
   const { handleLogout } = useLogout();
 
   const methods = useForm({
@@ -31,12 +32,12 @@ export default function EditProfileForm({ onWithdraw }: EditProfileFormProps) {
     }
   }, [profile, methods]);
 
+  const imageUrl = useImageUrl(profile?.profileImageUrl);
+
   return (
     <FormProvider {...methods}>
       <form>
-        <ProfileImageUploader
-          profileImageUrl={profile?.profileImageUrl ?? ""}
-        />
+        <ProfileImageUploader profileImageUrl={imageUrl ?? ""} />
         <NicknameField />
         <div className="text-body2-medium font-gsans-medium text-grey-400 mt-6 flex items-center justify-center gap-3">
           <button
