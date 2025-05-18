@@ -4,7 +4,7 @@ import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
 import ShareButton, {
   IShareButton,
 } from "@/components/atoms/Button/ShareButton";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 
 interface Props {
   children: string;
@@ -14,7 +14,7 @@ interface Props {
 function RecruitingDetailHeader({ children, sharedButton }: Props) {
   const router = useRouter();
   const { id } = useParams();
-  const pathname = window.location.pathname;
+  const pathname = usePathname();
 
   const getShareHref = () => {
     if (pathname.endsWith("/ranking")) {
