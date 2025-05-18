@@ -13,7 +13,7 @@ export default function GatheringFilterTabs({
     <div className="mb-3.5">
       <button
         onClick={() => onChange(false)}
-        className={`font-gsans-bold text-body1-bold border-grey-200 mr-2 border-r-2 pr-2 ${
+        className={`font-gsans-bold text-body1-bold border-grey-200 mr-2 cursor-pointer border-r-2 pr-2 ${
           !selected ? "text-green" : "text-grey-200"
         }`}
       >
@@ -21,7 +21,7 @@ export default function GatheringFilterTabs({
       </button>
       <button
         onClick={() => onChange(true)}
-        className={`font-gsans-bold text-body1-bold ${
+        className={`font-gsans-bold text-body1-bold cursor-pointer ${
           selected ? "text-green" : "text-grey-200"
         }`}
       >

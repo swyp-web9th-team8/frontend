@@ -10,7 +10,7 @@ function RankingItem({ data }: Props) {
     <div className="inline-flex items-center justify-between self-stretch">
       <div className="flex items-center justify-start gap-2.5">
         <div className="text-body1-medium w-5 justify-start text-center text-gray-950">
-          {data.ranking}
+          {data.rank}
         </div>
         <div className="text-body1-medium flex items-center justify-start gap-3">
           <ProfileImage src={data.profileImageDir} size={48} />
