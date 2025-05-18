@@ -3,9 +3,23 @@ import { useMemo } from "react";
 export function useImageUrl(path?: string): string {
   return useMemo(() => {
     if (!path) return "";
-    // 이미 절대 URL 이면 그대로, 아니면 백엔드 기본 URL을 붙여서 반환
-    return path.startsWith("http")
-      ? path
-      : `${process.env.NEXT_PUBLIC_SERVER_URL}${path}`;
+
+    try {
+      if (path.startsWith("http")) {
+        return path;
+      }
+
+      const cleanPath = path.startsWith("/") ? path.slice(1) : path;
+
+      const encodedPath = cleanPath
+        .split("/")
+        .map((component) => encodeURIComponent(component))
+        .join("/");
+
+      return `${process.env.NEXT_PUBLIC_SERVER_URL}/${encodedPath}`;
+    } catch (error) {
+      console.error("Error processing image URL:", error);
+      return "";
+    }
   }, [path]);
 }

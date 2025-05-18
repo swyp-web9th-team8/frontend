@@ -18,6 +18,8 @@ export default function ProfileImageUploader({
   }>();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const [imageError, setImageError] = useState(false);
+
   const handleClick = () => {
     fileInputRef.current?.click();
   };
@@ -35,25 +37,34 @@ export default function ProfileImageUploader({
     reader.readAsDataURL(file);
   };
 
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
   return (
     <div className="relative mx-auto mb-[1.875rem] w-fit">
       <button type="button" onClick={handleClick}>
         {preview ? (
-          <Image
-            src={preview}
-            alt="미리보기"
-            width={72}
-            height={72}
-            className="rounded-full object-cover"
-          />
-        ) : profileImageUrl ? (
-          <Image
-            src={profileImageUrl}
-            alt="프로필 이미지"
-            className="h-18 w-18 rounded-full object-cover"
-            width={0}
-            height={0}
-          />
+          <div className="relative h-18 w-18 rounded-full object-cover">
+            <Image
+              src={preview}
+              alt="미리보기"
+              fill
+              className="rounded-full object-cover"
+              quality={100}
+            />
+          </div>
+        ) : profileImageUrl && !imageError ? (
+          <div className="relative h-18 w-18 rounded-full object-cover">
+            <Image
+              src={profileImageUrl}
+              alt="프로필 이미지"
+              fill
+              className="rounded-full object-cover"
+              quality={100}
+              onError={handleImageError}
+            />
+          </div>
         ) : (
           <Avatar className="h-18 w-18 rounded-full" />
         )}
