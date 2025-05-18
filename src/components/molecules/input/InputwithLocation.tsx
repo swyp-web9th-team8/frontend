@@ -18,16 +18,15 @@ const InputWithLocation = ({ name, placeholder, validationRules }: Props) => {
   const showToast = useToast();
   const { ref, isOpen, setIsOpen } = useOutsideClick();
 
+  console.log("saelkdfjl;akwe");
   /** 우편번호 검색 서비스 */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleComplete = (data: any) => {
-    const address = data.address;
-
     if (data.sido !== "서울") {
       showToast("현재는 서울에서만 서비스 이용이 가능해요");
       return;
     }
-    setValue(name, address);
+    setValue(name, `${data.sigungu} ${data.bname}`);
     setIsOpen(false);
   };
 
