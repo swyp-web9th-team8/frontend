@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 interface ModalProps {
   children: React.ReactNode;
-  onClose: () => void;
+  onClose?: () => void;
   position?: "center" | "bottom";
   disableOutsideClick?: boolean;
   variant?: "default" | "plain";
@@ -27,7 +27,7 @@ export default function Modal({
 
   const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!disableOutsideClick && e.target === e.currentTarget) {
-      onClose();
+      onClose?.();
     }
   };
 

@@ -6,16 +6,19 @@ import InputWithKaKaoLink from "@/components/molecules/input/InputWithKaKaoLink"
 import InputWithLabel from "@/components/molecules/input/InputWithLabel";
 import InputWithTimePicker from "@/components/molecules/input/InputWithTimePicker";
 import InputWithUnit from "@/components/molecules/input/InputWithUnit";
+import { useToast } from "@/components/molecules/toast/ToastContext";
 import { DUE_TIME, DUE_TIME_OPTIONS } from "@/constants/createForm";
 import { useCreateGathering } from "@/hooks/queries/useCreateGathering";
 import { IGatheringFormValues } from "@/types/form";
 import { convertKoreanTimeToUTC } from "@/utils/day";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import Input from "../atoms/Input/Input";
 import CreateButton from "../molecules/gatherings/CreateButton";
 import InputWithCount from "../molecules/input/InputWithCount";
 import InputWithDropdown from "../molecules/input/InputWithDropdown";
 import InputWithLocation from "../molecules/input/InputwithLocation";
+import GatheringCreateConfirmModal from "../organisms/modal/GatheringCreateConfirmModal";
 
 const TITLE = "title";
 const CONTENT = "content";
@@ -51,13 +54,18 @@ export default function GatheringsCreatePage() {
     deadLine
   );
 
-  const { mutate } = useCreateGathering();
+  const { mutateAsync } = useCreateGathering();
+
+  const showToast = useToast();
+  const [isOpen, setIsOpen] = useState(false);
+  const [confirmMeetingTime, setConfirmMeetingTime] = useState<string>("");
+  const [confirmAddress, setConfirmAddress] = useState<string>("");
 
   const onSubmit = (data: IGatheringFormValues) => {
     const { datePart, timePart, ...rest } = data;
     const meetingTime = convertKoreanTimeToUTC(datePart, timePart);
 
-    mutate({
+    mutateAsync({
       title,
       content: rest.content,
       address: rest.address,
@@ -67,7 +75,18 @@ export default function GatheringsCreatePage() {
       deadline: DUE_TIME_OPTIONS.find(
         (option) => option.screen === rest.deadLine,
       )?.request as DUE_TIME,
-    });
+    })
+      .then((res) => {
+        if (res?.data) {
+          setConfirmMeetingTime(res.data.meetingTime);
+          setConfirmAddress(res.data.address);
+          setIsOpen(true);
+        }
+        console.log(res);
+      })
+      .catch(() => {
+        showToast("모임 생성에 실패했어요");
+      });
   };
 
   return (
@@ -170,6 +189,12 @@ export default function GatheringsCreatePage() {
           완료
         </CreateButton>
       </form>
+      {isOpen && (
+        <GatheringCreateConfirmModal
+          meetingTime={confirmMeetingTime}
+          address={confirmAddress}
+        />
+      )}
     </FormProvider>
   );
 }

@@ -28,7 +28,7 @@ export default function ReviewConfirmModal({ reviewOpen, reviewId }: Props) {
   return (
     <div className="review-modal">
       {isOpen && (
-        <Modal onClose={handleClose} position="center">
+        <Modal position="center" variant="plain">
           <TwoButtonContents
             onClose={handleClose}
             onConfirm={handleConfirm}
