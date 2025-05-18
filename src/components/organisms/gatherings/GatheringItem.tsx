@@ -47,12 +47,13 @@ export default function GatheringItem({
           <ParticipantImageWithText
             participantCount={participantCount + 1}
             participants={participants}
+            size="small"
           />
         </div>
 
         {/* 링크 이동 */}
         <Link
-          href={`/gatherings/${id}`}
+          href={`/gatherings/completed/${id}`}
           className="absolute right-3 bottom-3 flex h-8 w-8 items-center justify-center rounded-full bg-[#F7F4EF]"
         >
           <NextIcon className="h-5 w-5" />

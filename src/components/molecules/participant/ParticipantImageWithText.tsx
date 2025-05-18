@@ -4,14 +4,24 @@ import { IParticipant } from "@/types/gatherings";
 interface Props {
   participantCount: number;
   participants: IParticipant[];
+  size: "small" | "large";
 }
 
-function ParticipantImageWithText({ participantCount, participants }: Props) {
+function ParticipantImageWithText({
+  participantCount,
+  participants,
+  size,
+}: Props) {
   const participantImages = participants.map(
     (participant) => participant.profileImage,
   );
 
   const isMoreThanThree = participantCount > 3;
+
+  const textClass =
+    size === "small"
+      ? "text-body4-medium text-white"
+      : "text-body2-medium text-gray-950";
 
   return (
     <>
@@ -19,7 +29,7 @@ function ParticipantImageWithText({ participantCount, participants }: Props) {
         src={participantImages}
         maxCount={participantCount < 2 ? 1 : 2}
       />
-      <div className="justify-start text-[10px] leading-none font-medium text-white">
+      <div className={`text-gsans-medium justify-start ${textClass}`}>
         {isMoreThanThree ? "외" : ""} {participantCount}명 참가
       </div>
     </>
