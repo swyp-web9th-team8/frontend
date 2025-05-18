@@ -1,6 +1,6 @@
 "use client";
 
-import Loading from "@/assets/icons/loading.svg";
+import Loading from "@/assets/icons/Loading.svg";
 import RankingList from "@/components/organisms/ranking/RankingList";
 import { useFetchRanking } from "@/hooks/queries/useRanking";
 import { RankingType } from "@/types/ranking";
