@@ -35,7 +35,7 @@ const Input = ({
       {...register(name, validationRules)}
       type={type}
       placeholder={placeholder}
-      className={`input-base input-placeholder ${errors[name] ? "input-error" : "input-default"}`}
+      className={`input-base input-placeholder cursor-pointer ${errors[name] ? "input-error" : "input-default"}`}
       readOnly={readOnly}
       onClick={onClick}
       {...(type === "number" && { max, min })}

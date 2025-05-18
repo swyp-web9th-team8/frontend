@@ -114,7 +114,7 @@ function ImagesUploader({ name, validationRules }: Props) {
               <button
                 type="button"
                 onClick={() => removeImage(index)}
-                className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-black/70"
+                className="absolute -top-2 -right-2 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full bg-black/70"
               >
                 <IconClose className="h-[14px] w-[14px] text-gray-200" />
               </button>
@@ -122,7 +122,7 @@ function ImagesUploader({ name, validationRules }: Props) {
           ))}
           {previews.length < MAX_IMAGE_COUNT && (
             <div
-              className="relative aspect-square rounded-xl outline outline-[0.50px] outline-offset-[-0.50px] outline-gray-950 outline-dashed"
+              className="relative aspect-square cursor-pointer rounded-xl outline outline-[0.50px] outline-offset-[-0.50px] outline-gray-950 outline-dashed"
               onClick={handleClick}
             >
               <IconAdd className="absolute top-1/2 left-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2" />
@@ -140,8 +140,8 @@ function ImagesUploader({ name, validationRules }: Props) {
 
 function NoImages() {
   return (
-    <div className="relative flex aspect-3/1 w-full items-center justify-center overflow-hidden rounded-2xl bg-gray-50 outline outline-[0.50px] outline-offset-[-0.50px] outline-gray-950 outline-dashed">
-      <button className="h-12 w-12 rounded-full bg-zinc-300">
+    <div className="relative flex aspect-3/1 w-full cursor-pointer items-center justify-center overflow-hidden rounded-2xl bg-gray-50 outline outline-[0.50px] outline-offset-[-0.50px] outline-gray-950 outline-dashed">
+      <button className="h-12 w-12 cursor-pointer rounded-full bg-zinc-300">
         <IconAdd className="absolute top-1/2 left-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2" />
       </button>
     </div>
