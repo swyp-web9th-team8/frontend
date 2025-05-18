@@ -24,11 +24,14 @@ export default function ProfileHeader({
     <section className="mb-6 flex items-center justify-between px-2">
       <div className="flex items-center gap-3">
         {profileImageUrl ? (
-          <Image
-            src={profileImageUrl}
-            alt="프로필 이미지"
-            className="h-14 w-14 rounded-full object-cover"
-          />
+          <div className="relative h-14 w-14 overflow-hidden rounded-full">
+            <Image
+              src={profileImageUrl}
+              alt="프로필 이미지"
+              fill
+              className="object-cover"
+            />
+          </div>
         ) : (
           <Avatar className="h-14 w-14 rounded-full" />
         )}
