@@ -1,4 +1,4 @@
-import { format, formatDistanceToNow, parseISO } from "date-fns";
+import { add, format, formatDistanceToNow, parseISO } from "date-fns";
 import { toZonedTime } from "date-fns-tz";
 import { ko } from "date-fns/locale";
 
@@ -41,17 +41,17 @@ export const formatDate = (date: string, formatString?: string) => {
 };
 
 export const getDayOfWeek = (date: string) => {
-  const d = parseISO(date);
+  const d = add(new Date(date), { hours: 9 });
   return format(d, "E");
 };
 
 export const getMonth = (date: string) => {
-  const d = parseISO(date);
+  const d = add(new Date(date), { hours: 9 });
   return Number(format(d, "MM"));
 };
 
 export const getDay = (date: string) => {
-  const d = parseISO(date);
+  const d = add(new Date(date), { hours: 9 });
   return Number(format(d, "dd"));
 };
 
@@ -88,7 +88,7 @@ export const formatDateAndTime = (
   date: string,
   formatString = "yyyy년 M월 d일 H시 m분",
 ): string => {
-  const d = parseISO(date);
+  const d = add(new Date(date), { hours: 9 });
   return format(d, formatString, { locale: ko });
 };
 
@@ -143,6 +143,6 @@ export const convertKoreanTimeToUTC = (
 };
 
 export const formatMeetingTime = (date: string) => {
-  const d = parseISO(date);
+  const d = add(new Date(date), { hours: 9 });
   return format(d, "a h시", { locale: ko });
 };
