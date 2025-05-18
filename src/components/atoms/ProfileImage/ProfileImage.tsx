@@ -8,12 +8,16 @@ interface Props {
 
 export default function ProfileImage({ src, size = 28 }: Props) {
   return (
-    <Image
-      src={src || getRandomAvatar("female")}
-      alt="profile"
-      width={size}
-      height={size}
-      className={`rounded-full object-cover`}
-    />
+    <div
+      className="relative overflow-hidden rounded-full"
+      style={{ width: size, height: size }}
+    >
+      <Image
+        src={src || getRandomAvatar("female")}
+        alt="profile"
+        fill
+        className="object-cover"
+      />
+    </div>
   );
 }
