@@ -31,22 +31,30 @@ export default function LocationSelectorDropdown({
 
   const showToast = useToast();
 
+  const [where, setWhere] = useState<
+    "내 거주지역" | "현재 위치한 지역 (동)" | "ETC"
+  >("내 거주지역");
+
   const handleClick = (option: string) => {
     if (option === "다른 지역 보기") {
       onOpenModal();
+      setWhere("ETC");
     } else if (option === "내 거주지역") {
       if (userProfile?.region) {
         onSelect(userProfile.region);
+        setWhere("내 거주지역");
       }
     } else {
       refetch()
         .then(({ data }) => {
           if (data && data.data) {
             onSelect(`${data.data.district} ${data.data.neighborhood}`);
+            setWhere("현재 위치한 지역 (동)");
           }
         })
         .catch(() => {
           showToast("위치 정보를 가져오는데 실패했습니다.");
+          setWhere("내 거주지역");
         });
     }
     setIsOpen(false);
@@ -79,9 +87,9 @@ export default function LocationSelectorDropdown({
               let isActive = false;
 
               if (option === "내 거주지역") {
-                isActive = selected === userProfile?.region;
+                isActive = where === "내 거주지역";
               } else {
-                isActive = selected === option;
+                isActive = where === "현재 위치한 지역 (동)";
               }
 
               return (
