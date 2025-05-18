@@ -37,7 +37,6 @@ export default function ReviewConfirmModal({ reviewOpen, reviewId }: Props) {
             <ReConfirm
               title="주최하신 모임의 리뷰를 남겨주세요"
               description="리뷰를 제출하셔야 점수를 획득하실 수 있어요!"
-              showDate={"4월 3일 토요일"}
               showIcon
             />
           </TwoButtonContents>

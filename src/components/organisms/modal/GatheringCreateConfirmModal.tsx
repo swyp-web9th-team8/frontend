@@ -13,14 +13,14 @@ function GatheringCreateConfirmModal({ meetingTime, address }: Props) {
   const date = formatDateAndTime(meetingTime, "M월 d일 E") + "요일";
   const router = useRouter();
   return (
-    <Modal onClose={() => router.back()} position="center">
+    <Modal onClose={() => router.push("/home")} position="center">
       <TwoButtonContents
         buttonText={{
           close: "모임 확인하기",
           confirm: "닫기",
         }}
         onClose={() => router.push("/home")}
-        onConfirm={() => router.back()}
+        onConfirm={() => router.push("/home")}
       >
         <div className="inline-flex w-full flex-col items-center justify-center gap-5">
           <Character className="h-28 w-28" />

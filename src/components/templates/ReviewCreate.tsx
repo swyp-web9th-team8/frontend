@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from "@/assets/icons/Loading.svg";
 import ImagesUploader from "@/components/atoms/Input/ImagesUploader";
 import ReviewCreateItemWithLabel from "@/components/molecules/review/ReviewCreateItemWithLabel";
 import { usePostReview } from "@/hooks/mutations/useReview";
@@ -14,7 +15,13 @@ import ReviewCreateButton from "../organisms/review/ReviewCreateButton";
 
 function ReviewCreate() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense
+      fallback={
+        <div className="flex-1 items-center justify-center">
+          <Loading className="h-[81px] w-[81px] animate-spin" />
+        </div>
+      }
+    >
       <ReviewCreateContent />
     </Suspense>
   );
@@ -54,7 +61,12 @@ function ReviewCreateContent() {
     });
   };
 
-  if (!data) return <div>Loading...</div>;
+  if (!data)
+    return (
+      <div className="flex flex-1 items-center justify-center">
+        <Loading className="h-[81px] w-[81px] -translate-y-[40px] animate-spin" />
+      </div>
+    );
 
   return (
     <FormProvider {...methods}>
