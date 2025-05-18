@@ -2,6 +2,7 @@
 
 import Avatar from "@/assets/icons/avatar.svg";
 import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
+import { useImageUrl } from "@/utils/useImageUrl";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -20,13 +21,15 @@ export default function ProfileHeader({
     router.push("/profile/edit");
   };
 
+  const imageUrl = useImageUrl(profileImageUrl);
+
   return (
     <section className="mb-6 flex items-center justify-between px-2">
       <div className="flex items-center gap-3">
         {profileImageUrl ? (
           <div className="relative h-14 w-14 overflow-hidden rounded-full">
             <Image
-              src={profileImageUrl}
+              src={imageUrl}
               alt="프로필 이미지"
               fill
               className="object-cover"
