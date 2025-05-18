@@ -12,3 +12,8 @@ export const getNeighborhoods = async (district: string) => {
   );
   return res.neighborhoods as string[];
 };
+
+export const reverseGeocode = async (latitude: number, longitude: number) => {
+  const query = `?latitude=${latitude}&longitude=${longitude}`;
+  return await requestHandler("get", `/api/location/reverse-geocode${query}`);
+};

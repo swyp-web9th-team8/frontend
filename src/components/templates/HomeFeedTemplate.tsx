@@ -60,12 +60,6 @@ export default function HomeFeedTemplate({
 
   const { latitude, longitude } = useGeolocation();
 
-  useEffect(() => {
-    if (latitude && longitude) {
-      console.log("위 경도", latitude, longitude);
-    }
-  }, [latitude, longitude]);
-
   const handleSearchClick = () => {
     router.push("/search");
   };
@@ -76,6 +70,8 @@ export default function HomeFeedTemplate({
     <div className="flex flex-1 flex-col pt-[4.5rem] pb-28">
       <div className="mb-9 flex items-center justify-between">
         <LocationSelectorDropdown
+          latitude={latitude || undefined}
+          longitude={longitude || undefined}
           selected={region || ""}
           onSelect={setRegion}
           onOpenModal={handleOpenModal}
