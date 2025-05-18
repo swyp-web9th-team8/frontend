@@ -49,7 +49,12 @@ export default function ProfileHeader({
         </div>
       </div>
       {lastBadgeIconDir && (
-        <img src={lastBadgeIconDir} alt="뱃지 아이콘" width={54} height={59} />
+        <Image
+          src={lastBadgeIconDir}
+          alt="뱃지 아이콘"
+          width={54}
+          height={59}
+        />
       )}
     </section>
   );
