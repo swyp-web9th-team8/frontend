@@ -18,6 +18,7 @@ import { groupGatheringsByDate } from "@/utils/gatherings";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import LocationSelectorDropdown from "../molecules/homefeed/LocationSelectorDropdown";
+import Empty from "../organisms/Empty";
 import ReviewConfirmModal from "../organisms/modal/ReviewConfirmModal";
 
 interface HomeFeedTemplateProps {
@@ -92,20 +93,26 @@ export default function HomeFeedTemplate({
         selected={isClosedView}
         onChange={onChangeTab}
       />
-
-      {groupedList.map((items) => {
-        const date = formatDate(items[0].meetingTime, "yyyy-MM-dd");
-        return (
-          <div key={date}>
-            <GatheringListGroup
-              date={date}
-              items={items}
-              isClosed={isClosedView}
-            />
-            <div className="h-4" ref={setTarget}></div>
-          </div>
-        );
-      })}
+      {groupedList.length === 0 && (
+        <Empty
+          largeText="검색 결과가 없어요"
+          smallText="다른 지역으로 검색해보세요!"
+        />
+      )}
+      {groupedList.length > 0 &&
+        groupedList.map((items) => {
+          const date = formatDate(items[0].meetingTime, "yyyy-MM-dd");
+          return (
+            <div key={date}>
+              <GatheringListGroup
+                date={date}
+                items={items}
+                isClosed={isClosedView}
+              />
+              <div className="h-4" ref={setTarget}></div>
+            </div>
+          );
+        })}
 
       <GatheringCreateButton />
 
