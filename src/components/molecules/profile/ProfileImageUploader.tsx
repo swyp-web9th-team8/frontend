@@ -1,10 +1,10 @@
 "use client";
 
-import { useFormContext } from "react-hook-form";
-import { useRef, useState } from "react";
+import Avatar from "@/assets/icons/avatar.svg";
 import IconWrite from "@/assets/icons/IconWrite.svg";
 import Image from "next/image";
-import Avatar from "@/assets/icons/avatar.svg";
+import { useRef, useState } from "react";
+import { useFormContext } from "react-hook-form";
 
 interface ProfileImageUploaderProps {
   profileImageUrl: string;
@@ -45,10 +45,12 @@ export default function ProfileImageUploader({
             className="rounded-full object-cover"
           />
         ) : profileImageUrl ? (
-          <img
+          <Image
             src={profileImageUrl}
             alt="프로필 이미지"
             className="h-18 w-18 rounded-full object-cover"
+            width={0}
+            height={0}
           />
         ) : (
           <Avatar className="h-18 w-18 rounded-full" />

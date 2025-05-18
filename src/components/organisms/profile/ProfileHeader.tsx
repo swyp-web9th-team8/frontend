@@ -1,8 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import Avatar from "@/assets/icons/avatar.svg";
 import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function ProfileHeader({
   name,
@@ -23,7 +24,7 @@ export default function ProfileHeader({
     <section className="mb-6 flex items-center justify-between px-2">
       <div className="flex items-center gap-3">
         {profileImageUrl ? (
-          <img
+          <Image
             src={profileImageUrl}
             alt="프로필 이미지"
             width={56}
