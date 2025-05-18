@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { hostname: "placehold.co" },
       { hostname: "lh3.googleusercontent.com" },
+      { hostname: "k.kakaocdn.net" },
       { hostname: "example.com" },
       { hostname: "localhost", port: "8080" },
     ],
