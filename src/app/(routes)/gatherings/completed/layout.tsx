@@ -3,9 +3,9 @@ import Nav from "@/components/organisms/Nav";
 
 function CompletedGatheringLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div>
+    <div className="flex flex-1 flex-col">
       <CompletedGatheringHeader title="지난 모임" backButton />
-      <div>{children}</div>
+      <div className="bottom-padding flex-1">{children}</div>
       <Nav />
     </div>
   );

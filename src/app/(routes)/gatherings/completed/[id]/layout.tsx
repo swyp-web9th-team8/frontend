@@ -2,9 +2,9 @@ import CompletedGatheringHeader from "@/components/organisms/header/CompletedGat
 
 function GatheringDetailLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div>
+    <div className="flex flex-1 flex-col">
       <CompletedGatheringHeader title="완료된 모임" backButton />
-      <div>{children}</div>
+      <div className="flex flex-1 flex-col">{children}</div>
     </div>
   );
 }

@@ -1,13 +1,13 @@
 import IconShare from "@/assets/icons/IconShare.svg";
 
-interface Props {
+export interface IShareButton {
   size?: number;
   title: string;
   text: string;
   href: string;
 }
 
-function ShareButton({ size = 28, title, text, href }: Props) {
+function ShareButton({ size = 28, title, text, href }: IShareButton) {
   const handleShare = async () => {
     const sharedData = {
       title: title,

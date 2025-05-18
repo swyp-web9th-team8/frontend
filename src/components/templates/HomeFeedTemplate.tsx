@@ -12,13 +12,13 @@ import { useModal } from "@/hooks/features/commons/useModal";
 import { useFetchGatheringList } from "@/hooks/queries/useFetchGatheringList";
 import { useFetchCompletedPostId } from "@/hooks/queries/useReview";
 import { useUserProfile } from "@/hooks/queries/useUserProfile";
+import { useRegionStore } from "@/stores/useRegionStore";
 import { formatDate } from "@/utils/day";
 import { groupGatheringsByDate } from "@/utils/gatherings";
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import LocationSelectorDropdown from "../molecules/homefeed/LocationSelectorDropdown";
 import ReviewConfirmModal from "../organisms/modal/ReviewConfirmModal";
-import { useRegionStore } from "@/stores/useRegionStore";
 
 interface HomeFeedTemplateProps {
   isClosedView: boolean;
@@ -73,7 +73,7 @@ export default function HomeFeedTemplate({
   const groupedList = groupGatheringsByDate(gatheringList || []);
 
   return (
-    <div className="min-h-screen pt-[4.5rem] pb-28">
+    <div className="flex flex-1 flex-col pt-[4.5rem] pb-28">
       <div className="mb-9 flex items-center justify-between">
         <LocationSelectorDropdown
           selected={region || ""}

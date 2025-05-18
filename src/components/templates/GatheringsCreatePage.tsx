@@ -31,11 +31,7 @@ export default function GatheringsCreatePage() {
     mode: "onChange",
   });
 
-  const {
-    handleSubmit,
-    formState: { isValid },
-    watch,
-  } = methods;
+  const { handleSubmit, watch } = methods;
 
   const title = watch(TITLE);
   const content = watch(CONTENT);
@@ -159,7 +155,7 @@ export default function GatheringsCreatePage() {
             />
           </InputWithLabel>
         </div>
-        <InputWithLabel label="카카오톡 링크" name={OPEN_CHAT_URL}>
+        <InputWithLabel label="카카오톡 오픈채팅방 (선택)" name={OPEN_CHAT_URL}>
           <InputWithKaKaoLink
             name={OPEN_CHAT_URL}
             placeholder="오픈채팅방 링크를 공유해주세요."
@@ -168,7 +164,7 @@ export default function GatheringsCreatePage() {
         </InputWithLabel>
 
         <CreateButton
-          isActive={isActive && isValid}
+          isActive={isActive}
           message="모임장은 모인 후에 최소 사진 1장을 올려주셔야 해요"
         >
           완료

@@ -1,11 +1,10 @@
 "use client";
 
-import { useFormContext } from "react-hook-form";
-import { useRef, useState } from "react";
+import Avatar from "@/assets/icons/avatar.svg";
 import IconWrite from "@/assets/icons/IconWrite.svg";
 import Image from "next/image";
-import Avatar from "@/assets/icons/avatar.svg";
-import { useUpdateProfileImage } from "@/hooks/mutations/useUpdateProfileImage";
+import { useRef, useState } from "react";
+import { useFormContext } from "react-hook-form";
 
 interface ProfileImageUploaderProps {
   profileImageUrl: string;
@@ -23,8 +22,6 @@ export default function ProfileImageUploader({
     fileInputRef.current?.click();
   };
 
-  const { mutate: upload } = useUpdateProfileImage();
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -36,26 +33,30 @@ export default function ProfileImageUploader({
       setPreview(reader.result as string);
     };
     reader.readAsDataURL(file);
-
-    upload(file);
   };
 
   return (
     <div className="relative mx-auto mb-[1.875rem] w-fit">
       <button type="button" onClick={handleClick}>
-        <div className="relative h-18 w-18 overflow-hidden rounded-full">
-          {preview ? (
-            <Image src={preview} alt="미리보기" fill className="object-cover" />
-          ) : profileImageUrl ? (
-            <img
-              src={profileImageUrl}
-              alt="프로필 이미지"
-              className="h-18 w-18 object-cover"
-            />
-          ) : (
-            <Avatar className="h-full w-full" />
-          )}
-        </div>
+        {preview ? (
+          <Image
+            src={preview}
+            alt="미리보기"
+            width={72}
+            height={72}
+            className="rounded-full object-cover"
+          />
+        ) : profileImageUrl ? (
+          <Image
+            src={profileImageUrl}
+            alt="프로필 이미지"
+            className="h-18 w-18 rounded-full object-cover"
+            width={0}
+            height={0}
+          />
+        ) : (
+          <Avatar className="h-18 w-18 rounded-full" />
+        )}
 
         <div className="bg-green absolute right-0 bottom-0 flex h-5 w-5 items-center justify-center rounded-full">
           <IconWrite className="text-grey-0 h-2.5 w-2.5" />

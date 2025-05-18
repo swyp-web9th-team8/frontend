@@ -1,12 +1,27 @@
 "use client";
 
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
-import ShareButton from "@/components/atoms/Button/ShareButton";
-import { useParams, useRouter } from "next/navigation";
+import ShareButton, {
+  IShareButton,
+} from "@/components/atoms/Button/ShareButton";
+import { useParams, usePathname, useRouter } from "next/navigation";
 
-function RecruitingDetailHeader() {
+interface Props {
+  children: string;
+  sharedButton: IShareButton;
+}
+
+function RecruitingDetailHeader({ children, sharedButton }: Props) {
   const router = useRouter();
   const { id } = useParams();
+  const pathname = usePathname();
+
+  const getShareHref = () => {
+    if (pathname.endsWith("/ranking")) {
+      return sharedButton.href;
+    }
+    return `${sharedButton.href}/${id}`;
+  };
 
   return (
     <header className="font-gsans-medium bg-green relative -mx-5 flex items-center justify-center pt-[29px] pb-[14px] text-xl leading-normal font-medium">
@@ -17,12 +32,12 @@ function RecruitingDetailHeader() {
         />
       </div>
       {/* 가운데 타이틀 */}
-      <div className="text-body1-medium">모임</div>
+      <div className="text-body1-medium">{children}</div>
       <div className="absolute right-5 cursor-pointer">
         <ShareButton
-          title="현재 모집중인 모임"
-          text="확인해보세요!"
-          href={`https://polggo.co.kr/gatherings/recruiting/${id}`}
+          title={sharedButton.title}
+          text={sharedButton.text}
+          href={getShareHref()}
         />
       </div>
     </header>

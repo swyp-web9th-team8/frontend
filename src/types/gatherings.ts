@@ -15,7 +15,7 @@ export interface IGatheringItem {
   address: string;
   participantCount: number;
   participants: IParticipant[];
-  thumbnail: string | null;
+  thumbnail?: string | null;
   latitude: number;
   longitude: number;
   maxParticipants: number;
@@ -34,7 +34,7 @@ export interface ICreateGatheringRequest {
 }
 
 export interface IFetchGatheringListRequest {
-  pos: string;
+  pos?: string;
   page: number;
   size: number;
   sort?: string[];
@@ -82,4 +82,28 @@ export interface IFetchGatheringDetailResponse {
     imageUrls?: string[];
     iin: boolean; // 작성자이거나 참여자일 때
   };
+}
+
+export interface IFetchGatheringCompletedListResponse {
+  content: IGatheringItem[];
+  page: number;
+  size: number;
+  totalPages: number;
+  totalElements: number;
+  timestamp: string;
+}
+
+export interface IFetchGatheringCompletedLisContent {
+  id: number;
+  title: string;
+  meetingTime: string;
+  placeName: string;
+  address: string;
+  participantCount: number;
+  participants: IParticipant[];
+  thumnail: string;
+  latitiude: number;
+  longtitude: number;
+  maxParticipants: number;
+  inn: boolean;
 }
