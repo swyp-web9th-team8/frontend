@@ -15,15 +15,17 @@ function JoinButton({ id, areadyJoined }: Props) {
   const [isJoined, setIsJoined] = useState(areadyJoined);
 
   const { mutate: participate } = useParticipateGathering();
-  const { mutate: leave } = useLeaveCancelGathering();
+  const { mutateAsync: leave } = useLeaveCancelGathering();
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (!isJoined) {
       participate(id);
       setIsJoined(true);
     } else {
-      leave(id);
-      setIsJoined(false);
+      try {
+        await leave(id);
+        setIsJoined(false);
+      } catch {}
     }
   };
 
