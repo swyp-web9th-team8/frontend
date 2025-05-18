@@ -3,6 +3,7 @@
 import IconDropdown from "@/assets/icons/dropdown-arrow.svg";
 import DropdownItem from "@/components/molecules/DropdownItem";
 import DropdownList from "@/components/organisms/DropdownList";
+import { ERROR_MESSAGES } from "@/constants/errorMessage";
 import { useReverseGeocode } from "@/hooks/queries/useRegions";
 import { useUserProfile } from "@/hooks/queries/useUserProfile";
 import { useState } from "react";
@@ -48,12 +49,19 @@ export default function LocationSelectorDropdown({
       refetch()
         .then(({ data }) => {
           if (data && data.data) {
+            if (data.data.city !== "서울특별시") {
+              throw new Error(ERROR_MESSAGES.NOT_SEOUL);
+            }
             onSelect(`${data.data.district} ${data.data.neighborhood}`);
             setWhere("현재 위치한 지역 (동)");
           }
         })
-        .catch(() => {
-          showToast("위치 정보를 가져오는데 실패했습니다.");
+        .catch((error) => {
+          showToast(
+            error.message === ERROR_MESSAGES.NOT_SEOUL
+              ? ERROR_MESSAGES.NOT_SEOUL
+              : ERROR_MESSAGES.LOCATION_FETCH_FAIL,
+          );
           setWhere("내 거주지역");
         });
     }
