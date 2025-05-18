@@ -31,7 +31,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} relative mx-auto flex min-h-screen max-w-[500px] flex-col antialiased`}
       >
-        <div className="relative h-screen px-5">
+        <div className="relative flex h-screen flex-col px-5">
           <ReactQueryProvider>
             <ToastProvider>
               <ReConfirmModalProvider>{children}</ReConfirmModalProvider>
