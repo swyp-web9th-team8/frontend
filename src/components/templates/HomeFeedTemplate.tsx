@@ -93,26 +93,31 @@ export default function HomeFeedTemplate({
         selected={isClosedView}
         onChange={onChangeTab}
       />
-      {groupedList.length === 0 && (
-        <Empty
-          largeText="검색 결과가 없어요"
-          smallText="다른 지역으로 검색해보세요!"
-        />
-      )}
-      {groupedList.length > 0 &&
-        groupedList.map((items) => {
-          const date = formatDate(items[0].meetingTime, "yyyy-MM-dd");
-          return (
-            <div key={date}>
-              <GatheringListGroup
-                date={date}
-                items={items}
-                isClosed={isClosedView}
-              />
-              <div className="h-4" ref={setTarget}></div>
-            </div>
-          );
-        })}
+
+      <div className="relative flex-1">
+        {groupedList.length === 0 ? (
+          <div className="relative h-[60vh]">
+            <Empty
+              largeText="검색 결과가 없어요"
+              smallText="다른 지역으로 검색해보세요!"
+            />
+          </div>
+        ) : (
+          groupedList.map((items) => {
+            const date = formatDate(items[0].meetingTime, "yyyy-MM-dd");
+            return (
+              <div key={date}>
+                <GatheringListGroup
+                  date={date}
+                  items={items}
+                  isClosed={isClosedView}
+                />
+                <div className="h-4" ref={setTarget}></div>
+              </div>
+            );
+          })
+        )}
+      </div>
 
       <GatheringCreateButton />
 
