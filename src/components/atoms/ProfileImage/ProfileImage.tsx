@@ -16,7 +16,10 @@ export default function ProfileImage({ src, size = 28 }: Props) {
         className="relative overflow-hidden rounded-full"
         style={{ width: size, height: size }}
       >
-        <Avatar className="h-7 w-7 rounded-full" />
+        <Avatar
+          className="rounded-full"
+          style={{ width: size, height: size }}
+        />
       </div>
     );
   }
