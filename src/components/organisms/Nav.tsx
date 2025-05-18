@@ -46,7 +46,7 @@ const NAV_ITEM_STYLE = {
 export default function Nav() {
   const pathname = usePathname();
   return (
-    <div className="shadow-[0px_4px_24px_0px_rgba(170,170,170,0.30)]justify-center fixed bottom-0 flex w-96 w-full max-w-[500px] items-end bg-white px-10 pt-2.5 pb-5">
+    <div className="shadow-[0px_4px_24px_0px_rgba(170,170,170,0.30)]justify-center fixed bottom-0 -ml-5 flex w-full max-w-[500px] items-end bg-white px-10 pt-2.5 pb-5">
       {NAV_ITEMS.map((item, index) => {
         const isActive =
           item.href === "/home"

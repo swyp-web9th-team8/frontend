@@ -9,7 +9,7 @@ import { RegisterOptions, useFormContext } from "react-hook-form";
 
 const ALLOWED_EXTENSIONS = ["jpg", "jpeg", "png", "tiff"];
 // TODO: 이미지 압축 진행
-const MAX_FILE_SIZE = 3 * 1024 * 1024; // 압축하기 전 백엔드(5MB) 제한을 위해 3MB로 설정
+const MAX_FILE_SIZE = 4 * 1024 * 1024; // 압축하기 전 백엔드(5MB) 제한을 위해 3MB로 설정
 const MAX_IMAGE_COUNT = 6;
 
 interface Props {

@@ -3,7 +3,7 @@ import GatheringList from "@/components/organisms/gatherings/GatheringList";
 
 function GatheringCompletedTemplate() {
   return (
-    <div>
+    <div className="flex flex-1 flex-col">
       <GatheringList />
       <GatheringCreateButton />
     </div>

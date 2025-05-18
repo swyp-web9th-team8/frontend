@@ -14,6 +14,8 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { hostname: "placehold.co" },
       { hostname: "lh3.googleusercontent.com" },
+      { hostname: "example.com" },
+      { hostname: "localhost", port: "8080" },
     ],
   },
   webpack(config: Configuration) {

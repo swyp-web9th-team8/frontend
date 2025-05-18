@@ -15,7 +15,7 @@ export interface IGatheringItem {
   address: string;
   participantCount: number;
   participants: IParticipant[];
-  thumbnail: string | null;
+  thumbnail?: string | null;
   latitude: number;
   longitude: number;
   maxParticipants: number;
@@ -85,7 +85,7 @@ export interface IFetchGatheringDetailResponse {
 }
 
 export interface IFetchGatheringCompletedListResponse {
-  content: IFetchGatheringCompletedLisContent[];
+  content: IGatheringItem[];
   page: number;
   size: number;
   totalPages: number;

@@ -4,7 +4,6 @@ import {
   fetchOngoingGatheringList,
 } from "@/api/gatherings/gatherings";
 import {
-  IFetchGatheringCompletedLisContent,
   IFetchGatheringCompletedListResponse,
   IFetchGatheringListResponse,
   IGatheringItem,
@@ -57,7 +56,7 @@ export const useFetchClosedGatheringList = () => {};
 
 /** 모임 화면 - 활동이 완료된 모임 */
 export const useFetchCompletedGatheringList = () => {
-  const { data, fetchNextPage, hasNextPage, refetch } =
+  const { data, fetchNextPage, hasNextPage, refetch, isLoading } =
     useInfiniteQuery<IFetchGatheringCompletedListResponse>({
       queryKey: ["fetchGatheringCompletedList"],
       queryFn: ({ pageParam }) => {
@@ -74,7 +73,7 @@ export const useFetchCompletedGatheringList = () => {
       initialPageParam: 0,
     });
 
-  const response: IFetchGatheringCompletedLisContent[] =
+  const response: IGatheringItem[] =
     data?.pages.flatMap((page) => page.content) || [];
 
   return {
@@ -82,5 +81,6 @@ export const useFetchCompletedGatheringList = () => {
     hasNextPage,
     refetch,
     data: response,
+    isLoading,
   };
 };

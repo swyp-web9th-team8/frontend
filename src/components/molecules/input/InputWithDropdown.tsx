@@ -54,7 +54,7 @@ const InputWithDropdown = ({
       </div>
 
       {isOpen && (
-        <div className="absolute right-0 bottom-[-156px] z-10">
+        <div className="absolute right-0 bottom-[-110px] z-10">
           <DropdownList>
             {options.map((option, index) => (
               <DropdownItem

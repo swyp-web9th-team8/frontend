@@ -1,28 +1,38 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
 "use client";
 
 import LocationIcon from "@/assets/icons/location.svg";
 import NextIcon from "@/assets/icons/next-arrow.svg";
-import ProfileImages from "@/components/atoms/ProfileImage/ProfileImages";
+import ParticipantImageWithText from "@/components/molecules/participant/ParticipantImageWithText";
 import { IGatheringItem } from "@/types/gatherings";
 import Image from "next/image";
 import Link from "next/link";
 
-interface Props extends IGatheringItem {}
+type Props = Pick<
+  IGatheringItem,
+  "id" | "title" | "address" | "participants" | "participantCount" | "thumbnail"
+>;
 
 export default function GatheringItem({
-  participantCount,
   id,
   title,
-  placeName,
+  address,
+  participants,
+  participantCount,
+  thumbnail,
 }: Props) {
+  const thumbnailUrl = thumbnail
+    ? process.env.NODE_ENV === "production"
+      ? `${process.env.NEXT_PUBLIC_SERVER_URL}${thumbnail}`
+      : `http://localhost:8080${thumbnail}`
+    : "/images/default-gathering.png";
+
   return (
     <div className="inline-flex w-full flex-col items-start justify-start gap-2.5">
       <div className="relative self-stretch overflow-hidden rounded-2xl">
         {/* 이미지 */}
         <Image
           className="h-[200px] w-full object-cover"
-          src="https://placehold.co/310x207"
+          src={thumbnailUrl}
           alt="gathering"
           sizes="100vw"
           width={0}
@@ -34,10 +44,10 @@ export default function GatheringItem({
 
         {/* 참여자 */}
         <div className="absolute bottom-[18px] left-[18px] inline-flex items-center justify-start gap-1">
-          <ProfileImages src={[]} maxCount={2} />
-          <div className="justify-start font-['Gmarket_Sans_TTF'] text-[10px] leading-none font-medium text-white">
-            외 {participantCount}명 참가
-          </div>
+          <ParticipantImageWithText
+            participantCount={participantCount + 1}
+            participants={participants}
+          />
         </div>
 
         {/* 링크 이동 */}
@@ -52,13 +62,13 @@ export default function GatheringItem({
       {/* 설명 */}
       <div className="inline-flex items-end justify-start gap-1.5 self-stretch">
         <div className="inline-flex flex-1 flex-col items-start justify-start gap-1.5">
-          <div className="text-greyscale-gray-950 justify-start self-stretch font-['Gmarket_Sans_TTF'] text-base leading-normal font-bold">
+          <div className="justify-start self-stretch text-base leading-normal font-bold text-gray-950">
             {title}
           </div>
           <div className="inline-flex items-center justify-start gap-2.5">
             <LocationIcon className="h-[22px] w-[18px]" />
-            <div className="text-greyscale-gray-950 justify-start font-['Gmarket_Sans_TTF'] text-sm leading-none font-medium">
-              {placeName}
+            <div className="tex-gray-950 justify-start text-sm leading-none font-medium">
+              {address}
             </div>
           </div>
         </div>
