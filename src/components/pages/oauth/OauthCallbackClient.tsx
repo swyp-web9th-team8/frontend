@@ -1,6 +1,7 @@
 "use client";
 
 import { getMyProfile } from "@/api/auth/getMyProfile";
+import Loading from "@/assets/icons/Loading.svg";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -24,5 +25,9 @@ export default function OauthCallbackClient() {
     fetchUser();
   }, [login, router]);
 
-  return <p className="mt-20 text-center">로그인 처리 중입니다...</p>;
+  return (
+    <p className="flex flex-1 items-center justify-center text-center">
+      <Loading className="h-[81px] w-[81px] animate-spin" />
+    </p>
+  );
 }
