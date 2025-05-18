@@ -1,26 +1,35 @@
 "use client";
 
-import { useState } from "react";
 import IconDropdown from "@/assets/icons/dropdown-arrow.svg";
-import DropdownList from "@/components/organisms/DropdownList";
 import DropdownItem from "@/components/molecules/DropdownItem";
+import DropdownList from "@/components/organisms/DropdownList";
+import { useReverseGeocode } from "@/hooks/queries/useRegions";
 import { useUserProfile } from "@/hooks/queries/useUserProfile";
+import { useState } from "react";
+import { useToast } from "../toast/ToastContext";
 
 interface LocationSelectorDropdownProps {
   selected: string;
   onSelect: (value: string) => void;
   onOpenModal: () => void;
+  latitude: number | undefined;
+  longitude: number | undefined;
 }
 
 export default function LocationSelectorDropdown({
   selected,
   onSelect,
   onOpenModal,
+  latitude,
+  longitude,
 }: LocationSelectorDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const { data: userProfile } = useUserProfile();
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
+  const { refetch } = useReverseGeocode(latitude, longitude);
+
+  const showToast = useToast();
 
   const handleClick = (option: string) => {
     if (option === "다른 지역 보기") {
@@ -30,7 +39,15 @@ export default function LocationSelectorDropdown({
         onSelect(userProfile.region);
       }
     } else {
-      onSelect(option);
+      refetch()
+        .then(({ data }) => {
+          if (data && data.data) {
+            onSelect(`${data.data.district} ${data.data.neighborhood}`);
+          }
+        })
+        .catch(() => {
+          showToast("위치 정보를 가져오는데 실패했습니다.");
+        });
     }
     setIsOpen(false);
   };
