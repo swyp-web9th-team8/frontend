@@ -17,6 +17,11 @@ export default function ProfileImage({ src, size = 28 }: Props) {
         alt="profile"
         fill
         className="object-cover"
+        onError={(e) => {
+          const target = e.target as HTMLImageElement;
+          target.src = getRandomAvatar("female");
+          target.onerror = null;
+        }}
       />
     </div>
   );
