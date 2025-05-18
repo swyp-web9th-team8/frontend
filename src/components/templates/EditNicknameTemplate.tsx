@@ -22,14 +22,11 @@ export default function EditNicknameTemplate({
   const nickname = watch("nickname");
 
   return (
-    <div className="h-full w-full">
+    <div className="flex min-h-screen flex-col">
       <Header title="닉네임 변경" backButton />
 
-      <form
-        onSubmit={onSubmit}
-        className="flex h-full w-full flex-col justify-between pb-10"
-      >
-        <div className="relative">
+      <form onSubmit={onSubmit} className="flex flex-1 flex-col px-5">
+        <div className="relative pt-6">
           <label className="text-body1-medium font-gsans-medium text-grey-950 mb-2 block">
             새로운 닉네임을 입력해주세요
           </label>
@@ -53,15 +50,17 @@ export default function EditNicknameTemplate({
           )}
         </div>
 
-        <button
-          type="submit"
-          disabled={!isValid}
-          className={`text-body2-medium font-gsans-medium mt-6 w-full rounded-xl py-3 ${
-            isValid ? "bg-green text-white" : "bg-grey-200 text-grey-400"
-          }`}
-        >
-          확인
-        </button>
+        <div className="mt-auto mb-8">
+          <button
+            type="submit"
+            disabled={!isValid}
+            className={`text-body2-medium font-gsans-medium w-full rounded-xl py-3 ${
+              isValid ? "bg-green text-white" : "bg-grey-200 text-grey-400"
+            }`}
+          >
+            확인
+          </button>
+        </div>
       </form>
     </div>
   );
