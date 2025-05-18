@@ -35,10 +35,10 @@ export default function HomeFeedTemplate({
   const { data: userProfile } = useUserProfile();
 
   useEffect(() => {
-    if (!region && userProfile?.region) {
+    if (userProfile?.region) {
       setRegion(userProfile.region);
     }
-  }, [userProfile?.region, region, setRegion]);
+  }, [userProfile?.region, setRegion]);
 
   const {
     data: gatheringList,
