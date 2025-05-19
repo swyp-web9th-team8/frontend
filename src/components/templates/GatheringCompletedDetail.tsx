@@ -17,11 +17,6 @@ export default function GatheringCompletedDetail({ id }: Props) {
     return <div>Loading...</div>;
   }
 
-  console.log(
-    "data",
-    data.imageUrls?.map((url) => url),
-  );
-
   const imageUrls = data.imageUrls?.map((url) => url) || [];
 
   return (

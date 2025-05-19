@@ -17,6 +17,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL || "https://ploggo.co.kr",
+  ),
   title: META.title,
   description: META.description,
   openGraph: {

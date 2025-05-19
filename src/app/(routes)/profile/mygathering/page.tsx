@@ -1,15 +1,16 @@
 "use client";
 
-import { useState } from "react";
 import GatheringFilterTabs from "@/components/molecules/homegatherings/GatheringFilterTabs";
+import Empty from "@/components/organisms/Empty";
 import Header from "@/components/organisms/Header";
 import MyGatheringCardList from "@/components/organisms/mygathering/MyGatheringCardList";
-import { useRouter } from "next/navigation";
-import Empty from "@/components/organisms/Empty";
 import {
   useCreatedGatherings,
   useParticipatedGatherings,
 } from "@/hooks/queries/useMyGatherings";
+import { formatDateAndTime } from "@/utils/day";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const calculateDday = (meetingDt: string) => {
   const today = new Date();
@@ -69,8 +70,8 @@ export default function MyGatheringPage() {
   const participatedGatherings = (participatedData || []).map((g) => ({
     id: g.id,
     title: g.title,
-    date: new Date(g.meetingDt).toLocaleDateString(),
-    time: new Date(g.meetingDt).toLocaleTimeString(),
+    date: formatDateAndTime(g.meetingDt, "yyyy년 M월 d일 E요일"),
+    time: formatDateAndTime(g.meetingDt, "a h시"),
     location: g.placeName || "장소 미정",
     status: g.completed ? "완료" : calculateDday(g.meetingDt),
     isReviewed: false,
@@ -79,8 +80,8 @@ export default function MyGatheringPage() {
   const createdGatherings = (createdData || []).map((g) => ({
     id: g.id,
     title: g.title,
-    date: new Date(g.meetingDt).toLocaleDateString(),
-    time: new Date(g.meetingDt).toLocaleTimeString(),
+    date: formatDateAndTime(g.meetingDt, "yyyy년 M월 d일 E요일"),
+    time: formatDateAndTime(g.meetingDt, "a h시"),
     location: g.placeName || "장소 미정",
     status: g.completed ? "완료" : calculateDday(g.meetingDt),
     isReviewed: false,
