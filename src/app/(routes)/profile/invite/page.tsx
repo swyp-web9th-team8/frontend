@@ -10,7 +10,7 @@ export default function InvitePage() {
   };
 
   const handleSmsInvite = () => {
-    const message = `동네 친구들과 줍깅 챌린지에 도전해보세요! https://ploggo.co/kr`;
+    const message = `동네 친구들과 줍깅 챌린지에 도전해보세요! https://ploggo.co.kr`;
     const smsUrl = `sms:?&body=${encodeURIComponent(message)}`;
     window.location.href = smsUrl;
   };

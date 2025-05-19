@@ -34,7 +34,7 @@ function RankingTemplate() {
     <div className="flex flex-1 flex-col pt-7">
       <RankingTap selected={isWeeklyView} onChange={handleChangeTab} />
       <Top3RankingList data={data.slice(0, 3)} />
-      {data.length > 3 && <RankingList data={data} />}
+      {data.length > 3 && <RankingList data={data.slice(3)} />}
     </div>
   );
 }
