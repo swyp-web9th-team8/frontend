@@ -12,8 +12,11 @@ export default function GatheringList() {
 
   if (!data && !isLoading) return null;
 
-  const groupedGatherings = groupGatheringsByDate(data);
+  const groupedGatherings = groupGatheringsByDate(data, true);
   const isEmpty = groupedGatherings.length === 0;
+
+  console.log("data", data);
+  console.log("groupedGatherings", groupedGatherings);
 
   return (
     <div className="flex flex-1 flex-col gap-5">

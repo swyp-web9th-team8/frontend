@@ -26,7 +26,7 @@ export const fetchClosedgatheringList = async (
 export const fetchCompletedGatheringList = async (
   payload: IFetchGatheringListRequest,
 ) => {
-  const query = `?page=${payload.page}&size=${payload.size}`;
+  const query = `?page=${payload.page}&size=${payload.size}&sort=meetingDt,desc`;
   return await requestHandler("get", `/api/post/list/com${query}`);
 };
 

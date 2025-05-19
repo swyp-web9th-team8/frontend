@@ -5,11 +5,12 @@ type GroupedGatherings = Record<string, IGatheringItem[]>;
 
 export const groupGatheringsByDate = (
   gatherings: IGatheringItem[],
+  desc?: boolean,
 ): IGatheringItem[][] => {
   gatherings.sort((a, b) => {
-    return (
-      new Date(a.meetingTime).getTime() - new Date(b.meetingTime).getTime()
-    );
+    const timeA = new Date(a.meetingTime).getTime();
+    const timeB = new Date(b.meetingTime).getTime();
+    return desc ? timeB - timeA : timeA - timeB;
   });
 
   const groupGatheringObj = gatherings.reduce(
