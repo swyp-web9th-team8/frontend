@@ -48,6 +48,8 @@ function ImagesUploader({ name, validationRules }: Props) {
           extension && ALLOWED_EXTENSIONS.includes(extension);
         const isValidSize = file.size <= MAX_FILE_SIZE;
 
+        console.log("size", file.size);
+
         if (!isValidExtension) {
           showToast(
             `${ALLOWED_EXTENSIONS.join(", ")} 외 파일형식은 지원되지 않아요`,
