@@ -1,6 +1,7 @@
+import IconCalendar from "@/assets/icons/calendar01.svg";
 import IconClock from "@/assets/icons/clock.svg";
 import IconLocation from "@/assets/icons/location.svg";
-import IconCalendar from "@/assets/icons/calendar01.svg";
+import Link from "next/link";
 
 interface SearchCardItem {
   id: number;
@@ -29,8 +30,9 @@ export default function SearchCardList({
       </h2>
       <ul className="flex flex-col gap-2">
         {items.map((item) => (
-          <li
+          <Link
             key={item.id}
+            href={`/gatherings/recruiting/${item.id}`}
             className="bg-grey-0 flex flex-col gap-3 rounded-2xl p-5 shadow-[0_4px_24px_rgba(170,170,170,0.15)]"
           >
             <div className="flex gap-1">
@@ -57,7 +59,7 @@ export default function SearchCardList({
                 <p>{item.location}</p>
               </div>
             </div>
-          </li>
+          </Link>
         ))}
       </ul>
     </div>

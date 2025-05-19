@@ -1,18 +1,19 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
 import SearchHeader from "@/components/atoms/Search/SearchHeader";
+import SearchHistory from "@/components/molecules/search/SearchHistory";
 import SearchInput from "@/components/molecules/search/SearchInput";
 import SearchCardList from "@/components/organisms/Search/SearchCardList";
-import SearchHistory from "@/components/molecules/search/SearchHistory";
 import { useFetchGatheringList } from "@/hooks/queries/useFetchGatheringList";
 import { useRegionStore } from "@/stores/useRegionStore";
+import { formatDateAndTime } from "@/utils/day";
 import {
   addSearchKeyword,
   getSearchHistory,
   removeSearchKeyword,
 } from "@/utils/searchHistory";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function SearchResultPage() {
   const router = useRouter();
@@ -105,8 +106,8 @@ export default function SearchResultPage() {
             items={gatheringList.map((item) => ({
               id: item.id,
               title: item.title,
-              date: item.meetingTime,
-              time: item.meetingTime,
+              date: formatDateAndTime(item.meetingTime, "yyyy년 M월 d일 E요일"),
+              time: formatDateAndTime(item.meetingTime, "a h시"),
               location: item.placeName || item.address,
               status: "모집중",
             }))}
