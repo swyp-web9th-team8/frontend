@@ -1,6 +1,6 @@
+import Avatar from "@/assets/icons/avatar.svg";
 import Image from "next/image";
 import { useState } from "react";
-import Avatar from "@/assets/icons/avatar.svg";
 
 interface Props {
   src: string | undefined | null;
@@ -34,6 +34,7 @@ export default function ProfileImage({ src, size = 28 }: Props) {
         alt="profile"
         fill
         className="object-cover"
+        sizes={`${size}px`}
         onError={() => setImageError(true)}
       />
     </div>
