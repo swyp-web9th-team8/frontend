@@ -22,8 +22,6 @@ export default function ImageCarousel({ imageUrls }: Props) {
     speed: 500,
   };
 
-  console.log("imageUrls", imageUrls);
-
   return (
     <Slider {...settings} className="overflow-hidden">
       {imageUrls.map((imageUrl) => (

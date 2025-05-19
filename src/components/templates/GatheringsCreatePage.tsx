@@ -82,7 +82,6 @@ export default function GatheringsCreatePage() {
           setConfirmAddress(res.data.address);
           setIsOpen(true);
         }
-        console.log(res);
       })
       .catch(() => {
         showToast("모임 생성에 실패했어요");
