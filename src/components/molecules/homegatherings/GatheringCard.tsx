@@ -67,7 +67,8 @@ export default function GatheringCard({
       {!isClosed && (
         <div className="flex w-18 flex-shrink-0 flex-col gap-[1.375rem]">
           <span className="text-body3-medium font-gsans-medium text-grey-400 text-end">
-            {gathering.maxParticipants - gathering.participantCount}자리 남음
+            {gathering.maxParticipants - gathering.participantCount - 1}자리
+            남음
           </span>
           {isJoined ? (
             <div
