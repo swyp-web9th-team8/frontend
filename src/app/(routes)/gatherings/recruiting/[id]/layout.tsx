@@ -5,8 +5,8 @@ function Layout({ children }: { children: React.ReactNode }) {
     <div className="font-gsans-medium flex h-full flex-col">
       <RecruitingDetailHeader
         sharedButton={{
-          title: "현재 모집중인 모임",
-          text: "확인해보세요!",
+          title: "동네 친구들과 줍깅 챌린지에 도전해보세요!",
+
           href: "/gatherings/recruiting",
         }}
       >
