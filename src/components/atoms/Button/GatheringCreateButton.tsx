@@ -11,7 +11,7 @@ export default function GatheringCreateButton() {
   useEffect(() => {
     const updateRight = () => {
       const width = window.innerWidth;
-      setRight(width > 500 ? (width - 500) / 2 + 21 : 21);
+      setRight(width > 500 ? (width - 500) / 2 + 21 : 21); // right - 21px
     };
 
     updateRight();
