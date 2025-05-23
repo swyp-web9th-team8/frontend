@@ -34,6 +34,8 @@ export interface ICreateGatheringRequest {
 }
 
 export interface ICreateGatheringResponse {
+  statusCode: string;
+  message: string;
   data: {
     address: string;
     meetingTime: string;

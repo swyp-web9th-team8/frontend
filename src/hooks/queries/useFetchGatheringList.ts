@@ -23,7 +23,7 @@ export const useFetchGatheringList = (
       queryKey: ["fetchGatheringList", closed, pos, searchKeyword],
       queryFn: ({ pageParam }) => {
         const payload = {
-          pos,
+          pos: `서울특별시 ${pos}`,
           page: pageParam as number,
           size: ROWS_PER_PAGE,
           v: searchKeyword,

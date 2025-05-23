@@ -3,7 +3,7 @@ import IconShare from "@/assets/icons/IconShare.svg";
 export interface IShareButton {
   size?: number;
   title: string;
-  text: string;
+  text?: string;
   href: string;
 }
 
@@ -11,7 +11,7 @@ function ShareButton({ size = 28, title, text, href }: IShareButton) {
   const handleShare = async () => {
     const sharedData = {
       title: title,
-      text: text,
+      ...(text ? { text: text } : {}),
       url: href ?? "https://ploggo.co.kr",
     };
 

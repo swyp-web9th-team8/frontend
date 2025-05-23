@@ -36,8 +36,8 @@ function RecruitingDetailHeader({ children, sharedButton }: Props) {
       <div className="absolute right-5 cursor-pointer">
         <ShareButton
           title={sharedButton.title}
-          text={sharedButton.text}
           href={getShareHref()}
+          {...(sharedButton.text ? { text: sharedButton.text } : {})}
         />
       </div>
     </header>
