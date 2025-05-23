@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import Empty from "@/components/organisms/Empty";
 import Header from "@/components/organisms/Header";
-import "@/types/kakao";
 
 export default function InvitePage() {
   useEffect(() => {
