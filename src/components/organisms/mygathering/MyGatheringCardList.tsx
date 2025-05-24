@@ -1,6 +1,7 @@
 import IconClock from "@/assets/icons/clock.svg";
 import IconLocation from "@/assets/icons/location.svg";
 import IconCalendar from "@/assets/icons/calendar01.svg";
+import { useRouter } from "next/navigation";
 
 interface MyGatheringCardItem {
   id: number;
@@ -19,6 +20,17 @@ interface MyGatheringCardListProps {
 export default function MyGatheringCardList({
   items,
 }: MyGatheringCardListProps) {
+  const router = useRouter();
+
+  const handleCardClick = (item: MyGatheringCardItem) => {
+    const isComplete = item.status === "완료";
+    const path = isComplete
+      ? `/gatherings/completed/${item.id}`
+      : `/gatherings/recruiting/${item.id}`;
+
+    router.push(path);
+  };
+
   return (
     <div className="flex flex-col gap-3">
       <ul className="flex flex-col gap-2">
@@ -28,7 +40,8 @@ export default function MyGatheringCardList({
           return (
             <li
               key={item.id}
-              className="bg-grey-0 flex flex-col gap-3 rounded-2xl p-5 shadow-[0_4px_24px_rgba(170,170,170,0.15)]"
+              onClick={() => handleCardClick(item)}
+              className="bg-grey-0 flex cursor-pointer flex-col gap-3 rounded-2xl p-5 shadow-[0_4px_24px_rgba(170,170,170,0.15)]"
             >
               <div className="flex flex-wrap items-center gap-2">
                 <h3 className="font-gsans-bold text-body1-bold text-grey-950">
