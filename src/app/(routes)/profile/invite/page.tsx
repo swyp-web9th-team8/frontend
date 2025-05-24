@@ -1,12 +1,53 @@
 "use client";
 
+import { useEffect } from "react";
 import Empty from "@/components/organisms/Empty";
 import Header from "@/components/organisms/Header";
 
 export default function InvitePage() {
+  useEffect(() => {
+    // 이미 로드된 경우 중복 로드 방지
+    if (window.Kakao) return;
+
+    const script = document.createElement("script");
+    script.src = "https://developers.kakao.com/sdk/js/kakao.js";
+    script.async = true;
+    script.onload = () => {
+      if (window.Kakao && !window.Kakao.isInitialized()) {
+        window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY || "");
+      }
+    };
+    document.head.appendChild(script);
+  }, []);
+
   const handleKakaoInvite = () => {
-    // 추후 카카오톡 공유 API 연동 예정
-    alert("카카오톡으로 초대합니다 (추후 구현 예정)");
+    if (!window.Kakao || !window.Kakao.isInitialized()) {
+      alert(
+        "카카오 SDK가 아직 로드되지 않았습니다. 잠시 후 다시 시도해주세요.",
+      );
+      return;
+    }
+    window.Kakao.Link.sendDefault({
+      objectType: "feed",
+      content: {
+        title: "플로고에서 함께 줍깅해요!",
+        description: "동네 친구들과 줍깅 챌린지에 도전해보세요!",
+        imageUrl: "https://ploggo.co.kr/logo.png",
+        link: {
+          mobileWebUrl: "https://ploggo.co.kr",
+          webUrl: "https://ploggo.co.kr",
+        },
+      },
+      buttons: [
+        {
+          title: "플로고 바로가기",
+          link: {
+            mobileWebUrl: "https://ploggo.co.kr",
+            webUrl: "https://ploggo.co.kr",
+          },
+        },
+      ],
+    });
   };
 
   const handleSmsInvite = () => {
