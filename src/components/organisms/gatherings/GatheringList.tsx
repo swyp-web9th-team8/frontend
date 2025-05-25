@@ -1,6 +1,7 @@
 "use client";
 
 import DateBadge from "@/components/atoms/Badge/DateBadge";
+import useIntersectionObserver from "@/hooks/features/commons/useIntersectionObserver";
 import { useFetchCompletedGatheringList } from "@/hooks/queries/useFetchGatheringList";
 import { getDay, getDayOfWeek, getMonth } from "@/utils/day";
 import { groupGatheringsByDate } from "@/utils/gatherings";
@@ -8,7 +9,12 @@ import Empty from "../Empty";
 import GatheringItem from "./GatheringItem";
 
 export default function GatheringList() {
-  const { data, isLoading } = useFetchCompletedGatheringList();
+  const { data, isLoading, fetchNextPage, hasNextPage } =
+    useFetchCompletedGatheringList();
+  const { setTarget } = useIntersectionObserver({
+    fetchNextPage,
+    hasNextPage,
+  });
 
   if (!data && !isLoading) return null;
 
@@ -39,6 +45,7 @@ export default function GatheringList() {
             </div>
           </div>
         ))}
+      <div ref={setTarget} />
       {isEmpty && <Empty largeText="완료된 모임이 없어요" />}
     </div>
   );

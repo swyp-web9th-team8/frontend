@@ -103,19 +103,21 @@ export default function HomeFeedTemplate({
             />
           </div>
         ) : (
-          groupedList.map((items) => {
-            const date = formatDate(items[0].meetingTime, "yyyy-MM-dd");
-            return (
-              <div key={date}>
-                <GatheringListGroup
-                  date={date}
-                  items={items}
-                  isClosed={isClosedView}
-                />
-                <div className="h-4" ref={setTarget}></div>
-              </div>
-            );
-          })
+          <>
+            {groupedList.map((items) => {
+              const date = formatDate(items[0].meetingTime, "yyyy-MM-dd");
+              return (
+                <div key={date}>
+                  <GatheringListGroup
+                    date={date}
+                    items={items}
+                    isClosed={isClosedView}
+                  />
+                </div>
+              );
+            })}
+            <div ref={setTarget} />
+          </>
         )}
       </div>
 

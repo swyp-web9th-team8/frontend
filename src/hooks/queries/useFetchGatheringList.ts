@@ -10,7 +10,7 @@ import {
 } from "@/types/gatherings";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-const ROWS_PER_PAGE = 20;
+const ROWS_PER_PAGE = 10;
 
 /** 홈 화면 - 모집중/마감된 모임 */
 export const useFetchGatheringList = (
