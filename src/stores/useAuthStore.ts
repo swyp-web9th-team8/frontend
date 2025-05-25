@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { devtools, persist } from "zustand/middleware";
+import { devtools, persist, createJSONStorage } from "zustand/middleware";
 
 export interface User {
   id: number;
@@ -35,21 +35,16 @@ export const useAuthStore = create<AuthState>()(
             profileImageUrl: user.profileImageUrl,
           }),
 
-        logout: () => {
-          // 상태 초기화
+        logout: () =>
           set({
             isLoggedIn: false,
             user: null,
-          });
-
-          // localStorage에서 persist된 상태 삭제
-          if (typeof window !== "undefined") {
-            localStorage.removeItem("auth-storage");
-          }
-        },
+            profileImageUrl: null,
+          }),
       }),
       {
-        name: "auth-storage", // localStorage에 저장될 키
+        name: "auth-storage",
+        storage: createJSONStorage(() => localStorage),
       },
     ),
     {

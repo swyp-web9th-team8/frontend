@@ -3,17 +3,23 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 export default function SplashPage() {
   const router = useRouter();
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      router.push("/onboarding");
+      if (isLoggedIn) {
+        router.replace("/home");
+      } else {
+        router.replace("/onboarding");
+      }
     }, 2500);
 
     return () => clearTimeout(timer);
-  }, [router]);
+  }, [router, isLoggedIn]);
 
   return (
     <div className="flex h-screen items-center justify-center">
