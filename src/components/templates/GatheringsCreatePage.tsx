@@ -183,7 +183,7 @@ export default function GatheringsCreatePage() {
 
         <CreateButton
           isActive={isActive}
-          message="모임장은 모인 후에 최소 사진 1장을 올려주셔야 해요"
+          message="모임장은 모임 후에 최소 사진 1장을 올려주셔야 해요"
         >
           완료
         </CreateButton>
