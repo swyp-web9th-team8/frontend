@@ -1,16 +1,16 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
 import { getUserProfile } from "@/api/profile/getUserProfile";
-import InfoBox from "@/components/atoms/InfoBox/InfoBox";
-import ActivityRow from "@/components/molecules/ActivityRow";
-import SectionWithTitle from "@/components/organisms/profile/SectionWithTitle";
-import ProfileHeader from "@/components/organisms/profile/ProfileHeader";
+import IconAddNew from "@/assets/icons/IconAddNew.svg";
 import IconGroup from "@/assets/icons/IconGroup01.svg";
 import IconLocation from "@/assets/icons/IconLocation.svg";
-import IconAddNew from "@/assets/icons/IconAddNew.svg";
 import IconMedal from "@/assets/icons/IconMedal01.svg";
 import IconMegaphone from "@/assets/icons/IconMegaphone.svg";
+import InfoBox from "@/components/atoms/InfoBox/InfoBox";
+import ActivityRow from "@/components/molecules/ActivityRow";
+import ProfileHeader from "@/components/organisms/profile/ProfileHeader";
+import SectionWithTitle from "@/components/organisms/profile/SectionWithTitle";
+import { useQuery } from "@tanstack/react-query";
 
 export default function ProfilePage() {
   const { data: profile, isLoading } = useQuery({
@@ -22,7 +22,7 @@ export default function ProfilePage() {
   if (isLoading || !profile) return <p className="text-center">로딩 중...</p>;
 
   return (
-    <main className="h-full w-full px-4 py-6 text-sm">
+    <main className="bottom-padding h-full w-full px-4 py-6 text-sm">
       <h1 className="text-heading1-medium font-gsans-medium mb-6 text-center">
         프로필
       </h1>
