@@ -1,17 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence } from "framer-motion";
 import { ONBOARDING_SLIDES } from "@/constants/onboarding";
 import OnboardingSlide from "@/components/organisms/OnboardingSlide";
 import OnboardingControl from "@/components/organisms/OnboardingControl";
+import { useAuthStore } from "@/stores/useAuthStore";
+import Loading from "@/assets/icons/Loading.svg";
 
 export default function OnboardingPage() {
   const [page, setPage] = useState(0);
   const [direction, setDirection] = useState(0);
   const router = useRouter();
   const total = ONBOARDING_SLIDES.length;
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    if (!isLoading && isLoggedIn) {
+      router.replace("/home");
+    }
+  }, [router, isLoggedIn, isLoading]);
 
   const nextPage = () => {
     if (page < total - 1) {
@@ -31,6 +45,14 @@ export default function OnboardingPage() {
   };
   const handleStart = () => router.push("/login");
   const handleNextClick = () => nextPage();
+
+  if (isLoading || isLoggedIn) {
+    return (
+      <p className="flex flex-1 items-center justify-center text-center">
+        <Loading className="h-[81px] w-[81px] animate-spin" />
+      </p>
+    );
+  }
 
   return (
     <div className="flex h-screen flex-col items-center justify-between py-8">
