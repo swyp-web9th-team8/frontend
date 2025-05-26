@@ -15,13 +15,15 @@ export default function GatheringListGroup({
   isClosed = false,
 }: GatheringListGroupProps) {
   return (
-    <div className="mb-5 grid grid-cols-[auto_1fr] items-start gap-2.5">
-      <DateBadge
-        month={getMonth(date)}
-        day={getDay(date)}
-        dayOfWeek={getDayOfWeek(date)}
-      />
-      <div className="flex flex-col gap-3">
+    <div className="mb-5 flex min-w-0 flex-row gap-2.5 overflow-x-hidden">
+      <div className="flex-shrink-0">
+        <DateBadge
+          month={getMonth(date)}
+          day={getDay(date)}
+          dayOfWeek={getDayOfWeek(date)}
+        />
+      </div>
+      <div className="flex min-w-0 flex-1 flex-col gap-3">
         {items.map((gathering) => (
           <GatheringCard
             key={gathering.id}
