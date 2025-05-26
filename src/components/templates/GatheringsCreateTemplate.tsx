@@ -29,7 +29,7 @@ const MAX_PARTICIPANTS = "maxParticipants";
 const DEAD_LINE = "deadLine";
 const OPEN_CHAT_URL = "openChatUrl";
 
-export default function GatheringsCreatePage() {
+export default function GatheringsCreateTemplate() {
   const methods = useForm<IGatheringFormValues>({
     mode: "onChange",
   });
@@ -59,7 +59,6 @@ export default function GatheringsCreatePage() {
   const showToast = useToast();
   const [isOpen, setIsOpen] = useState(false);
   const [confirmMeetingTime, setConfirmMeetingTime] = useState<string>("");
-  const [confirmAddress, setConfirmAddress] = useState<string>("");
 
   const onSubmit = (data: IGatheringFormValues) => {
     const { datePart, timePart, ...rest } = data;
@@ -79,7 +78,6 @@ export default function GatheringsCreatePage() {
       .then((res) => {
         if (res?.data) {
           setConfirmMeetingTime(res.data.meetingTime);
-          setConfirmAddress(res.data.address);
           setIsOpen(true);
         }
       })
@@ -149,7 +147,7 @@ export default function GatheringsCreatePage() {
             validationRules={{ required: true }}
           />
         </InputWithLabel>
-        <div className="flex gap-[25px]">
+        <div className="flex gap-[25px] [&>*:first-child_input]:w-[108px] [&>*:last-child_input]:w-[198px]">
           <InputWithLabel
             label="최대인원"
             name={MAX_PARTICIPANTS}
@@ -189,10 +187,7 @@ export default function GatheringsCreatePage() {
         </CreateButton>
       </form>
       {isOpen && (
-        <GatheringCreateConfirmModal
-          meetingTime={confirmMeetingTime}
-          address={confirmAddress}
-        />
+        <GatheringCreateConfirmModal meetingTime={confirmMeetingTime} />
       )}
     </FormProvider>
   );

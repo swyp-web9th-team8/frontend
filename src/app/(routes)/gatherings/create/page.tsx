@@ -1,5 +1,5 @@
-import GatheringsCreatePage from "@/components/templates/GatheringsCreatePage";
+import GatheringsCreateTemplate from "@/components/templates/GatheringsCreateTemplate";
 
 export default function CreateGatheringPage() {
-  return <GatheringsCreatePage />;
+  return <GatheringsCreateTemplate />;
 }

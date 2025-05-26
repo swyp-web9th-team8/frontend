@@ -5,6 +5,7 @@ import { DayPicker, getDefaultClassNames } from "react-day-picker";
 import "react-day-picker/style.css";
 // css override
 import styles from "@/styles/Calendar.module.css";
+import { useState } from "react";
 
 interface CalendarProps {
   date: Date;
@@ -14,6 +15,7 @@ interface CalendarProps {
 const Calendar = ({ date, onSelect }: CalendarProps) => {
   const defaultClassNames = getDefaultClassNames();
   const today = new Date();
+  const [month, setMonth] = useState(date.getMonth() + 1);
 
   return (
     <DayPicker
@@ -22,13 +24,20 @@ const Calendar = ({ date, onSelect }: CalendarProps) => {
       showOutsideDays
       selected={date}
       disabled={{ before: today }}
+      onMonthChange={(date) => {
+        setMonth(date.getMonth() + 1);
+      }}
       onDayClick={onSelect}
+      formatters={{
+        formatCaption: (date: Date) =>
+          `${date.getFullYear()}년 ${date.getMonth() + 1}월`,
+      }}
       classNames={{
         today: `text-black`,
         root: `${defaultClassNames.root} ${styles.rdpRoot}`,
         nav: `${styles["rdp-nav"]}`,
         button_previous: `${styles["rdp-button_previous"]}`,
-        button_next: `${styles["rdp-button_next"]}`,
+        button_next: `${styles["rdp-button_next_default"]} ${month >= 10 ? styles["rdp-button_next_after_october"] : styles["rdp-button_next_default_before_october"]}`,
         month_caption: `${styles["rdp-month_caption"]}`,
         caption_label: `${styles["rdp-caption_label"]}`,
         months: `${styles["rdp-months"]}`,

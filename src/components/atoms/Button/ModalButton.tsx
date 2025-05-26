@@ -5,12 +5,12 @@ interface Props {
 }
 
 function ModalButton({ onClick, buttonType, children }: Props) {
-  const bgColor = buttonType === "confirm" ? "bg-green" : "bg-gray-200";
+  const bgColor = buttonType === "confirm" ? "bg-green" : "bg-grey-200";
 
   return (
     <button
       onClick={onClick}
-      className={`h-12 w-full rounded-xl ${bgColor} flex cursor-pointer items-center justify-center text-white`}
+      className={`h-[48px] w-[138px] rounded-xl ${bgColor} flex cursor-pointer items-center justify-center text-white`}
     >
       {children}
     </button>
