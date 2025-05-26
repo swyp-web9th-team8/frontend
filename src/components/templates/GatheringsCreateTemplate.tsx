@@ -59,7 +59,6 @@ export default function GatheringsCreateTemplate() {
   const showToast = useToast();
   const [isOpen, setIsOpen] = useState(false);
   const [confirmMeetingTime, setConfirmMeetingTime] = useState<string>("");
-  const [confirmAddress, setConfirmAddress] = useState<string>("");
 
   const onSubmit = (data: IGatheringFormValues) => {
     const { datePart, timePart, ...rest } = data;
@@ -79,7 +78,6 @@ export default function GatheringsCreateTemplate() {
       .then((res) => {
         if (res?.data) {
           setConfirmMeetingTime(res.data.meetingTime);
-          setConfirmAddress(res.data.address);
           setIsOpen(true);
         }
       })
@@ -189,10 +187,7 @@ export default function GatheringsCreateTemplate() {
         </CreateButton>
       </form>
       {isOpen && (
-        <GatheringCreateConfirmModal
-          meetingTime={confirmMeetingTime}
-          address={confirmAddress}
-        />
+        <GatheringCreateConfirmModal meetingTime={confirmMeetingTime} />
       )}
     </FormProvider>
   );
