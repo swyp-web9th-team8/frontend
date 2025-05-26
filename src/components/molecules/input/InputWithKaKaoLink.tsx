@@ -45,23 +45,25 @@ function InputWithKaKaoLink({
       />
       {isOpen && (
         <Modal onClose={() => setIsOpen(false)}>
-          <TwoButtonContents
-            onClose={() => setIsOpen(false)}
-            onConfirm={handleConfirmTextArea}
-            buttonText={{ close: "취소", confirm: "확인" }}
-          >
-            <div className="flex flex-col gap-5">
-              <div className="text-heading2-medium font-gsans-medium text-gray-950">
-                카카오톡 오픈채팅방 URL을 입력해주세요
+          <div className="px-5 pt-[66px] pb-[30px]">
+            <TwoButtonContents
+              onClose={() => setIsOpen(false)}
+              onConfirm={handleConfirmTextArea}
+              buttonText={{ close: "취소", confirm: "확인" }}
+            >
+              <div className="flex flex-col gap-5">
+                <div className="text-heading2-medium font-gsans-medium text-gray-950">
+                  카카오톡 오픈채팅방 URL을 입력해주세요
+                </div>
+                <TextArea
+                  name={textAreaName}
+                  placeholder={`예시: https://open.kakao.com/o/srX5Gdlh`}
+                  validationRules={validationRules}
+                  rows={rows}
+                />
               </div>
-              <TextArea
-                name={textAreaName}
-                placeholder={`예시: https://open.kakao.com/o/srX5Gdlh`}
-                validationRules={validationRules}
-                rows={rows}
-              />
-            </div>
-          </TwoButtonContents>
+            </TwoButtonContents>
+          </div>
         </Modal>
       )}
     </div>

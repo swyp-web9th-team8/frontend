@@ -19,7 +19,7 @@ function TwoButtonContents({
   return (
     <div className="flex w-full flex-col justify-between gap-9">
       <div className="w-full">{children}</div>
-      <div className="flex items-center justify-center gap-3">
+      <div className={`flex items-center justify-between gap-3`}>
         <ModalButton onClick={onClose} buttonType="close">
           {buttonText.close}
         </ModalButton>

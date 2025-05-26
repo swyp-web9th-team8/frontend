@@ -45,7 +45,7 @@ export default function Modal({
           variant === "default"
             ? "bg-[#F6F6F6]"
             : "bg-white p-6 text-center shadow-lg"
-        } ${position === "center" ? "w-[353px] rounded-2xl" : "animate-slide-up mx-auto mt-auto w-full rounded-[32px]"}`}
+        } ${position === "center" ? "w-[353px] rounded-2xl" : "animate-slide-up mx-auto mt-auto w-full rounded-t-[32px]"}`}
       >
         {variant === "default" && (
           <button
