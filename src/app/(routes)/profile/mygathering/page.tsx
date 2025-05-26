@@ -4,13 +4,12 @@ import GatheringFilterTabs from "@/components/molecules/homegatherings/Gathering
 import Empty from "@/components/organisms/Empty";
 import Header from "@/components/organisms/Header";
 import MyGatheringCardList from "@/components/organisms/mygathering/MyGatheringCardList";
-import {
-  useCreatedGatherings,
-  useParticipatedGatherings,
-} from "@/hooks/queries/useMyGatherings";
 import { formatDateAndTime } from "@/utils/day";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useFetchMyCreatedGatheringList } from "@/hooks/queries/useFetchMyCreatedGatheringList";
+import { useFetchMyParticipatedGatheringList } from "@/hooks/queries/useFetchMyParticipatedGatheringList";
+import useIntersectionObserver from "@/hooks/features/commons/useIntersectionObserver";
 
 const calculateDday = (meetingDt: string) => {
   const today = new Date();
@@ -31,19 +30,28 @@ export default function MyGatheringPage() {
   const router = useRouter();
 
   const {
-    data: participatedData = [],
-    isLoading: isLoadingParticipated,
-    error: participatedError,
-  } = useParticipatedGatherings();
-
-  const {
-    data: createdData = [],
+    data: createdData,
+    fetchNextPage: fetchNextCreatedPage,
+    hasNextPage: hasNextCreatedPage,
     isLoading: isLoadingCreated,
     error: createdError,
-  } = useCreatedGatherings();
+  } = useFetchMyCreatedGatheringList();
+
+  const {
+    data: participatedData,
+    fetchNextPage: fetchNextParticipatedPage,
+    hasNextPage: hasNextParticipatedPage,
+    isLoading: isLoadingParticipated,
+    error: participatedError,
+  } = useFetchMyParticipatedGatheringList();
 
   const isLoading = isLoadingParticipated || isLoadingCreated;
   const error = participatedError || createdError;
+
+  const { setTarget } = useIntersectionObserver({
+    hasNextPage: isMineTab ? hasNextCreatedPage : hasNextParticipatedPage,
+    fetchNextPage: isMineTab ? fetchNextCreatedPage : fetchNextParticipatedPage,
+  });
 
   if (isLoading) {
     return (
@@ -67,25 +75,31 @@ export default function MyGatheringPage() {
     );
   }
 
-  const participatedGatherings = (participatedData || []).map((g) => ({
-    id: g.id,
-    title: g.title,
-    date: formatDateAndTime(g.meetingDt, "yyyy년 M월 d일 E요일"),
-    time: formatDateAndTime(g.meetingDt, "a h시"),
-    location: g.placeName || "장소 미정",
-    status: g.completed ? "완료" : calculateDday(g.meetingDt),
-    isReviewed: false,
-  }));
+  const participatedGatherings =
+    participatedData?.pages.flatMap((page) =>
+      (page.content ?? []).map((g) => ({
+        id: g.id,
+        title: g.title,
+        date: formatDateAndTime(g.meetingDt, "yyyy년 M월 d일 E요일"),
+        time: formatDateAndTime(g.meetingDt, "a h시"),
+        location: g.placeName || "장소 미정",
+        status: g.completed ? "완료" : calculateDday(g.meetingDt),
+        isReviewed: false,
+      })),
+    ) ?? [];
 
-  const createdGatherings = (createdData || []).map((g) => ({
-    id: g.id,
-    title: g.title,
-    date: formatDateAndTime(g.meetingDt, "yyyy년 M월 d일 E요일"),
-    time: formatDateAndTime(g.meetingDt, "a h시"),
-    location: g.placeName || "장소 미정",
-    status: g.completed ? "완료" : calculateDday(g.meetingDt),
-    isReviewed: false,
-  }));
+  const createdGatherings =
+    createdData?.pages.flatMap((page) =>
+      (page.content ?? []).map((g) => ({
+        id: g.id,
+        title: g.title,
+        date: formatDateAndTime(g.meetingDt, "yyyy년 M월 d일 E요일"),
+        time: formatDateAndTime(g.meetingDt, "a h시"),
+        location: g.placeName || "장소 미정",
+        status: g.completed ? "완료" : calculateDday(g.meetingDt),
+        isReviewed: false,
+      })),
+    ) ?? [];
 
   const isEmptyMyGatherings =
     isMineTab && (!createdData || createdGatherings.length === 0);
@@ -93,13 +107,11 @@ export default function MyGatheringPage() {
   return (
     <div className="py-6">
       <Header title="내 모임" backButton rightButton />
-
       <GatheringFilterTabs
         tabLabels={["참여한 모임", "내가 만든 모임"]}
         selected={isMineTab}
         onChange={setIsMineTab}
       />
-
       <div className="mt-4 flex flex-col gap-6">
         {isEmptyMyGatherings ? (
           <div className="relative h-[60vh]">
@@ -116,9 +128,14 @@ export default function MyGatheringPage() {
             </Empty>
           </div>
         ) : (
-          <MyGatheringCardList
-            items={isMineTab ? createdGatherings : participatedGatherings}
-          />
+          <>
+            <MyGatheringCardList
+              items={isMineTab ? createdGatherings : participatedGatherings}
+            />
+            {(isMineTab ? hasNextCreatedPage : hasNextParticipatedPage) && (
+              <div className="h-4" ref={setTarget}></div>
+            )}
+          </>
         )}
       </div>
     </div>

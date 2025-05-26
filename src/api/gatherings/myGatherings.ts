@@ -8,41 +8,49 @@ export interface MyGatheringItem {
   completed: boolean;
 }
 
-interface ParticipateGatheringsResponse {
-  statusCode: string;
-  message: string;
+export interface ParticipatedGatheringResponse {
   content: MyGatheringItem[];
   page: number;
-  size: number;
   totalPages: number;
-  totalElements: number;
-  timestamp: string;
 }
 
-export const fetchParticipatedGatherings = async (): Promise<
-  MyGatheringItem[]
-> => {
+export const fetchParticipatedGatherings = async (params: {
+  page: number;
+  size: number;
+}): Promise<ParticipatedGatheringResponse> => {
   try {
-    const response = await requestHandler<ParticipateGatheringsResponse>(
+    const query = `?page=${params.page}&size=${params.size}`;
+    const response = await requestHandler<ParticipatedGatheringResponse>(
       "get",
-      "/api/users/participated-posts",
+      `/api/users/participated-posts${query}`,
     );
-    return response?.content || [];
+    return response;
   } catch (error) {
     console.error("Failed to fetch participated gatherings:", error);
-    return [];
+    return { content: [], page: 0, totalPages: 0 };
   }
 };
 
-export const fetchCreatedGatherings = async (): Promise<MyGatheringItem[]> => {
+export interface CreatedGatheringResponse {
+  content: MyGatheringItem[];
+  page: number;
+  totalPages: number;
+  // 기타 필요한 필드 추가 가능
+}
+
+export const fetchCreatedGatherings = async (params: {
+  page: number;
+  size: number;
+}): Promise<CreatedGatheringResponse> => {
   try {
-    const response = await requestHandler<ParticipateGatheringsResponse>(
+    const query = `?page=${params.page}&size=${params.size}`;
+    const response = await requestHandler<CreatedGatheringResponse>(
       "get",
-      "/api/users/created-posts",
+      `/api/users/created-posts${query}`,
     );
-    return response?.content || [];
+    return response;
   } catch (error) {
     console.error("Failed to fetch created gatherings:", error);
-    return [];
+    return { content: [], page: 0, totalPages: 0 };
   }
 };
