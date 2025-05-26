@@ -1,7 +1,7 @@
-import { useState } from "react";
 import RegionOptionGrid from "@/components/molecules/region/RegionOptionGrid";
-import clsx from "clsx";
 import { useDistricts, useNeighborhoods } from "@/hooks/queries/useRegions";
+import clsx from "clsx";
+import { useState } from "react";
 
 interface RegionPickerProps {
   onComplete: (gu: string, dong: string) => void;
@@ -30,7 +30,7 @@ export default function RegionPicker({
   return (
     <div
       className={clsx(
-        "flex h-full max-h-[calc(100vh-6rem)] flex-col gap-9",
+        "flex h-full max-h-[calc(100vh-6rem)] flex-col gap-9 pt-[62px]",
         className,
       )}
     >
