@@ -41,16 +41,16 @@ export default function Modal({
       onClick={handleOutsideClick}
     >
       <div
-        className={`relative max-w-md ${
+        className={`relative max-w-[500px] ${
           variant === "default"
             ? "bg-[#F6F6F6]"
             : "bg-white p-6 text-center shadow-lg"
-        } ${position === "center" ? "w-[85%] rounded-2xl" : "animate-slide-up mx-auto mt-auto w-full rounded-t-2xl"}`}
+        } ${position === "center" ? "w-[85%] rounded-2xl" : "animate-slide-up mx-auto mt-auto w-full rounded-[32px]"}`}
       >
         {variant === "default" && (
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 cursor-pointer text-2xl"
+            className="absolute top-6 right-5 cursor-pointer text-2xl"
           >
             ×
           </button>

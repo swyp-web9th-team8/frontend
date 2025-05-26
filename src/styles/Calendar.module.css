@@ -18,6 +18,7 @@
 .rdp-button_previous {
   position: absolute;
   left: 0;
+  top: 1px;
   z-index: 1;
   width: 24px;
   height: 24px;
@@ -27,21 +28,30 @@
   cursor: pointer;
 }
 
-.rdp-button_next {
+.rdp-button_next_default {
   position: absolute;
-  left: 100px;
-  z-index: 1;
+  top: 1px;
   width: 24px;
   height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+/* 10월 이전 오른쪽 버튼 위치 조정 */
+.rdp-button_next_default_before_october {
+  left: 112px;
+}
+
+/* 10월 이후 오른쪽 버튼 위치 조정 */
+.rdp-button_next_after_october {
+  left: 124px;
 }
 
 .rdp-chevron {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
 }
 
 .rdp-month_caption {

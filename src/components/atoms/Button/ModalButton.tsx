@@ -5,7 +5,7 @@ interface Props {
 }
 
 function ModalButton({ onClick, buttonType, children }: Props) {
-  const bgColor = buttonType === "confirm" ? "bg-green" : "bg-gray-200";
+  const bgColor = buttonType === "confirm" ? "bg-green" : "bg-grey-200";
 
   return (
     <button
