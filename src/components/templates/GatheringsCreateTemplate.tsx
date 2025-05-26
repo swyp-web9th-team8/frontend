@@ -29,7 +29,7 @@ const MAX_PARTICIPANTS = "maxParticipants";
 const DEAD_LINE = "deadLine";
 const OPEN_CHAT_URL = "openChatUrl";
 
-export default function GatheringsCreatePage() {
+export default function GatheringsCreateTemplate() {
   const methods = useForm<IGatheringFormValues>({
     mode: "onChange",
   });
