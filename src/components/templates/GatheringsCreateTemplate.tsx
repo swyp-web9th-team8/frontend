@@ -149,7 +149,7 @@ export default function GatheringsCreateTemplate() {
             validationRules={{ required: true }}
           />
         </InputWithLabel>
-        <div className="flex gap-[25px]">
+        <div className="flex gap-[25px] [&>*:first-child_input]:w-[108px] [&>*:last-child_input]:w-[198px]">
           <InputWithLabel
             label="최대인원"
             name={MAX_PARTICIPANTS}

@@ -13,7 +13,7 @@ export default function InputWithLabel({
   tooltip,
 }: Props) {
   return (
-    <div className="flex flex-1 flex-col gap-2">
+    <div className="flex flex-col gap-2">
       <label
         className="text-body1-medium font-gsans-medium flex items-center gap-1 text-[#1A1A1A]"
         htmlFor={name}
