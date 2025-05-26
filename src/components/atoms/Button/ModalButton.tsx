@@ -10,7 +10,7 @@ function ModalButton({ onClick, buttonType, children }: Props) {
   return (
     <button
       onClick={onClick}
-      className={`h-[48px] w-[138px] rounded-xl ${bgColor} flex cursor-pointer items-center justify-center text-white`}
+      className={`h-[48px] w-full rounded-xl ${bgColor} flex cursor-pointer items-center justify-center text-white`}
     >
       {children}
     </button>

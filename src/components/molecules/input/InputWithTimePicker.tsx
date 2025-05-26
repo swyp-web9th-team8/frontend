@@ -38,33 +38,35 @@ function InputWithTimePicker({ name, placeholder, validationRules }: Props) {
       />
       {isOpen && (
         <Modal onClose={handleCloseModal}>
-          <TwoButtonContents
-            onClose={handleCloseModal}
-            onConfirm={handleConfirmTime}
-            buttonText={{ close: "취소", confirm: "확인" }}
-          >
-            <div className="relative flex items-center justify-center">
-              {/* 시간 선택 */}
-              <TimePicker
-                time={HOURS}
-                handleTimeScroll={handleHourScroll}
-                selectedTime={selectedHour}
-              />
-              {/* 분 선택 */}
-              <TimePicker
-                time={MINITUES}
-                handleTimeScroll={handleMinuteScroll}
-                selectedTime={selectedMinute}
-              />
-              {/* 오전/오후 선택 */}
-              <TimePicker
-                time={AMPM}
-                handleTimeScroll={handleAmPmScroll}
-                selectedTime={amPm}
-              />
-              <OverlayView />
-            </div>
-          </TwoButtonContents>
+          <div className="px-5 pt-[63px] pb-[30px]">
+            <TwoButtonContents
+              onClose={handleCloseModal}
+              onConfirm={handleConfirmTime}
+              buttonText={{ close: "취소", confirm: "확인" }}
+            >
+              <div className="relative flex items-center justify-center">
+                {/* 시간 선택 */}
+                <TimePicker
+                  time={HOURS}
+                  handleTimeScroll={handleHourScroll}
+                  selectedTime={selectedHour}
+                />
+                {/* 분 선택 */}
+                <TimePicker
+                  time={MINITUES}
+                  handleTimeScroll={handleMinuteScroll}
+                  selectedTime={selectedMinute}
+                />
+                {/* 오전/오후 선택 */}
+                <TimePicker
+                  time={AMPM}
+                  handleTimeScroll={handleAmPmScroll}
+                  selectedTime={amPm}
+                />
+                <OverlayView />
+              </div>
+            </TwoButtonContents>
+          </div>
         </Modal>
       )}
     </div>
