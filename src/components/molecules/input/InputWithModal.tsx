@@ -54,13 +54,15 @@ function InputWithModal({
       </div>
       {isOpen && (
         <Modal onClose={handleModalClose}>
-          <TwoButtonContents
-            onClose={handleModalClose}
-            onConfirm={handleModalConfirm}
-            buttonText={{ close: "취소", confirm: "확인" }}
-          >
-            {children}
-          </TwoButtonContents>
+          <div className="mx-[22px] mt-[66px] mb-[30px]">
+            <TwoButtonContents
+              onClose={handleModalClose}
+              onConfirm={handleModalConfirm}
+              buttonText={{ close: "취소", confirm: "확인" }}
+            >
+              {children}
+            </TwoButtonContents>
+          </div>
         </Modal>
       )}
     </div>
