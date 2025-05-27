@@ -1,5 +1,6 @@
 "use client";
 
+import IconClose from "@/assets/icons/IconClose.svg";
 import { useEffect } from "react";
 
 interface ModalProps {
@@ -52,7 +53,7 @@ export default function Modal({
             onClick={onClose}
             className="absolute top-6 right-5 cursor-pointer text-2xl"
           >
-            ×
+            <IconClose className="text-grey-950 h-6 w-6" />
           </button>
         )}
         {children}

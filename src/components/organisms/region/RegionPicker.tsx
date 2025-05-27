@@ -30,7 +30,7 @@ export default function RegionPicker({
   return (
     <div
       className={clsx(
-        "flex h-full max-h-[calc(100vh-6rem)] flex-col gap-9 pt-[62px]",
+        "flex h-full max-h-[calc(100vh-6rem)] flex-col gap-9",
         className,
       )}
     >
