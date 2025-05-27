@@ -21,11 +21,20 @@ export default function BadgePage() {
   const hasAllBadges = acquiredBadges >= BADGES.length;
 
   const currentBadge = BADGES[acquiredBadges - 1] ?? null;
-  const nextBadge = BADGES[acquiredBadges] ?? null;
 
   const grantedDate = latestBadge?.grantedAt
     ? new Date(latestBadge.grantedAt).toISOString().split("T")[0]
     : null;
+
+  const gaugeTotal = 10;
+  const gaugeCurrent = Math.max(
+    0,
+    Math.min(gaugeTotal, gaugeTotal + remainingActionsForNextBadge),
+  );
+
+  // 누적 progress 값 계산
+  const progressTotal = currentBadge?.required ?? 0;
+  const progressCurrent = progressTotal + remainingActionsForNextBadge;
 
   if (isLoading) {
     return <p className="text-center">로딩 중...</p>;
@@ -47,11 +56,11 @@ export default function BadgePage() {
         label={
           hasAllBadges ? "더 이상 딸 수 있는 뱃지가 없어요" : "다음 뱃지까지"
         }
-        current={
-          nextBadge ? nextBadge.required - remainingActionsForNextBadge : 0
-        }
-        total={nextBadge?.required ?? currentBadge?.required ?? 0}
-        isFull={hasAllBadges}
+        current={gaugeCurrent}
+        total={gaugeTotal}
+        isFull={gaugeCurrent === gaugeTotal}
+        displayCurrent={progressCurrent}
+        displayTotal={progressTotal}
       />
 
       <ul className="mt-6 flex flex-col gap-4">

@@ -3,6 +3,8 @@ interface BadgeProgressBarProps {
   current: number;
   total: number;
   isFull?: boolean;
+  displayCurrent?: number;
+  displayTotal?: number;
 }
 
 export default function BadgeProgressBar({
@@ -10,6 +12,8 @@ export default function BadgeProgressBar({
   current,
   total,
   isFull = false,
+  displayCurrent,
+  displayTotal,
 }: BadgeProgressBarProps) {
   const totalBlocks = 10;
   const safeCurrent = Math.min(current, total);
@@ -23,7 +27,7 @@ export default function BadgeProgressBar({
           {label}
         </span>
         <span className="text-grey-400 font-gsans-medium text-body2-medium">
-          {safeCurrent}/{total}
+          {displayCurrent ?? safeCurrent}/{displayTotal ?? total}
         </span>
       </div>
 
