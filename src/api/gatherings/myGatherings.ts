@@ -3,7 +3,7 @@ import { requestHandler } from "@/lib/axiosInstance";
 export interface MyGatheringItem {
   id: number;
   title: string;
-  placeName: string | null;
+  address: string | null;
   meetingDt: string;
   completed: boolean;
 }
