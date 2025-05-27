@@ -5,6 +5,7 @@ import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
 import { useImageUrl } from "@/utils/useImageUrl";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { getLocalBadgeImageUrl } from "@/utils/badge";
 
 export default function ProfileHeader({
   name,
@@ -54,7 +55,7 @@ export default function ProfileHeader({
       </div>
       {lastBadgeIconDir && (
         <Image
-          src={lastBadgeIconDir}
+          src={getLocalBadgeImageUrl(lastBadgeIconDir)}
           alt="뱃지 아이콘"
           width={54}
           height={59}
