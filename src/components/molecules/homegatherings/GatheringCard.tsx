@@ -18,7 +18,7 @@ export default function GatheringCard({
   gathering,
   isClosed = false,
 }: GatheringCardProps) {
-  const { mutate: participate, isPending } = useParticipateGathering();
+  const { mutateAsync: participate, isPending } = useParticipateGathering();
   const { mutateAsync: leave } = useLeaveCancelGathering();
 
   const router = useRouter();
@@ -28,7 +28,7 @@ export default function GatheringCard({
   const handleParticipate = async (e: React.MouseEvent) => {
     e.stopPropagation();
     if (!isJoined) {
-      participate(gathering.id);
+      await participate(gathering.id);
       setIsJoined(true);
     } else {
       try {
