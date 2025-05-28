@@ -2,6 +2,7 @@
 
 import LocationIcon from "@/assets/icons/location.svg";
 import NextIcon from "@/assets/icons/next-arrow.svg";
+import gathering_url from "@/assets/images/default-gathering-image.png";
 import ParticipantImageWithText from "@/components/molecules/participant/ParticipantImageWithText";
 import { IGatheringItem } from "@/types/gatherings";
 import Image from "next/image";
@@ -24,7 +25,7 @@ export default function GatheringItem({
     ? process.env.NODE_ENV === "production"
       ? `${process.env.NEXT_PUBLIC_SERVER_URL}${thumbnail}`
       : `http://localhost:8080${thumbnail}`
-    : "/images/default-gathering.png";
+    : gathering_url;
 
   return (
     <div className="inline-flex w-full flex-col items-start justify-start gap-2.5">
