@@ -12,21 +12,23 @@ interface Props {
 
 export default function ImageCarousel({ imageUrls }: Props) {
   const settings = {
-    className: "center",
-    centerMode: true,
-    centerPadding: "10px",
     dots: true,
     slidesToShow: 1,
     slidesToScroll: 1,
     infinite: false,
     speed: 500,
+    arrows: false,
+    centerMode: true,
+    centerPadding: "10px",
   };
 
   return (
-    <Slider {...settings} className="overflow-hidden">
-      {imageUrls.map((imageUrl) => (
-        <GatheringImage key={imageUrl} src={imageUrl} />
-      ))}
-    </Slider>
+    <div className="relative">
+      <Slider {...settings}>
+        {imageUrls.map((imageUrl) => (
+          <GatheringImage key={imageUrl} src={imageUrl} />
+        ))}
+      </Slider>
+    </div>
   );
 }
