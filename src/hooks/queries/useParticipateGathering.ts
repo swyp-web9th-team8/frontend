@@ -11,7 +11,11 @@ export const useParticipateGathering = () => {
 
   return useMutation({
     mutationFn: (postId: number) => participateGathering(postId),
-    onSuccess: () => {
+    onSuccess: (res) => {
+      if (res.statusCode === "BAD_REQUEST") {
+        throw new Error("해당 모임에 참석할 수 없습니다.");
+      }
+
       queryClient.invalidateQueries({
         queryKey: ["fetchGatheringList", "useFetchGatheringDetail"],
       });
