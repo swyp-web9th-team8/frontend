@@ -61,8 +61,8 @@ export default function HomeFeedTemplate({
 
   const { latitude, longitude } = useGeolocation();
 
-  const handleSearchClick = () => {
-    router.push("/search");
+  const handleSearchClick = (loc: "/search" | "/notification") => {
+    router.push(loc);
   };
 
   const groupedList = groupGatheringsByDate(gatheringList || []);
@@ -79,10 +79,16 @@ export default function HomeFeedTemplate({
         />
 
         <div className="flex gap-4">
-          <button onClick={handleSearchClick} className="cursor-pointer">
+          <button
+            onClick={() => handleSearchClick("/search")}
+            className="cursor-pointer"
+          >
             <IconSearch className="h-6 w-6" />
           </button>
-          <button>
+          <button
+            onClick={() => handleSearchClick("/notification")}
+            className="cursor-pointer"
+          >
             <IconNotification />
           </button>
         </div>

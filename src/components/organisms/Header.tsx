@@ -7,9 +7,10 @@ interface Props {
   title: string;
   backButton?: boolean;
   rightButton?: React.ReactNode;
+  onClickRightButton?: () => void;
 }
 
-function Header({ title, backButton, rightButton }: Props) {
+function Header({ title, backButton, rightButton, onClickRightButton }: Props) {
   const router = useRouter();
 
   return (
@@ -23,7 +24,11 @@ function Header({ title, backButton, rightButton }: Props) {
       </div>
       {/* 가운데 타이틀 */}
       <div className="text-body1-medium">{title}</div>
-      <div className="absolute right-5">{rightButton && rightButton}</div>
+      <div className="absolute right-5">
+        {rightButton && (
+          <button onClick={() => onClickRightButton?.()}>{rightButton}</button>
+        )}
+      </div>
     </div>
   );
 }

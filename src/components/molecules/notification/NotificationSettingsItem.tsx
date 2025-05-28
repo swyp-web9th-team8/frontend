@@ -1,7 +1,8 @@
 "use client";
 
 import Toggle from "@/components/atoms/Toggle/Toggle";
-import { useState } from "react";
+import { handleNotificationPermission } from "@/utils/notificationPermission";
+import { useEffect, useState } from "react";
 
 interface Props {
   title: string;
@@ -15,6 +16,14 @@ function NotificationSettingsItem({ title, description, isChecked }: Props) {
   const handleChange = (isOn: boolean) => {
     setIsOn(!isOn);
   };
+
+  // isOn이 true일 때 푸시 알림 권한 요청
+
+  useEffect(() => {
+    if (isOn) {
+      handleNotificationPermission();
+    }
+  }, [isOn]);
 
   return (
     <div className="font-gsans-medium inline-flex items-start justify-between gap-14 self-stretch">
