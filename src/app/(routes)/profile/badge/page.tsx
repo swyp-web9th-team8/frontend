@@ -20,6 +20,7 @@ export default function BadgePage() {
   const acquiredBadges = userBadge.length;
   const hasAllBadges = acquiredBadges >= BADGES.length;
 
+  const nextBadge = BADGES[acquiredBadges] ?? null;
   const currentBadge = BADGES[acquiredBadges - 1] ?? null;
 
   const grantedDate = latestBadge?.grantedAt
@@ -33,8 +34,11 @@ export default function BadgePage() {
   );
 
   // 누적 progress 값 계산
-  const progressTotal = currentBadge?.required ?? 0;
-  const progressCurrent = progressTotal + remainingActionsForNextBadge;
+  const progressTotal = nextBadge?.required ?? 0;
+  const progressCurrent = Math.max(
+    0,
+    progressTotal + remainingActionsForNextBadge,
+  );
 
   if (isLoading) {
     return <p className="text-center">로딩 중...</p>;
