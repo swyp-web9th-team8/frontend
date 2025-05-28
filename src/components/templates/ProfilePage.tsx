@@ -14,7 +14,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export default function ProfilePage() {
   const { data: profile, isLoading } = useQuery({
-    queryKey: ["userprofile"],
+    queryKey: ["userProfile"],
     queryFn: getUserProfile,
     refetchOnMount: true,
   });

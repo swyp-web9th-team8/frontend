@@ -12,7 +12,7 @@ export const useUpdateRegion = () => {
     mutationFn: updateRegion,
     onSuccess: async (_, region) => {
       setRegion(region);
-      await queryClient.invalidateQueries({ queryKey: ["userprofile"] });
+      await queryClient.invalidateQueries({ queryKey: ["userProfile"] });
       router.push("/profile");
     },
     onError: () => {
