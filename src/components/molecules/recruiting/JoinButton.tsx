@@ -14,13 +14,15 @@ interface Props {
 function JoinButton({ id, areadyJoined }: Props) {
   const [isJoined, setIsJoined] = useState(areadyJoined);
 
-  const { mutate: participate } = useParticipateGathering();
+  const { mutateAsync: participate } = useParticipateGathering();
   const { mutateAsync: leave } = useLeaveCancelGathering();
 
   const handleClick = async () => {
     if (!isJoined) {
-      participate(id);
-      setIsJoined(true);
+      try {
+        await participate(id);
+        setIsJoined(true);
+      } catch {}
     } else {
       try {
         await leave(id);

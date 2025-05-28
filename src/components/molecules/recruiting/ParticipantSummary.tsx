@@ -25,7 +25,7 @@ function ParticipantInfo({
           maxCount={participants.length === 0 ? 1 : 2}
         />
         <div className="justify-start text-sm leading-none font-medium text-gray-950">
-          {participants.length + 1} / {maxParticipants}
+          {participants.length + 1} / {maxParticipants + 1}
         </div>
       </ParticipantWithLabel>
     </div>

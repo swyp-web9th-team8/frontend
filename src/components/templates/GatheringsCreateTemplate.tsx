@@ -69,7 +69,7 @@ export default function GatheringsCreateTemplate() {
       content: rest.content,
       address: rest.address,
       meetingTime,
-      maxParticipants: Number(rest.maxParticipants),
+      maxParticipants: Number(rest.maxParticipants) - 1,
       openChatUrl: rest.openChatUrl || null,
       deadline: DUE_TIME_OPTIONS.find(
         (option) => option.screen === rest.deadLine,
@@ -158,7 +158,7 @@ export default function GatheringsCreateTemplate() {
                 name={MAX_PARTICIPANTS}
                 type="number"
                 max={10}
-                min={1}
+                min={2}
                 validationRules={{ required: true }}
               />
             </InputWithUnit>
