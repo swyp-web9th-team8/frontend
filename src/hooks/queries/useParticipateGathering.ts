@@ -11,13 +11,19 @@ export const useParticipateGathering = () => {
 
   return useMutation({
     mutationFn: (postId: number) => participateGathering(postId),
-    onSuccess: () => {
+    onSuccess: (res) => {
+      if (res.statusCode === "BAD_REQUEST") {
+        throw new Error("해당 모임에 참석할 수 없습니다.");
+      }
+
       queryClient.invalidateQueries({
         queryKey: ["fetchGatheringList", "useFetchGatheringDetail"],
       });
     },
-    onError: () => {
-      showToast("모임 참여에 실패했습니다. 다시 시도해주세요.");
+    onError: (error) => {
+      showToast(
+        error.message || "모임 참여에 실패했습니다. 다시 시도해주세요.",
+      );
     },
   });
 };
