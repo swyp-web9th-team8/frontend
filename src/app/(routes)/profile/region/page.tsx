@@ -15,7 +15,10 @@ export default function RegionSettingPage() {
   return (
     <main className="h-full w-full">
       <Header title="지역 설정" backButton />
-      <RegionPicker onComplete={handleComplete} className="px-0" />
+      <RegionPicker
+        onComplete={handleComplete}
+        className="h-screen px-0 pb-5"
+      />
     </main>
   );
 }
