@@ -23,7 +23,7 @@ export default function RegionSelectorModal({
 
   return (
     <Modal onClose={onClose} position="bottom">
-      <div className="mt-[62px]">
+      <div className="h-full">
         <RegionPicker onComplete={handleComplete} />
       </div>
     </Modal>
