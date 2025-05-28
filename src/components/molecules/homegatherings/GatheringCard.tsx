@@ -28,8 +28,10 @@ export default function GatheringCard({
   const handleParticipate = async (e: React.MouseEvent) => {
     e.stopPropagation();
     if (!isJoined) {
-      await participate(gathering.id);
-      setIsJoined(true);
+      try {
+        await participate(gathering.id);
+        setIsJoined(true);
+      } catch {}
     } else {
       try {
         await leave(gathering.id);
