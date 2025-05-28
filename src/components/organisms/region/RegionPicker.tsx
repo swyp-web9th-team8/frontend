@@ -28,7 +28,7 @@ export default function RegionPicker({
   const isDisabled = step === "GU" ? !selectedGu : !selectedDong;
 
   return (
-    <div className={clsx("flex h-full flex-col gap-9", className)}>
+    <div className={clsx("flex h-screen flex-col gap-9", className)}>
       <h2 className="text-heading1-bold font-gsans-bold">
         {step === "GU" ? (
           <>
