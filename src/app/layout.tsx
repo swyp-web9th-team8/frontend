@@ -1,6 +1,7 @@
 import { ToastProvider } from "@/components/molecules/toast/ToastContext";
 import { ReConfirmModalProvider } from "@/components/organisms/modal/ReConfirmModalContext";
 import { META } from "@/constants/metadata";
+import "@/lib/firebase.config";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";

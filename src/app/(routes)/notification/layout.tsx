@@ -14,7 +14,7 @@ export default function NotificationLayout({
 }>) {
   return (
     <div className="flex h-full flex-col">
-      <Header title="알림" backButton />
+      <Header title="알림" backButton rightButton />
       {children}
     </div>
   );
