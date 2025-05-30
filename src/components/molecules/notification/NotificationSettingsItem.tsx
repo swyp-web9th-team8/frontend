@@ -1,8 +1,13 @@
 "use client";
 
 import Toggle from "@/components/atoms/Toggle/Toggle";
-import { handleNotificationPermission } from "@/utils/notificationPermission";
-import { useEffect, useState } from "react";
+import { usePostFcmToken } from "@/hooks/mutations/useFcm";
+import {
+  getDeviceToken,
+  handleNotificationPermission,
+} from "@/utils/notificationPermission";
+import { useCallback, useEffect, useState } from "react";
+import { useToast } from "../toast/ToastContext";
 
 interface Props {
   title: string;
@@ -12,18 +17,37 @@ interface Props {
 
 function NotificationSettingsItem({ title, description, isChecked }: Props) {
   const [isOn, setIsOn] = useState(isChecked);
+  const { mutate: postFcmToken } = usePostFcmToken();
 
   const handleChange = (isOn: boolean) => {
     setIsOn(!isOn);
   };
 
-  // isOn이 true일 때 푸시 알림 권한 요청
+  const showToast = useToast();
 
+  const handleNotificationError = useCallback(
+    (error: Error) => {
+      showToast(error.message);
+    },
+    [showToast],
+  );
+
+  // isOn이 true일 때 푸시 알림 권한 요청
   useEffect(() => {
     if (isOn) {
-      handleNotificationPermission();
+      handleNotificationPermission()
+        .then(() => {
+          getDeviceToken()
+            .then((token) => {
+              postFcmToken(token as string);
+            })
+            .catch((error) => {
+              throw error;
+            });
+        })
+        .catch(handleNotificationError);
     }
-  }, [isOn]);
+  }, [isOn, postFcmToken, handleNotificationError]);
 
   return (
     <div className="font-gsans-medium inline-flex items-start justify-between gap-14 self-stretch">

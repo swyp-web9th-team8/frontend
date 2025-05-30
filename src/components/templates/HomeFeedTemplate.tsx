@@ -62,6 +62,10 @@ export default function HomeFeedTemplate({
   const { latitude, longitude } = useGeolocation();
 
   const handleSearchClick = (loc: "/search" | "/notification") => {
+    // TODO: 알림 구현되면 삭제
+    if (loc === "/notification") {
+      return;
+    }
     router.push(loc);
   };
 
