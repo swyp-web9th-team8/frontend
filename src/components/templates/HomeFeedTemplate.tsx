@@ -64,6 +64,7 @@ export default function HomeFeedTemplate({
   const handleSearchClick = (loc: "/search" | "/notification") => {
     // TODO: 알림 구현되면 삭제
     if (loc === "/notification") {
+      router.push("/notification/settings");
       return;
     }
     router.push(loc);
